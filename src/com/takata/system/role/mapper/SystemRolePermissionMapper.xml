@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SystemRolePermissionMapper" >
+    <resultMap id="BaseResultMap" type="com.takata.system.role.domain.SystemRolePermission" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="role_id" property="roleId" jdbcType="INTEGER" />
+        <result column="permisssion_id" property="permisssionId" jdbcType="INTEGER" />
+        <result column="delete_state" property="deleteState" jdbcType="INTEGER" />
+        <result column="create_by" property="createBy" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_by" property="updateBy" jdbcType="INTEGER" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, role_id, permisssion_id, delete_state, create_by, create_time, update_by, update_time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.takata.system.role.domain.SystemRolePermission" >
+        select
+        <include refid="Base_Column_List" />
+        from system_role_permission
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insertSystemRolePermission" parameterType="com.takata.system.role.domain.SystemRolePermission" >
+        insert into system_role_permission
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="roleId != null" >
+                role_id,
+            </if>
+            <if test="permisssionId != null" >
+                permisssion_id,
+            </if>
+            <if test="deleteState != null" >
+                delete_state,
+            </if>
+            <if test="createBy != null" >
+                create_by,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updateBy != null" >
+                update_by,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="roleId != null" >
+                #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="permisssionId != null" >
+                #{permisssionId,jdbcType=INTEGER},
+            </if>
+            <if test="deleteState != null" >
+                #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null" >
+                #{createBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null" >
+                #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateSystemRolePermission" parameterType="com.takata.system.role.domain.SystemRolePermission" >
+        update system_role_permission
+        <set >
+            <if test="deleteState != null" >
+                delete_state = #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="updateBy != null" >
+                update_by = #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <sql id="WHERE_SQL_ROLEPERMISSION">
+        <where>
+            srp.`permisssion_id` = sp.`id`
+            AND srp.`delete_state` = '0'
+            AND srp.`role_id` = #{roleId,jdbcType=INTEGER}
+        </where>
+    </sql>
+
+    <!-- 查询角色权限关联管理页面列表 -->
+    <select id="selectSystemRolePermissionPageList" resultType="java.util.HashMap" parameterType="com.takata.system.role.query.SystemRolePermissionQuery">
+        SELECT srp.`id`,
+        sp.`id` as permissionId,
+        sp.`permission_name` AS permissionName,
+        sp.`explaination`
+        FROM system_role_permission srp, system_permission sp
+        <include refid="WHERE_SQL_ROLEPERMISSION"></include>
+        order by sp.`permission_name`
+    </select>
+
+    <!-- 查询角色权限关联管理页面总数 -->
+    <select id="selectSystemRolePermissionCount" resultType="java.lang.Integer" parameterType="com.takata.system.role.query.SystemRolePermissionQuery">
+        SELECT count(1)
+        FROM system_role_permission srp, system_permission sp
+        <include refid="WHERE_SQL_ROLEPERMISSION"></include>
+    </select>
+
+    <sql id="WHERE_SQL_ADDPERMISSION">
+        <where>
+            NOT EXISTS
+            (SELECT 1
+            FROM system_role_permission srp
+            WHERE srp.`permisssion_id` = sp.`id`
+            AND srp.`delete_state` = '0'
+            AND srp.`role_id` = #{roleId,jdbcType=INTEGER})
+        </where>
+    </sql>
+
+    <!-- 查询未加入的权限列表 -->
+    <select id="selectAddPermissionPageList" resultType="java.util.HashMap" parameterType="com.takata.system.role.query.SystemRolePermissionQuery">
+        SELECT sp.`id`,
+        sp.`permission_name` AS permissionName,
+        sp.`explaination`
+        FROM system_permission sp
+        <include refid="WHERE_SQL_ADDPERMISSION"></include>
+        order by sp.`permission_name`
+    </select>
+
+    <!-- 查询未加入的权限总数 -->
+    <select id="selectAddPermissionCount" resultType="java.lang.Integer" parameterType="com.takata.system.role.query.SystemRolePermissionQuery">
+        SELECT count(1)
+        FROM system_permission sp
+        <include refid="WHERE_SQL_ADDPERMISSION"></include>
+    </select>
+
+    <!-- 查询角色权限关联列表 -->
+    <select id="selectSystemRolePermissionList" resultType="java.util.HashMap" parameterType="com.takata.system.role.query.SystemRolePermissionQuery">
+        SELECT srp.`id`,
+        srp.`role_id` AS roleId,
+        srp.`permisssion_id` AS permisssionId
+        FROM system_role_permission srp
+        <where> srp.`delete_state` = 0
+            <if test="roleId != null">
+                AND srp.`role_id` = #{roleId, jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+</mapper>

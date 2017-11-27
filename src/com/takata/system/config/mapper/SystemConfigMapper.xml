@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SystemConfigMapper" >
+    <resultMap id="BaseResultMap" type="com.takata.system.config.domain.SystemConfig" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="config_value" property="configValue" jdbcType="VARCHAR" />
+        <result column="config_code_id" property="configCodeId" jdbcType="INTEGER" />
+        <result column="delete_state" property="deleteState" jdbcType="INTEGER" />
+        <result column="create_by" property="createBy" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_by" property="updateBy" jdbcType="INTEGER" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, config_value, config_code_id, delete_state, create_by, create_time, update_by,
+        update_time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.takata.system.config.domain.SystemConfig" >
+        select
+        <include refid="Base_Column_List" />
+        from system_config
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.takata.system.config.domain.SystemConfig" >
+        insert into system_config
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="configValue != null" >
+                config_value,
+            </if>
+            <if test="configCodeId != null" >
+                config_code_id,
+            </if>
+            <if test="deleteState != null" >
+                delete_state,
+            </if>
+            <if test="createBy != null" >
+                create_by,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updateBy != null" >
+                update_by,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="configValue != null" >
+                #{configValue,jdbcType=VARCHAR},
+            </if>
+            <if test="configCodeId != null" >
+                #{configCodeId,jdbcType=INTEGER},
+            </if>
+            <if test="deleteState != null" >
+                #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null" >
+                #{createBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null" >
+                #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.takata.system.config.domain.SystemConfig" >
+        update system_config
+        <set >
+            <if test="configValue != null" >
+                config_value = #{configValue,jdbcType=VARCHAR},
+            </if>
+            <if test="configCodeId != null" >
+                config_code_id = #{configCodeId,jdbcType=INTEGER},
+            </if>
+            <if test="deleteState != null" >
+                delete_state = #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="updateBy != null" >
+                update_by = #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <sql id="WHERE_SQL">
+        <where>
+            sc.`config_code_id` = scc.`id`
+            AND sc.`delete_state` = 0
+            <if test="configCodeId != null">
+              and sc.`config_code_id` = #{configCodeId, jdbcType=INTEGER}
+            </if>
+        </where>
+    </sql>
+    <select id="selectSystemConfigPageList" resultType="java.util.HashMap" parameterType="com.takata.system.config.query.SystemConfigQuery">
+        SELECT sc.`id`,
+        sc.`config_value` AS configValue,
+        scc.`config_code_name` AS configCodeName
+        FROM system_config sc, system_config_code scc
+        <include refid="WHERE_SQL"></include>
+        LIMIT #{start,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectSystemConfigCount" parameterType="com.takata.system.config.query.SystemConfigQuery" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM system_config sc, system_config_code scc
+        <include refid="WHERE_SQL"></include>
+    </select>
+
+    <select id="selectSystemConfigList" resultType="java.util.HashMap" parameterType="com.takata.system.config.query.SystemConfigQuery">
+        SELECT sc.`id` as configId,
+        sc.`config_value` AS configValue,
+        scc.id as configCodeId,
+        scc.`config_code_name` AS configCodeName
+        FROM system_config sc, system_config_code scc
+        <include refid="WHERE_SQL"></include>
+    </select>
+
+    <select id="selectSystemConfigCodeList" resultType="java.util.HashMap">
+        SELECT scc.`id`,
+        scc.`config_code_name` AS configCodeName
+        FROM system_config_code scc
+    </select>
+</mapper>

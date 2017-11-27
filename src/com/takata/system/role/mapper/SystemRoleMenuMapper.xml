@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SystemRoleMenuMapper" >
+
+    <resultMap id="BaseResultMap" type="com.takata.system.role.domain.SystemRoleMenu" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="role_id" property="roleId" jdbcType="INTEGER" />
+        <result column="menu_id" property="menuId" jdbcType="INTEGER" />
+        <result column="delete_state" property="deleteState" jdbcType="INTEGER" />
+        <result column="create_by" property="createBy" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_by" property="updateBy" jdbcType="INTEGER" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, role_id, menu_id, delete_state, create_by, create_time, update_by, update_time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.takata.system.role.domain.SystemRoleMenu" >
+        select
+        <include refid="Base_Column_List" />
+        from system_role_menu
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insertSystemRoleMenu" parameterType="com.takata.system.role.domain.SystemRoleMenu" >
+        insert into system_role_menu
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="roleId != null" >
+                role_id,
+            </if>
+            <if test="menuId != null" >
+                menu_id,
+            </if>
+            <if test="deleteState != null" >
+                delete_state,
+            </if>
+            <if test="createBy != null" >
+                create_by,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updateBy != null" >
+                update_by,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="roleId != null" >
+                #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="menuId != null" >
+                #{menuId,jdbcType=INTEGER},
+            </if>
+            <if test="deleteState != null" >
+                #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null" >
+                #{createBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null" >
+                #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateSystemRoleMenu" parameterType="com.takata.system.role.domain.SystemRoleMenu" >
+        update system_role_menu
+        <set >
+            <if test="deleteState != null" >
+                delete_state = #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="updateBy != null" >
+                update_by = #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectSystemRoleMenuList" resultType="java.util.HashMap" parameterType="com.takata.system.role.query.SystemRoleMenuQuery">
+        SELECT srm.`id`,
+        srm.`role_id` AS roleId,
+        srm.`menu_id` AS menuId
+        FROM system_role_menu srm
+        WHERE srm.`delete_state` = '0'
+        <if test="roleId != null">
+            AND srm.`role_id` = #{roleId,jdbcType=INTEGER}
+        </if>
+        <if test="menuId != null">
+            AND srm.`menu_id` = #{menuId,jdbcType=INTEGER}
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SystemUserMapper" >
+    <resultMap id="BaseResultMap" type="com.takata.system.user.domain.SystemUser" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="user_code" property="userCode" jdbcType="VARCHAR" />
+        <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+        <result column="user_email" property="userEmail" jdbcType="VARCHAR" />
+        <result column="delete_state" property="deleteState" jdbcType="INTEGER" />
+        <result column="create_by" property="createBy" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_by" property="updateBy" jdbcType="INTEGER" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="company_id" property="companyId" jdbcType="INTEGER" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, user_name, user_code, user_password, user_email, delete_state, create_by, create_time,
+        update_by, update_time, company_id
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.takata.system.user.domain.SystemUser" >
+        select
+        <include refid="Base_Column_List" />
+        from system_user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.takata.system.user.domain.SystemUser" >
+        insert into system_user
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="userName != null" >
+                user_name,
+            </if>
+            <if test="userCode != null" >
+                user_code,
+            </if>
+            <if test="userPassword != null" >
+                user_password,
+            </if>
+            <if test="userEmail != null" >
+                user_email,
+            </if>
+            <if test="deleteState != null" >
+                delete_state,
+            </if>
+            <if test="createBy != null" >
+                create_by,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updateBy != null" >
+                update_by,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+            <if test="companyId != null" >
+                company_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userName != null" >
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userCode != null" >
+                #{userCode,jdbcType=VARCHAR},
+            </if>
+            <if test="userPassword != null" >
+                #{userPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="userEmail != null" >
+                #{userEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteState != null" >
+                #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null" >
+                #{createBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null" >
+                #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="companyId != null" >
+                #{companyId,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateSystemUser" parameterType="com.takata.system.user.domain.SystemUser" >
+        update system_user
+        <set >
+            <if test="userName != null" >
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userCode != null" >
+                user_code = #{userCode,jdbcType=VARCHAR},
+            </if>
+            <if test="userPassword != null" >
+                user_password = #{userPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="userEmail != null" >
+                user_email = #{userEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteState != null" >
+                delete_state = #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null" >
+                create_by = #{createBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null" >
+                update_by = #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="companyId != null" >
+                company_id = #{companyId,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectCountByUserCode" resultType="java.lang.Integer" parameterType="com.takata.system.user.domain.SystemUser">
+        SELECT COUNT(1)
+        FROM system_user su
+        WHERE su.`delete_state` = 0
+        AND su.`user_code` = #{userCode,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectSystemUserByUserCode" resultMap="BaseResultMap" parameterType="com.takata.system.user.domain.SystemUser" >
+        select
+        <include refid="Base_Column_List" />
+        from system_user
+        where `user_code` = #{userCode,jdbcType=VARCHAR}
+        and `delete_state` = 0
+    </select>
+
+    <sql id="WHERE_SQL_PAGELIST">
+        <where>
+            su.`DELETE_STATE` = '0'
+            and su.id &lt;&gt; 1
+            <if test="userCode != null" >
+                AND su.`USER_CODE` LIKE CONCAT('%',#{userCode,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="userName != null" >
+                AND su.`USER_NAME` LIKE CONCAT('%',#{userName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="companyId != null" >
+                AND su.`company_id` = #{companyId,jdbcType=INTEGER}
+            </if>
+        </where>
+    </sql>
+
+    <!-- 系统管理-用户管理，用户分页列表 -->
+    <select id="selectSystemUserPageList" resultType="java.util.HashMap" parameterType="com.takata.system.user.query.SystemUserQuery">
+        SELECT id AS id,
+        user_code AS userCode,
+        user_name AS userName,
+        user_email AS userEmail,
+        company_id AS companyId
+        FROM system_user su
+        <include refid="WHERE_SQL_PAGELIST"></include>
+        ORDER BY su.`USER_NAME`
+        LIMIT #{start,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}
+    </select>
+
+    <!-- 系统管理-用户管理，用户数量 -->
+    <select id="selectSystemUserCount" resultType="java.lang.Integer" parameterType="com.takata.system.user.query.SystemUserQuery">
+        select COUNT(1)
+        FROM system_user su
+        <include refid="WHERE_SQL_PAGELIST"></include>
+    </select>
+
+    <!-- 系统管理-用户管理，用户分页列表 -->
+    <select id="selectSystemUserCompleteList" resultType="java.util.HashMap" parameterType="com.takata.system.user.query.SystemUserQuery">
+        SELECT
+        id as `value`,
+        user_name as `label`
+        FROM system_user su
+        <include refid="WHERE_SQL_PAGELIST"></include>
+        ORDER BY su.`USER_NAME`
+    </select>
+
+    <select id="selectMinisterJurisdiction" resultType="java.lang.Integer" parameterType="com.takata.system.user.domain.SystemUser">
+        SELECT COUNT(1)
+        FROM system_user_role sur, system_role_permission srp
+        WHERE sur.`role_id` = srp.`role_id`
+        AND sur.`delete_state` = 0
+        AND srp.`delete_state` = 0
+        AND srp.`permisssion_id` = 1
+        AND sur.`user_id` = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectPersionLiableList" resultType="java.util.HashMap">
+        SELECT id, user_name AS userName
+        FROM SYSTEM_USER
+        WHERE id IN
+        (SELECT DISTINCT(sur.user_id)
+        FROM system_user_role sur, system_role_permission srp
+        WHERE sur.`role_id` = srp.`role_id`
+        AND sur.`delete_state` = 0
+        AND srp.`delete_state` = 0
+        AND srp.`permisssion_id` = 2)
+    </select>
+</mapper>

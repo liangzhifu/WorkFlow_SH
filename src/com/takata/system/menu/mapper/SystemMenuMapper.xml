@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SystemMenuMapper" >
+
+    <resultMap id="BaseResultMap" type="com.takata.system.menu.domain.SystemMenu" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="MENU_NAME" property="menuName" jdbcType="VARCHAR" />
+        <result column="MODULE_ID" property="moduleId" jdbcType="INTEGER" />
+        <result column="IMAGE_PATH" property="imagePath" jdbcType="VARCHAR" />
+        <result column="DELETE_STATE" property="deleteState" jdbcType="INTEGER" />
+        <result column="PRIORITY" property="priority" jdbcType="INTEGER" />
+        <result column="MENU_URL" property="menuUrl" jdbcType="VARCHAR" />
+        <result column="create_by" property="createBy" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_by" property="updateBy" jdbcType="INTEGER" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <select id="selectTreeMenuList" resultType="java.util.HashMap">
+        SELECT CONCAT('module_', smo.`id`) AS id, NULL AS parentId, smo.`MODULE_NAME` AS menuName
+        FROM system_module smo
+        WHERE smo.delete_state = '0'
+        UNION
+        SELECT sme.id, CONCAT('module_', sme.`module_id`) AS parentId, sme.menu_name AS menuName
+        FROM system_menu sme
+        WHERE sme.delete_state = '0'
+    </select>
+
+    <select id="selectAllModule" resultType="java.util.HashMap">
+        SELECT id,
+        module_name AS moduleName,
+        image_path AS imagePath
+        FROM system_module
+        WHERE delete_state = 0
+        ORDER BY module_priority
+    </select>
+
+    <select id="selectUserModule" resultType="java.util.HashMap" parameterType="com.takata.system.menu.query.SystemMenuQuery">
+        SELECT id,
+        module_name AS moduleName,
+        image_path AS imagePath
+        FROM system_module
+        WHERE delete_state = 0
+        AND id IN
+        (SELECT DISTINCT(sm.`module_id`)
+        FROM system_user_role sur, system_role_menu srm, system_menu sm
+        WHERE sur.`role_id` = srm.`role_id`
+        AND srm.`menu_id` = sm.`id`
+        AND sur.`delete_state` = 0
+        AND srm.`delete_state` = 0
+        AND sm.`delete_state` = 0
+        AND sur.`user_id` = #{userId, jdbcType=INTEGER})
+        ORDER BY module_priority
+    </select>
+
+    <select id="selectUserMenuByModule" resultType="java.util.HashMap" parameterType="com.takata.system.menu.query.SystemMenuQuery">
+        SELECT id,
+        menu_name AS menuName,
+        menu_url AS menuUrl
+        FROM system_menu
+        <where> delete_state = 0
+        AND module_id = #{moduleId, jdbcType=INTEGER}
+        <if test="userId != null">
+            AND id IN
+            (SELECT DISTINCT(srm.menu_id)
+            FROM system_user_role sur, system_role_menu srm
+            WHERE sur.`role_id` = srm.`role_id`
+            AND sur.`delete_state` = 0
+            AND srm.`delete_state` = 0
+            AND sur.`user_id` = #{userId, jdbcType=INTEGER})
+        </if>
+        </where>
+        ORDER BY menu_priority
+    </select>
+</mapper>

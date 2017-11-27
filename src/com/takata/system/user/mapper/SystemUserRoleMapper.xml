@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SystemUserRoleMapper" >
+    <resultMap id="BaseResultMap" type="com.takata.system.user.domain.SystemUserRole" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="role_id" property="roleId" jdbcType="INTEGER" />
+        <result column="create_by" property="createBy" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_by" property="updateBy" jdbcType="INTEGER" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="delete_state" property="deleteState" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, user_id, role_id, create_by, create_time, update_by, update_time, delete_state
+    </sql>
+    <select id="selectSystemUserRole" resultMap="BaseResultMap" parameterType="com.takata.system.user.domain.SystemUserRole" >
+        select
+        <include refid="Base_Column_List" />
+        from system_user_role
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insertSystemUserRole" parameterType="com.takata.system.user.domain.SystemUserRole" >
+        insert into system_user_role
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="userId != null" >
+                user_id,
+            </if>
+            <if test="roleId != null" >
+                role_id,
+            </if>
+            <if test="createBy != null" >
+                create_by,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updateBy != null" >
+                update_by,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+            <if test="deleteState != null" >
+                delete_state,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null" >
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="roleId != null" >
+                #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null" >
+                #{createBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null" >
+                #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleteState != null" >
+                #{deleteState,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateSystemUserRole" parameterType="com.takata.system.user.domain.SystemUserRole" >
+        update system_user_role
+        <set >
+            <if test="updateBy != null" >
+                update_by = #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleteState != null" >
+                delete_state = #{deleteState,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectSystemUserRoleList" resultType="java.util.HashMap" parameterType="com.takata.system.user.query.SystemUserRoleQuery">
+        SELECT sur.`id`,
+        sur.`role_id` AS roleId,
+        sr.`role_name` AS roleName,
+        sr.`explaination`
+        FROM system_user_role sur, system_role sr
+        <where> sur.`role_id` = sr.`id`
+        AND sur.`delete_state` = 0
+        AND sr.`delete_state` = 0
+            <if test="userId != null">
+                and sur.user_id = #{userId, jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectAddRoleList" resultType="java.util.HashMap" parameterType="com.takata.system.user.query.SystemUserRoleQuery">
+        SELECT id,
+        `role_name` AS roleName,
+        `explaination`
+        FROM system_role
+        WHERE id NOT IN
+        (SELECT sur.`role_id`
+        FROM system_user_role sur
+        WHERE sur.`delete_state` = 0
+        AND sur.`user_id` = #{userId, jdbcType=INTEGER})
+    </select>
+</mapper>

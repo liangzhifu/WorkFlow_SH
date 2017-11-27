@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SystemRoleMapper" >
+    <resultMap id="BaseResultMap" type="com.takata.system.role.domain.SystemRole" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+        <result column="explaination" property="explaination" jdbcType="VARCHAR" />
+        <result column="delete_state" property="deleteState" jdbcType="INTEGER" />
+        <result column="create_by" property="createBy" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_by" property="updateBy" jdbcType="INTEGER" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, role_name, explaination, delete_state, create_by, create_time, update_by, update_time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.takata.system.role.domain.SystemRole" >
+        select
+        <include refid="Base_Column_List" />
+        from system_role
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insertSystemRole" parameterType="com.takata.system.role.domain.SystemRole" >
+        insert into system_role
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="roleName != null" >
+                role_name,
+            </if>
+            <if test="explaination != null" >
+                explaination,
+            </if>
+            <if test="deleteState != null" >
+                delete_state,
+            </if>
+            <if test="createBy != null" >
+                create_by,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updateBy != null" >
+                update_by,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="roleName != null" >
+                #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="explaination != null" >
+                #{explaination,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteState != null" >
+                #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null" >
+                #{createBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null" >
+                #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateSystemRole" parameterType="com.takata.system.role.domain.SystemRole" >
+        update system_role
+        <set >
+            <if test="roleName != null" >
+                role_name = #{roleName,jdbcType=VARCHAR},
+            </if>
+            <if test="explaination != null" >
+                explaination = #{explaination,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteState != null" >
+                delete_state = #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="updateBy != null" >
+                update_by = #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <sql id="WHERE_SQL_PAGELIST">
+        <where>
+            sr.`DELETE_STATE` = '0'
+            <if test="roleName != null" >
+                AND sr.`role_name` LIKE CONCAT('%',#{roleName,jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+    </sql>
+
+    <!-- 系统管理-角色管理，角色分页列表 -->
+    <select id="selectSystemRolePageList" resultType="java.util.HashMap" parameterType="com.takata.system.role.query.SystemRoleQuery">
+        SELECT sr.id,
+        sr.`role_name` AS roleName,
+        sr.`explaination`
+        FROM system_role sr
+        <include refid="WHERE_SQL_PAGELIST"></include>
+        ORDER BY sr.`role_name`
+        LIMIT #{start,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}
+    </select>
+
+    <!-- 系统管理-角色管理，角色数量 -->
+    <select id="selectSystemRoleCount" resultType="java.lang.Integer" parameterType="com.takata.system.role.query.SystemRoleQuery">
+        select COUNT(1)
+        FROM system_role sr
+        <include refid="WHERE_SQL_PAGELIST"></include>
+    </select>
+    
+</mapper>

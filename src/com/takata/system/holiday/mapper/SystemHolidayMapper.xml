@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SystemHolidayMapper" >
+    <resultMap id="BaseResultMap" type="com.takata.system.holiday.domain.SystemHoliday" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="holiday" property="holiday" jdbcType="DATE" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, holiday
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.takata.system.holiday.domain.SystemHoliday" >
+        select
+        <include refid="Base_Column_List" />
+        from system_holiday
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from system_holiday
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insertSelective" parameterType="com.takata.system.holiday.domain.SystemHoliday" >
+        insert into system_holiday
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="holiday != null" >
+                holiday,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="holiday != null" >
+                #{holiday,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+
+    <sql id="WHERE_SQL">
+        <where>
+            <if test="holidayStart != null and holidayStart != ''" >
+                and DATE_FORMAT(`holiday`,'%y-%M-%d') &gt;= DATE_FORMAT(#{holidayStart},'%y-%M-%d')
+            </if>
+            <if test="holidayEnd != null and holidayEnd != ''" >
+                and DATE_FORMAT(`holiday`,'%y-%M-%d') &lt;= DATE_FORMAT(#{holidayEnd},'%y-%M-%d')
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectSystemHolidayListPage" resultType="java.util.HashMap" parameterType="com.takata.system.holiday.query.SystemHolidayQuery">
+        SELECT id,
+        holiday
+        FROM system_holiday
+        <include refid="WHERE_SQL"></include>
+        order by holiday
+        LIMIT #{start,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectSystemHolidayCount" resultType="java.lang.Integer" parameterType="com.takata.system.holiday.query.SystemHolidayQuery">
+        SELECT count(1)
+        FROM system_holiday
+        <include refid="WHERE_SQL"></include>
+    </select>
+
+    <select id="selectSystemHolidayList" resultType="java.util.Date">
+        SELECT holiday.`holiday`
+        from system_holiday holiday
+        where DATE_FORMAT(holiday.`holiday`,'%Y-%m-%d') &gt;= DATE_FORMAT(sysdate(),'%Y-%m-%d')
+    </select>
+
+    <select id="selectSystemHolidayListFromBeginDate" resultType="java.util.Date" parameterType="java.lang.String">
+        SELECT holiday.`holiday`
+        from system_holiday holiday
+        where DATE_FORMAT(holiday.`holiday`,'%Y-%m-%d') &gt;= #{beginDate}
+    </select>
+
+</mapper>
