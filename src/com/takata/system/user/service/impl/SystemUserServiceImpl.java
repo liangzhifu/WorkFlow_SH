@@ -53,6 +53,7 @@ public class SystemUserServiceImpl implements SystemUserService {
         systemUser.setUserEmail((String)map.get("userEmail"));
 
         Principal principal = PrincipalUtils.getPrincipal();
+        systemUser.setUserPassword("111111");
         systemUser.setCreateBy(principal.getId());
         systemUser.setCreateTime(new Date());
         systemUser.setUpdateBy(principal.getId());
