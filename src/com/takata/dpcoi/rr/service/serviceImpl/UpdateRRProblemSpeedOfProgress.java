@@ -43,8 +43,39 @@ public class UpdateRRProblemSpeedOfProgress {
                 this.rRProblemService.updateTrackingLevel(rrProblem);
                 String speedOfProgress = rrProblem.getSpeedOfProgress();
                 String trackingLevel =  rrProblem.getTrackingLevel();
+                Integer delayApplication = rrProblem.getDelayApplication();
                 if("I".equals(trackingLevel) || "II".equals(trackingLevel) || "III".equals(trackingLevel) || "IV".equals(trackingLevel)){
                     if(oldTrackingLevel == null || "".equals(oldTrackingLevel) || "V".equals(oldTrackingLevel)){
+                        String persionLiable = rrProblem.getPersionLiable();
+                        String[] persionLiableArray = persionLiable.split(",");
+                        for(int i = 0; i < persionLiableArray.length; i++){
+                            RRDelayStatistics rrDelayStatistics = new RRDelayStatistics();
+                            rrDelayStatistics.setSpeedOfProgress(speedOfProgress);
+                            rrDelayStatistics.setDelayDate(new Date());
+                            rrDelayStatistics.setDelayType(1);
+                            rrDelayStatistics.setPersionLiable(persionLiableArray[i]);
+                            rrDelayStatistics.setRrProblemId(rrProblem.getId());
+                            rrDelayStatistics.setProblemStatus(rrProblem.getProblemStatus());
+                            rrDelayStatistics.setProblemProgress(rrProblem.getProblemProgress());
+                            rrDelayStatistics.setTrackingLevel(trackingLevel);
+                            this.rRDelayStatisticsService.addRRDelayStatistics(rrDelayStatistics);
+                        }
+                    }else if("IV".equals(oldTrackingLevel) && "III".equals(trackingLevel) && delayApplication.intValue() == 0){
+                        String persionLiable = rrProblem.getPersionLiable();
+                        String[] persionLiableArray = persionLiable.split(",");
+                        for(int i = 0; i < persionLiableArray.length; i++){
+                            RRDelayStatistics rrDelayStatistics = new RRDelayStatistics();
+                            rrDelayStatistics.setSpeedOfProgress(speedOfProgress);
+                            rrDelayStatistics.setDelayDate(new Date());
+                            rrDelayStatistics.setDelayType(1);
+                            rrDelayStatistics.setPersionLiable(persionLiableArray[i]);
+                            rrDelayStatistics.setRrProblemId(rrProblem.getId());
+                            rrDelayStatistics.setProblemStatus(rrProblem.getProblemStatus());
+                            rrDelayStatistics.setProblemProgress(rrProblem.getProblemProgress());
+                            rrDelayStatistics.setTrackingLevel(trackingLevel);
+                            this.rRDelayStatisticsService.addRRDelayStatistics(rrDelayStatistics);
+                        }
+                    }else if("III".equals(oldTrackingLevel) && "II".equals(trackingLevel) && delayApplication.intValue() == 1){
                         String persionLiable = rrProblem.getPersionLiable();
                         String[] persionLiableArray = persionLiable.split(",");
                         for(int i = 0; i < persionLiableArray.length; i++){
