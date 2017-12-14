@@ -68,15 +68,15 @@ public class RRProblemServiceImpl implements RRProblemService {
         String shortYear = String.valueOf(year).substring(2);
         cal.setTime(nowDate);
         if("客诉".equals(problemType)){
-            problemNo = "TT-KS-"+shortYear+"-";
+            problemNo = "TS-KS-"+shortYear+"-";
         }else if("内诉（全检）".equals(problemType)) {
-            problemNo = "TT-NS-"+shortYear+"-";
+            problemNo = "TS-NS-"+shortYear+"-";
         }else if("内诉（抽检）".equals(problemType)) {
-            problemNo = "TT-NS-"+shortYear+"-";
+            problemNo = "TS-NS-"+shortYear+"-";
         }else if("工程".equals(problemType)) {
-            problemNo = "TT-GC-"+shortYear+"-";
+            problemNo = "TS-GC-"+shortYear+"-";
         }else if("市场投诉".equals(problemType)) {
-            problemNo = "TT-SC-"+shortYear+"-";
+            problemNo = "TS-SC-"+shortYear+"-";
         }else{
             throw new Exception("问题类型不存在！");
         }

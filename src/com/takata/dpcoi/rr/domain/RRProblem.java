@@ -184,6 +184,7 @@ public class RRProblem {
 
     private Integer delayApplication;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
     private Integer createBy;
@@ -839,6 +840,7 @@ public class RRProblem {
         return createTime;
     }
 
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }

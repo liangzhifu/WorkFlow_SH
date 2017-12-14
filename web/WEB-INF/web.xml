@@ -18,6 +18,11 @@
         <param-value>WEB-INF/log4j.properties</param-value>  
     </context-param>
 
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>webName.root</param-value>
+	</context-param>
+
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
@@ -83,7 +88,11 @@
 		<servlet-name>springmvc</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
-	
+
+	<session-config>
+		<session-timeout>240</session-timeout>
+	</session-config>
+
 	<welcome-file-list>
 		<welcome-file>login.do</welcome-file>
 	</welcome-file-list>
