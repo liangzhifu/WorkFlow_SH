@@ -483,6 +483,9 @@ public class RRProblemServiceImpl implements RRProblemService {
             }else if("standardBook".equals(fileAttr)){
                 rrProblem.setStandardBook(formatter.format(new Date()));
                 rrProblem.setStandardBookFileId(fileUpload.getFileId());
+            }else if("alwaysList".equals(fileAttr)){
+                rrProblem.setAlwaysList(formatter.format(new Date()));
+                rrProblem.setAlwaysListFileId(fileUpload.getFileId());
             }
             this.rRProblemDao.updateRRProblem(rrProblem);
         }

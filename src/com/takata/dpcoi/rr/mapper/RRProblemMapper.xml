@@ -46,6 +46,7 @@
         <result column="standard_book" property="standardBook" jdbcType="VARCHAR" />
         <result column="equipment_checklist" property="equipmentChecklist" jdbcType="VARCHAR" />
         <result column="always_list" property="alwaysList" jdbcType="VARCHAR" />
+        <result column="always_list_file_id" property="alwaysListFileId" jdbcType="INTEGER" />
         <result column="inspection_reference_book" property="inspectionReferenceBook" jdbcType="VARCHAR" />
         <result column="inspection_book" property="inspectionBook" jdbcType="VARCHAR" />
         <result column="education" property="education" jdbcType="VARCHAR" />
@@ -94,7 +95,8 @@
         equipment_checklist_file_id, inspection_reference_book_file_id, inspection_book_file_id, education_file_id,
         dpcoi4M, analytic_report, analytic_report_file_id, layered_audit, layered_audit_file_id, check_result,
         check_result_file_id, na_pending, na_pending_file_id, other_information, other_information_file_id,
-        delay_application, is_delay, create_time, create_by,standard_book_file_id,pfmea_file_id,cp_file_id
+        delay_application, is_delay, create_time, create_by,standard_book_file_id,pfmea_file_id,cp_file_id,
+        always_list_file_id
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.takata.dpcoi.rr.domain.RRProblem" >
         select
@@ -278,6 +280,9 @@
             </if>
             <if test="alwaysList != null" >
                 always_list,
+            </if>
+            <if test="alwaysListFileId != null" >
+                always_list_file_id,
             </if>
             <if test="inspectionReferenceBook != null" >
                 inspection_reference_book,
@@ -514,6 +519,9 @@
             </if>
             <if test="alwaysList != null" >
                 #{alwaysList,jdbcType=VARCHAR},
+            </if>
+            <if test="alwaysListFileId != null" >
+                #{alwaysListFileId,jdbcType=VARCHAR},
             </if>
             <if test="inspectionReferenceBook != null" >
                 #{inspectionReferenceBook,jdbcType=VARCHAR},
@@ -754,6 +762,9 @@
             <if test="alwaysList != null" >
                 always_list = #{alwaysList,jdbcType=VARCHAR},
             </if>
+            <if test="alwaysListFileId != null" >
+                always_list_file_id = #{alwaysListFileId,jdbcType=VARCHAR},
+            </if>
             <if test="inspectionReferenceBook != null" >
                 inspection_reference_book = #{inspectionReferenceBook,jdbcType=VARCHAR},
             </if>
@@ -990,7 +1001,8 @@
         inspection_book_file_id as inspectionBookFileId, education_file_id as educationFileId, dpcoi4M, analytic_report as analyticReport,
         analytic_report_file_id as analyticReportFileId, layered_audit as layeredAudit, layered_audit_file_id as layeredAuditFileId, check_result as checkResult,
         check_result_file_id as checkResultFileId, na_pending as naPending, na_pending_file_id as naPendingFileId, other_information as otherInformation,
-        other_information_file_id as otherInformationFileId,standard_book_file_id as standardBookFileId, cp_file_id as cpFileId, pfmea_file_id as pfmeaFileId
+        other_information_file_id as otherInformationFileId,standard_book_file_id as standardBookFileId, cp_file_id as cpFileId, pfmea_file_id as pfmeaFileId,
+        always_list_file_id as alwaysListFileId
         from dpcoi_rr_problem
         <include refid="WHERE_SQL"></include>
         order by id desc limit #{start},#{size}
@@ -1017,7 +1029,8 @@
         inspection_book_file_id as inspectionBookFileId, education_file_id as educationFileId, dpcoi4M, analytic_report as analyticReport,
         analytic_report_file_id as analyticReportFileId, layered_audit as layeredAudit, layered_audit_file_id as layeredAuditFileId, check_result as checkResult,
         check_result_file_id as checkResultFileId, na_pending as naPending, na_pending_file_id as naPendingFileId, other_information as otherInformation,
-        other_information_file_id as otherInformationFileId,standard_book_file_id as standardBookFileId, cp_file_id as cpFileId, pfmea_file_id as pfmeaFileId
+        other_information_file_id as otherInformationFileId,standard_book_file_id as standardBookFileId, cp_file_id as cpFileId, pfmea_file_id as pfmeaFileId,
+        always_list_file_id as alwaysListFileId
         from dpcoi_rr_problem
         <include refid="WHERE_SQL"></include>
     </select>
@@ -1047,7 +1060,7 @@
         temporary, root_cause as rootCause, permanent_game as permanentGame, effect_verification as effectVerification, serial_number as serialNumber, quality_warning_card_number as qualityWarningCardNumber,
         product_scale as productScale, pfmea, cp, standard_book as standardBook, equipment_checklist as equipmentChecklist, always_list as alwaysList, inspection_reference_book as inspectionReferenceBook,
         inspection_book as inspectionBook, education, change_point as changePoint, expand_trace as expandTrace, artificial, materiel, state, is_delay as isDelay,
-        standard_book_file_id as standardBookFileId, cp_file_id as cpFileId, pfmea_file_id as pfmeaFileId
+        standard_book_file_id as standardBookFileId, cp_file_id as cpFileId, pfmea_file_id as pfmeaFileId,always_list_file_id as alwaysListFileId
         from dpcoi_rr_problem
         where state = 1
         and is_hide = 0

@@ -437,7 +437,7 @@
                         </td>
                         <td ng-class="{'claasRed': rrProblemDate.isRed, 'classGoldenRod': rrProblemDate.isGoldenRod, 'classYellow': rrProblemDate.isYellow, 'cassDeepSkyBlue': rrProblemDate.isDeepSkyBlue}" style="white-space:normal;padding: 0px;display:table-cell; vertical-align:middle;">
                             <span ng-show="rrProblemDate.alwaysList == 'N/A'">{{rrProblemDate.alwaysList}}</span>
-                            <span ng-show="rrProblemDate.alwaysList != 'N/A'"><a href="javascript:void(0);" ng-click="rrProblemList.downloadFile(rrProblemDate.standardBookFileId)">{{rrProblemDate.alwaysList}}</a></span>
+                            <span ng-show="rrProblemDate.alwaysList != 'N/A'"><a href="javascript:void(0);" ng-click="rrProblemList.downloadFile(rrProblemDate.alwaysListFileId)">{{rrProblemDate.alwaysList}}</a></span>
                         </td>
                         <td ng-class="{'claasRed': rrProblemDate.isRed, 'classGoldenRod': rrProblemDate.isGoldenRod, 'classYellow': rrProblemDate.isYellow, 'cassDeepSkyBlue': rrProblemDate.isDeepSkyBlue}" style="white-space:normal;padding: 0px;display:table-cell; vertical-align:middle;">
                             <span ng-show="rrProblemDate.inspectionReferenceBookFileId == 0">{{rrProblemDate.inspectionReferenceBook}}</span>

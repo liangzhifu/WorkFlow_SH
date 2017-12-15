@@ -80,6 +80,7 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
         "equipmentChecklistFileId" : "",
         "equipmentChecklist" : "",
         "alwaysList" : "",
+        "alwaysListFileId" : "",
         "inspectionReferenceBookFileId" : "",
         "inspectionReferenceBook" : "",
         "inspectionBookFileId" : "",
@@ -199,6 +200,7 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
         $scope.rrProblemEdit.rrProblem.reportDate = $("#reportDate").val();
         $scope.rrProblemEdit.rrProblem.equipmentChecklist = $("#equipmentChecklist").val();
         $scope.rrProblemEdit.rrProblem.alwaysList = $("#alwaysList").val();
+        $scope.rrProblemEdit.rrProblem.alwaysListFileId = $("#alwaysListFileId").val();
         $scope.rrProblemEdit.rrProblem.inspectionReferenceBook = $("#inspectionReferenceBook").val();
         $scope.rrProblemEdit.rrProblem.inspectionBook = $("#inspectionBook").val();
         $scope.rrProblemEdit.rrProblem.education = $("#education").val();
@@ -286,6 +288,7 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
         $scope.rrProblemEdit.rrProblem.reportDate = $("#reportDate").val();
         $scope.rrProblemEdit.rrProblem.equipmentChecklist = $("#equipmentChecklist").val();
         $scope.rrProblemEdit.rrProblem.alwaysList = $("#alwaysList").val();
+        $scope.rrProblemEdit.rrProblem.alwaysListFileId = $("#alwaysListFileId").val();
         $scope.rrProblemEdit.rrProblem.inspectionReferenceBook = $("#inspectionReferenceBook").val();
         $scope.rrProblemEdit.rrProblem.inspectionBook = $("#inspectionBook").val();
         $scope.rrProblemEdit.rrProblem.education = $("#education").val();

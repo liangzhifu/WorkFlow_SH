@@ -134,6 +134,8 @@ public class RRProblem {
 
     private String alwaysList;
 
+    private Integer alwaysListFileId;
+
     private String inspectionReferenceBook;
 
     private Integer inspectionReferenceBookFileId;
@@ -867,5 +869,13 @@ public class RRProblem {
 
     public void setStandardBookFileId(Integer standardBookFileId) {
         this.standardBookFileId = standardBookFileId;
+    }
+
+    public Integer getAlwaysListFileId() {
+        return alwaysListFileId;
+    }
+
+    public void setAlwaysListFileId(Integer alwaysListFileId) {
+        this.alwaysListFileId = alwaysListFileId;
     }
 }

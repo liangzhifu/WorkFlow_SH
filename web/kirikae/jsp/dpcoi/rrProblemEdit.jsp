@@ -346,7 +346,9 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="alwaysList">始终件表：</label>
-                                <input class="form-control-order form-control clean" style="width: 60%" ng-disabled="true"
+                                <input type="button" ng-click="uploadFile('alwaysList','alwaysListFileId')" value="上传文件">
+                                <input type="hidden" id="alwaysListFileId" name="alwaysListFileId" ng-model="rrProblemEdit.rrProblem.alwaysListFileId">
+                                <input class="form-control-order form-control clean" style="width: 45%"
                                        id="alwaysList" name="alwaysList" ng-model="rrProblemEdit.rrProblem.alwaysList">
                             </div>
                             <div class="col-md-3">
@@ -468,5 +470,5 @@
     </div>
 </div>
 </body>
-<script src="<%=request.getContextPath()%>/kirikae/js/dpcoi/rrProblemEdit.js"></script>
+<script src="<%=request.getContextPath()%>/kirikae/js/dpcoi/rrProblemEdit.js?version=2"></script>
 </html>
