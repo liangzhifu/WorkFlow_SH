@@ -30,6 +30,7 @@
                 /static/** = anon
                 /login.do = anon
                 /loginAuthenticate.do = anon
+                /rrProblem/getRRProblemScreenShowDlg.do = anon
                 /logout.do = logout
                 /**/*.do = authc
             </value>

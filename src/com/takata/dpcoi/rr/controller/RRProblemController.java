@@ -96,36 +96,6 @@ public class RRProblemController {
                 map.put("backgroundColor", "background-color : #808080;color: #FFFFFF;!important;");
             }
 
-//            String speedOfProgress = (String)map.get("speedOfProgress");
-//            if(speedOfProgress == null || "".equals(speedOfProgress)){
-//                map.put("backgroundColor", "background-color : #808080;color: #FFFFFF;!important;");
-//            }else if("delayI".equals(speedOfProgress)){
-//                if(isDelay.intValue() == 1){
-//                    map.put("backgroundColor", "background-color : deepskyblue;color: #000000;!important;");
-//                }else {
-//                    map.put("backgroundColor", "background-color : red;color: #FFFFFF;!important;");
-//                }
-//            }else if("delayII".equals(speedOfProgress)){
-//                if(isDelay.intValue() == 1){
-//                    map.put("backgroundColor", "background-color : deepskyblue;color: #000000;!important;");
-//                }else {
-//                    map.put("backgroundColor", "background-color : red;color: #FFFFFF;!important;");
-//                }
-//            }else if("delayIII".equals(speedOfProgress)){
-//                if(isDelay.intValue() == 1){
-//                    map.put("backgroundColor", "background-color : deepskyblue;color: #000000;!important;");
-//                }else {
-//                    map.put("backgroundColor", "background-color : GoldenRod;color: #000000;!important;");
-//                }
-//            }else if("delayIV".equals(speedOfProgress)){
-//                if(isDelay.intValue() == 1){
-//                    map.put("backgroundColor", "background-color : deepskyblue;color: #000000;!important;");
-//                }else {
-//                    map.put("backgroundColor", "background-color : yellow;color: #000000;!important;");
-//                }
-//            }else{
-//                map.put("backgroundColor", "background-color : #808080;color: #FFFFFF;!important;");
-//            }
             String persionLiable = (String)map.get("persionLiable");
             persionLiable = persionLiable.replace(",", "<br>");
             map.put("persionLiable", persionLiable);
