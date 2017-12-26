@@ -406,11 +406,11 @@ rrProblemViewListApp.controller("rrProblemViewListController", function ($scope)
 
         $.ajax({
             method: 'post',
-            url: BASE_URL+"/dpcoiConfig/getDpcoiConfigList.do",
+            url: BASE_URL+"/system/config/queryList.do",
             success: function (resultJson) {
                 var result = angular.fromJson(resultJson);
                 if (result.success) {
-                    $scope.rrProblemViewList.dpcoiConfigList = result.dpcoiConfigList;
+                    $scope.rrProblemViewList.dpcoiConfigList = result.dataMapList;
                     $scope.$apply();
                     $("#problemProgress").multiselect({
                         checkAllText: "全选",

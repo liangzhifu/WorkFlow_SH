@@ -495,5 +495,5 @@
     </form>
 </div>
 </body>
-<script src="<%=request.getContextPath()%>/kirikae/js/dpcoi/rrProblemViewList.js"></script>
+<script src="<%=request.getContextPath()%>/kirikae/js/dpcoi/rrProblemViewList.js?version=2"></script>
 </html>
