@@ -151,7 +151,7 @@
         AND FIND_IN_SET(user1.`USER_NAME`, #{userName})
         union
         SELECT user2.`id`
-        FROM dpcoi_rr_delay_leader leader1, dpcoi_rr_delay_leader leader2, system_user user1, sys_users system_user
+        FROM dpcoi_rr_delay_leader leader1, dpcoi_rr_delay_leader leader2, system_user user1, system_user user2
         WHERE leader1.`user_id` = user1.`id`
         AND leader1.`leader_id` = leader2.`user_id`
         AND leader2.`leader_id` = user2.`id`
@@ -198,7 +198,7 @@
         union
         SELECT user2.`id`
         FROM dpcoi_rr_delay_leader leader1, dpcoi_rr_delay_leader leader2, dpcoi_rr_delay_leader leader3, system_user user1, system_user user2
-        WHERE leader1.`user_id` = user1.`USER_ID`
+        WHERE leader1.`user_id` = user1.`id`
         and leader1.`leader_id` = leader2.`id`
         and leader2.`leader_id` = leader3.`user_id`
         AND leader3.`leader_id` = user2.`id`
