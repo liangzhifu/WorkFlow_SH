@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/kirikae/third/jqueryui.datetimepicker/jquery.datetimepicker.css" type="text/css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/kirikae/third/multiselect/jquery.multiselect.css" type="text/css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/kirikae/third/jBox/jBox.css" type="text/css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/kirikae/third/chosen/chosen.css" type="text/css">
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/kirikae/style/common/common.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/kirikae/style/common/common-table.css" />

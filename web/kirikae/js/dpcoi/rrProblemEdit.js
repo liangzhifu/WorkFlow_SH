@@ -173,8 +173,8 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
         if(!$.html5Validate.isAllpass($("#recordNum"))){//记录数量
             return false;
         }
-        var persionLiableNames = $("#persionLiable").multiselect("MyValues");
-        if(persionLiableNames == ""){
+        var persionLiableArray = $("#persionLiable").val();
+        if(persionLiableArray.length <= 0){
             alert("责任人不能为空！");
             return false;
         }
@@ -193,8 +193,15 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
         }else {
             url = BASE_URL+"/rrProblem/updateRRProblem.do";
         }
-        var persionLiableNames = $("#persionLiable").multiselect("MyValues");
-        $scope.rrProblemEdit.rrProblem.persionLiable = persionLiableNames;
+        var persionLiableArray = $("#persionLiable").val();
+        var persionLiableStr = "";
+        for(var i = 0; i < persionLiableArray.length; i ++){
+            persionLiableStr += "," + persionLiableArray[i];
+        }
+        if(persionLiableStr != ""){
+            persionLiableStr = persionLiableStr.substring(1);
+        }
+        $scope.rrProblemEdit.rrProblem.persionLiable = persionLiableStr;
         $scope.rrProblemEdit.rrProblem.vehicle = $("#vehicle").val();
         $scope.rrProblemEdit.rrProblem.happenDate = $("#happenDate").val();
         $scope.rrProblemEdit.rrProblem.reportDate = $("#reportDate").val();
@@ -281,8 +288,15 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
         }
 
         var url = BASE_URL+"/rrProblem/updateDelayRRProblem.do";
-        var persionLiableNames = $("#persionLiable").multiselect("MyValues");
-        $scope.rrProblemEdit.rrProblem.persionLiable = persionLiableNames;
+        var persionLiableArray = $("#persionLiable").val();
+        var persionLiableStr = "";
+        for(var i = 0; i < persionLiableArray.length; i ++){
+            persionLiableStr += "," + persionLiableArray[i];
+        }
+        if(persionLiableStr != ""){
+            persionLiableStr = persionLiableStr.substring(1);
+        }
+        $scope.rrProblemEdit.rrProblem.persionLiable = persionLiableStr;
         $scope.rrProblemEdit.rrProblem.vehicle = $("#vehicle").val();
         $scope.rrProblemEdit.rrProblem.happenDate = $("#happenDate").val();
         $scope.rrProblemEdit.rrProblem.reportDate = $("#reportDate").val();
@@ -385,8 +399,65 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
         }).open();
     };
 
-    $(document).ready(function() {
+    $("#happenDate").on('change', function(e, params) {
+        var happenDate = $("#happenDate").val();
+        if(happenDate == null || happenDate == ""){
+            $("#firstDate").val("");
+            $("#secondDate").val("");
+            $("#thirdDate").val("");
+            $("#fourthDate").val("");
+        }else {
+            $.ajax({
+                method: 'post',
+                url:  BASE_URL+"/rrProblem/getFourDate.do?happenDate=" + happenDate,
+                success: function (resultJson) {
+                    var result = angular.fromJson(resultJson);
+                    if (result.success) {
+                        $("#firstDate").val(result.firstDate);
+                        $("#secondDate").val(result.secondDate);
+                        $("#thirdDate").val(result.thirdDate);
+                        $("#fourthDate").val(result.fourthDate);
+                    }
+                }
+            });
+        }
+    });
 
+    $("#vehicle").on('change', function(e, params) {
+        for(var i = 0; i < $scope.dpcoiConfigVehicleList.length; i ++){
+            if($scope.dpcoiConfigVehicleList[i].value == $("#vehicle").val()){
+                $scope.rrProblemEdit.rrProblem.customer = $scope.dpcoiConfigVehicleList[i].configValue;
+                $scope.$apply();
+            }
+        }
+    });
+
+    $scope.showVehicle = function () {
+        $.ajax({
+            type : "POST",
+            url : BASE_URL+"/dpcoiConfigVehicle/getDpcoiConfigVehicleList.do",
+            success : function(result) {
+                $scope.dpcoiConfigVehicleList = result.dpcoiConfigVehicleList;
+                $scope.$apply();
+                $("#vehicle").chosen({
+                    no_results_text : "没有找到结果！",//搜索无结果时显示的提示
+                    search_contains : true,   //关键字模糊搜索，设置为false，则只从开头开始匹配
+                    allow_single_deselect : true, //是否允许取消选择
+                    max_selected_options : 5,  //当select为多选时，最多选择个数
+                    placeholder_text_multiple : "请选择",
+                    max_shown_results : 5,
+                    width : "60%"
+                });
+                $scope.showProductNo();
+            },
+            error : function(jqXHR, textStatus,
+                             errorThrown) {
+                alert("系统出现异常!!");
+            }
+        });
+    };
+
+    $scope.showProductNo = function () {
         $.ajax({
             method: 'post',
             url: BASE_URL+"/system/config/queryList.do",
@@ -395,10 +466,13 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
                 if (result.success) {
                     $scope.rrProblemEdit.dpcoiConfigList = result.dataMapList;
                     $scope.$apply();
+                    $scope.showPersionLiable();
                 }
             }
         });
+    };
 
+    $scope.showPersionLiable = function () {
         $.ajax({
             method: 'post',
             url: BASE_URL+"/rrProblem/getPersionLiableList.do",
@@ -406,15 +480,16 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
                 var result = angular.fromJson(resultJson);
                 if (result.success) {
                     $scope.rrProblemEdit.persionLiableList = result.persionLiableList;
-                    for(var i = 0; i < $scope.rrProblemEdit.persionLiableList.length; i++){
-                        var obj = $scope.rrProblemEdit.persionLiableList[i];
-                        $("#persionLiable").append("<option value='"+obj.userName+"'>"+obj.userName+"</option>");
-                    }
-                    $("#persionLiable").multiselect({
-                        checkAllText: "全选",
-                        uncheckAllText: '全不选',
-                        header: false,
-                        selectedList:4
+                    $scope.$apply();
+                    $("#persionLiable").chosen({
+                        no_results_text : "没有找到结果！",//搜索无结果时显示的提示
+                        search_contains : true,   //关键字模糊搜索，设置为false，则只从开头开始匹配
+                        max_selected_options : 5,  //当select为多选时，最多选择个数
+                        placeholder_text_multiple : "请选择",
+                        max_shown_results : 5,
+                        display_selected_options : false,
+                        disable_search : false,
+                        width : "70%"
                     });
                     if($scope.action == "edit"){
                         $.ajax({
@@ -426,15 +501,12 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
                                     $scope.rrProblemEdit.rrProblem = result.rrProblem;
                                     var persionLiableStr = $scope.rrProblemEdit.rrProblem.persionLiable;
                                     var arr = persionLiableStr.split(",");
-                                    if (arr != null) {
-                                        $('#persionLiable option').each(function(i,content){
-                                            //alert(i+"***"+content.value);
-                                            if($.inArray($.trim(content.value),arr)>=0){
-                                                this.selected=true;
-                                            }
-                                        });
-                                        $('#persionLiable').multiselect("refresh");
+                                    for(var i = 0; i < arr.length; i++){
+                                        $("#persionLiable option[value='"+arr[i]+"']").attr("selected","selected");
                                     }
+                                    $("#persionLiable").trigger("chosen:updated");
+                                    $("#vehicle option[value='"+$scope.rrProblemEdit.rrProblem.vehicle+"']").attr("selected","selected");
+                                    $("#vehicle").trigger("chosen:updated");
                                     $scope.$apply();
                                 }
                             }
@@ -443,14 +515,15 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
                 }
             }
         });
+    };
 
+    $(document).ready(function() {
         $("input[data-type='dateType1']").each(function () {
             $(this).datetimepicker({
                 timepicker: false,
                 format: 'Y-m-d'
             });
         });
-
         $("input[data-type='dateType2']").each(function () {
             $(this).datetimepicker({
                 timepicker: false,
@@ -458,7 +531,6 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
                 format: 'Y-m-d'
             });
         });
-
         $("input[data-type='dateType3']").each(function () {
             $(this).datetimepicker({
                 timepicker: false,
@@ -470,32 +542,7 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
             });
         });
 
-        $.ajax({
-            type : "POST",
-            url : BASE_URL+"/dpcoiConfigVehicle/getDpcoiConfigVehicleList.do",
-            success : function(result) {
-                $('#vehicle').autocomplete({
-                    minLength : 0,
-                    source : result.dpcoiConfigVehicleList,
-                    focus : function(event,	ui) {
-                        $("#vehicle").val(ui.item.value);
-                        return false;
-                    },
-                    select : function(event, ui) {
-                        $('#vehicle').val(ui.item.value);
-                        return false;
-                    },
-                    // 当智能提示框关闭后会触发此事件,ui是空对象
-                    close : function(event,	ui) {
-
-                    }
-                });
-            },
-            error : function(jqXHR, textStatus,
-                             errorThrown) {
-                alert("系统出现异常!!");
-            }
-        });
+        $scope.showVehicle();
 
     });
 });

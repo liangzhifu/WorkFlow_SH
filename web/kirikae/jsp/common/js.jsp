@@ -10,6 +10,7 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/kirikae/third/zTree_v3/js/jquery.ztree.exedit.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/kirikae/third/multiselect/jquery.multiselect.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/kirikae/third/jBox/jBox.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/kirikae/third/chosen/chosen.jquery.js"></script>
 <script type="text/javascript">
     var BASE_URL = "<%=request.getContextPath()%>"
 </script>

@@ -113,8 +113,11 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="vehicle"><span style="color:red;">*</span>车型：</label>
-                                <input class="form-control-order form-control clean" required="required" style="width: 60%"
-                                       id="vehicle" name="vehicle" ng-value="rrProblemEdit.rrProblem.vehicle">
+                                <select id="vehicle" name="vehicle" required="required" style="width: 60%"
+                                        class="form-control-order form-control clean chosen-select chosen">
+                                    <option value="">请选择</option>
+                                    <option ng-repeat="data in dpcoiConfigVehicleList" value="{{data.value}}">{{data.value}}</option>
+                                </select>
                             </div>
                             <div class="col-md-3">
                                 <label  class="control-label" for="productNo"><span style="color:red;">*</span>品名：</label>
@@ -134,9 +137,9 @@
                             </div>
                             <div class="col-md-3">
                                 <label  class="control-label" for="persionLiable"><span style="color:red;">*</span>责任人：</label>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <select id="persionLiable" name="persionLiable" class="form-control-order form-control" required="required"
-                                        multiple="multiple" style="width: 60%">
+                                <select id="persionLiable" name="persionLiable" class="form-control-order form-control chosen-select"
+                                        required="required" multiple="multiple">
+                                    <option ng-repeat="data in rrProblemEdit.persionLiableList" value="{{data.userName}}">{{data.userName}}</option>
                                 </select>
                             </div>
                         </div>
@@ -470,5 +473,5 @@
     </div>
 </div>
 </body>
-<script src="<%=request.getContextPath()%>/kirikae/js/dpcoi/rrProblemEdit.js?version=2"></script>
+<script src="<%=request.getContextPath()%>/kirikae/js/dpcoi/rrProblemEdit.js?version=3"></script>
 </html>

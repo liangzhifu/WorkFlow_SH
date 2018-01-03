@@ -138,4 +138,12 @@ public interface RRProblemService {
      */
     public List<RRProblem> queryJobRRProblemTrackingLevelList() throws Exception;
 
+    /**
+     * 计算4次日期
+     * @param happenDate 发生日期
+     * @return 返回结果
+     * @throws Exception 异常
+     */
+    public Map<String, Object> getFourDate(String happenDate) throws Exception;
+
 }

@@ -775,4 +775,17 @@ public class RRProblemController {
         }
         return rrProblem;
     }
+
+    @RequestMapping("/getFourDate.do")
+    @ResponseBody
+    public Object getFourDate(String happenDate){
+        Map<String, Object> map = new HashMap<String, Object>();
+        try{
+            map = this.rRProblemService.getFourDate(happenDate);
+            map.put("success", true);
+        }catch (Exception e){
+            map.put("success", false);
+        }
+        return map;
+    }
 }
