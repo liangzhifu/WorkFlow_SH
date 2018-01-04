@@ -306,6 +306,7 @@ public class RRProblemController {
             }else {
                 map.put("message", "");
             }
+            this.rRProblemService.addEmailByProblemProgress(rrProblem);
             map.put("success", true);
         }catch (Exception e){
             e.printStackTrace();
@@ -381,6 +382,7 @@ public class RRProblemController {
             }
             this.rRProblemService.updateRRProblem(rrProblem);
             this.rRProblemService.addSendMinisterEmail(rrProblem);
+            this.rRProblemService.addEmailByProblemProgress(rrProblem);
             map.put("success", true);
         }catch (Exception e){
             e.printStackTrace();

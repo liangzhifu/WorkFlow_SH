@@ -146,4 +146,10 @@ public interface RRProblemService {
      */
     public Map<String, Object> getFourDate(String happenDate) throws Exception;
 
+    /**
+     * 当问题进展为5/5时，发送通知邮件
+     * @param rrProblem RR问题点
+     * @throws Exception 异常
+     */
+    void addEmailByProblemProgress(RRProblem rrProblem) throws Exception;
 }

@@ -131,4 +131,12 @@ public class RRProblemDao extends SqlDao {
     public List<RRProblem> selectJobRRProblemTrackingLevelList() {
         return this.readSqlSession.selectList("RRProblemMapper.selectJobRRProblemTrackingLevelList", null);
     }
+
+    /**
+     * 查询部长权限所有人
+     * @return 返回结果
+     */
+    public String selectMinisterJurisdictionUser() {
+        return this.readSqlSession.selectOne("RRProblemMapper.selectMinisterJurisdictionUser");
+    }
 }

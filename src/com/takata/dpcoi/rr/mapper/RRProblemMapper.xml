@@ -1096,4 +1096,15 @@
         where state=1
         and problem_progress = '1/5'
     </select>
+
+    <select id="selectMinisterJurisdictionUser" resultType="java.lang.String">
+        SELECT GROUP_CONCAT(su.`user_email`)
+        FROM SYSTEM_USER su, system_user_role sur, system_role_permission srp
+        WHERE su.`id` = sur.`user_id`
+        AND sur.`role_id` = srp.`role_id`
+        AND su.`delete_state` = 0
+        AND sur.`delete_state` = 0
+        AND srp.`delete_state` = 0
+        AND srp.`permisssion_id` = 1
+    </select>
 </mapper>
