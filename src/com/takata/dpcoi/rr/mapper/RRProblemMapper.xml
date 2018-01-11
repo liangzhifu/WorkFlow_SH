@@ -81,6 +81,7 @@
         <result column="pfmea_file_id" property="pfmeaFileId" jdbcType="INTEGER" />
         <result column="cp_file_id" property="cpFileId" jdbcType="INTEGER" />
         <result column="standard_book_file_id" property="standardBookFileId" jdbcType="INTEGER" />
+        <result column="product_number" property="productNumber" jdbcType="VARCHAR" />
     </resultMap>
     <sql id="Base_Column_List" >
         id, problem_status, problem_no, problem_type, engineering, problem_progress, tracking_level,
@@ -96,7 +97,7 @@
         dpcoi4M, analytic_report, analytic_report_file_id, layered_audit, layered_audit_file_id, check_result,
         check_result_file_id, na_pending, na_pending_file_id, other_information, other_information_file_id,
         delay_application, is_delay, create_time, create_by,standard_book_file_id,pfmea_file_id,cp_file_id,
-        always_list_file_id
+        always_list_file_id, product_number
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.takata.dpcoi.rr.domain.RRProblem" >
         select
@@ -386,6 +387,9 @@
             <if test="standardBookFileId != null" >
                 standard_book_file_id,
             </if>
+            <if test="productNumber != null" >
+                product_number,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="id != null" >
@@ -625,6 +629,9 @@
             <if test="standardBookFileId != null" >
                 #{standardBookFileId,jdbcType=INTEGER},
             </if>
+            <if test="productNumber != null" >
+                #{productNumber,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.takata.dpcoi.rr.domain.RRProblem" >
@@ -858,6 +865,9 @@
             <if test="standardBookFileId != null" >
                 standard_book_file_id = #{standardBookFileId,jdbcType=INTEGER},
             </if>
+            <if test="productNumber != null" >
+                product_number = #{productNumber,jdbcType=VARCHAR},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -983,6 +993,9 @@
             <if test="dpcoi4M != null and dpcoi4M != ''" >
                 and find_in_set(`dpcoi4M`, #{dpcoi4M,jdbcType=VARCHAR})
             </if>
+            <if test="productNumber != null and productNumber != ''" >
+                and product_number like concat('%',#{productNumber,jdbcType=VARCHAR},'%')
+            </if>
         </where>
     </sql>
 
@@ -1002,7 +1015,7 @@
         analytic_report_file_id as analyticReportFileId, layered_audit as layeredAudit, layered_audit_file_id as layeredAuditFileId, check_result as checkResult,
         check_result_file_id as checkResultFileId, na_pending as naPending, na_pending_file_id as naPendingFileId, other_information as otherInformation,
         other_information_file_id as otherInformationFileId,standard_book_file_id as standardBookFileId, cp_file_id as cpFileId, pfmea_file_id as pfmeaFileId,
-        always_list_file_id as alwaysListFileId
+        always_list_file_id as alwaysListFileId, product_number as productNumber
         from dpcoi_rr_problem
         <include refid="WHERE_SQL"></include>
         order by id desc limit #{start},#{size}
@@ -1030,7 +1043,7 @@
         analytic_report_file_id as analyticReportFileId, layered_audit as layeredAudit, layered_audit_file_id as layeredAuditFileId, check_result as checkResult,
         check_result_file_id as checkResultFileId, na_pending as naPending, na_pending_file_id as naPendingFileId, other_information as otherInformation,
         other_information_file_id as otherInformationFileId,standard_book_file_id as standardBookFileId, cp_file_id as cpFileId, pfmea_file_id as pfmeaFileId,
-        always_list_file_id as alwaysListFileId
+        always_list_file_id as alwaysListFileId, product_number as productNumber
         from dpcoi_rr_problem
         <include refid="WHERE_SQL"></include>
     </select>
@@ -1060,7 +1073,7 @@
         temporary, root_cause as rootCause, permanent_game as permanentGame, effect_verification as effectVerification, serial_number as serialNumber, quality_warning_card_number as qualityWarningCardNumber,
         product_scale as productScale, pfmea, cp, standard_book as standardBook, equipment_checklist as equipmentChecklist, always_list as alwaysList, inspection_reference_book as inspectionReferenceBook,
         inspection_book as inspectionBook, education, change_point as changePoint, expand_trace as expandTrace, artificial, materiel, state, is_delay as isDelay,
-        standard_book_file_id as standardBookFileId, cp_file_id as cpFileId, pfmea_file_id as pfmeaFileId,always_list_file_id as alwaysListFileId
+        standard_book_file_id as standardBookFileId, cp_file_id as cpFileId, pfmea_file_id as pfmeaFileId,always_list_file_id as alwaysListFileId, product_number as productNumber
         from dpcoi_rr_problem
         where state = 1
         and is_hide = 0

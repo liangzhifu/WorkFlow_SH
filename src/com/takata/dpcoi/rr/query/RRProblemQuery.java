@@ -50,6 +50,8 @@ public class RRProblemQuery {
 
     private Integer isHide;
 
+    private String productNumber;
+
     public Integer getStart() {
         return start;
     }
@@ -216,5 +218,13 @@ public class RRProblemQuery {
 
     public void setDpcoi4M(String dpcoi4M) {
         this.dpcoi4M = dpcoi4M;
+    }
+
+    public String getProductNumber() {
+        return productNumber;
+    }
+
+    public void setProductNumber(String productNumber) {
+        this.productNumber = productNumber;
     }
 }

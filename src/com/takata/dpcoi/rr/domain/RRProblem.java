@@ -38,6 +38,8 @@ public class RRProblem {
 
     private String productNo;
 
+    private String productNumber;
+
     private String badContent;
 
     private String persionLiable;
@@ -877,5 +879,13 @@ public class RRProblem {
 
     public void setAlwaysListFileId(Integer alwaysListFileId) {
         this.alwaysListFileId = alwaysListFileId;
+    }
+
+    public String getProductNumber() {
+        return productNumber;
+    }
+
+    public void setProductNumber(String productNumber) {
+        this.productNumber = productNumber;
     }
 }

@@ -166,6 +166,11 @@
                         </select>
                     </div>
                     <div class="col-md-2" style="padding-right: 1px;padding-left: 1px;">
+                        <label  class="control-label" for="productNumber">品号：</label>
+                        <input type="text" name="productNumber" id="productNumber" ng-model="rrProblemList.searchForm.productNumber"
+                               class="form-control-order form-control" placeholder="品号" style="width: 60%;margin-left: 0%;padding: 1px 1px;font-size: 12px;margin-right: 15px;height: 25px;">
+                    </div>
+                    <div class="col-md-2" style="padding-right: 1px;padding-left: 1px;">
                         <label  class="control-label" for="happenDateBegin">发生日期：</label>
                         <input type="text" name="happenDateBegin" id="happenDateBegin" ng-model="rrProblemList.searchForm.happenDateBegin"
                                class="form-control-order form-control" data-type="date" style="width: 60%;margin-left: 0%;padding: 1px 1px;font-size: 12px;margin-right: 15px;height: 25px;">
@@ -175,13 +180,13 @@
                         <input type="text" name="happenDateEnd" id="happenDateEnd" ng-model="rrProblemList.searchForm.happenDateEnd"
                                class="form-control-order form-control" data-type="date" style="width: 60%;margin-left: 0%;padding: 1px 1px;font-size: 12px;margin-right: 15px;height: 25px;">
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-2" style="padding-right: 1px;padding-left: 1px;">
                         <label  class="control-label" for="persionLiable">责任人：</label>
                         <input type="text" name="persionLiable" id="persionLiable" ng-model="rrProblemList.searchForm.persionLiable"
                                class="form-control-order form-control" style="width: 60%;margin-left: 0%;padding: 1px 1px;font-size: 12px;margin-right: 15px;height: 25px;">
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-2" style="padding-right: 1px;padding-left: 1px;">
                         <label  class="control-label" for="productLine">生产线：</label>
                         <input type="text" name="productLine" id="productLine" ng-model="rrProblemList.searchForm.productLine"
@@ -223,8 +228,6 @@
                             <option value="close">close</option>
                             <option value="deleted">deleted</option>
                         </select>
-                    </div>
-                    <div class="col-md-2" style="padding-right: 1px;padding-left: 1px;">
                     </div>
                 </div>
                 <div class="row">
@@ -287,6 +290,7 @@
                         <th width="100px" class="x-grid3-header" style="padding: 0px">客户</th>
                         <th width="100px" class="x-grid3-header" style="padding: 0px">车型</th>
                         <th width="100px" class="x-grid3-header" style="padding: 0px">品名</th>
+                        <th width="100px" class="x-grid3-header" style="padding: 0px">品号</th>
                         <th width="400px" class="x-grid3-header" style="padding: 0px">不良内容</th>
                         <th width="80px" class="x-grid3-header" style="padding: 0px">4M</th>
                         <th width="100px" class="x-grid3-header" style="padding: 0px">责任人</th>
@@ -348,6 +352,7 @@
                         <td ng-class="{'claasRed': rrProblemDate.isRed, 'classGoldenRod': rrProblemDate.isGoldenRod, 'classYellow': rrProblemDate.isYellow, 'cassDeepSkyBlue': rrProblemDate.isDeepSkyBlue}" style="white-space:normal;padding: 0px;display:table-cell; vertical-align:middle;">{{rrProblemDate.customer}}</td>
                         <td ng-class="{'claasRed': rrProblemDate.isRed, 'classGoldenRod': rrProblemDate.isGoldenRod, 'classYellow': rrProblemDate.isYellow, 'cassDeepSkyBlue': rrProblemDate.isDeepSkyBlue}" style="white-space:normal;padding: 0px;display:table-cell; vertical-align:middle;">{{rrProblemDate.vehicle}}</td>
                         <td ng-class="{'claasRed': rrProblemDate.isRed, 'classGoldenRod': rrProblemDate.isGoldenRod, 'classYellow': rrProblemDate.isYellow, 'cassDeepSkyBlue': rrProblemDate.isDeepSkyBlue}" style="white-space:normal;padding: 0px;display:table-cell; vertical-align:middle;">{{rrProblemDate.productNo}}</td>
+                        <td ng-class="{'claasRed': rrProblemDate.isRed, 'classGoldenRod': rrProblemDate.isGoldenRod, 'classYellow': rrProblemDate.isYellow, 'cassDeepSkyBlue': rrProblemDate.isDeepSkyBlue}" style="white-space:normal;padding: 0px;display:table-cell; vertical-align:middle;">{{rrProblemDate.productNumber}}</td>
                         <td ng-class="{'claasRed': rrProblemDate.isRed, 'classGoldenRod': rrProblemDate.isGoldenRod, 'classYellow': rrProblemDate.isYellow, 'cassDeepSkyBlue': rrProblemDate.isDeepSkyBlue}" style="white-space:normal;word-wrap:break-word;word-break:break-all;padding: 0px;display:table-cell; vertical-align:middle;text-align: left;">{{rrProblemDate.badContent}}</td>
                         <td ng-class="{'claasRed': rrProblemDate.isRed, 'classGoldenRod': rrProblemDate.isGoldenRod, 'classYellow': rrProblemDate.isYellow, 'cassDeepSkyBlue': rrProblemDate.isDeepSkyBlue}" style="white-space:normal;padding: 0px;display:table-cell; vertical-align:middle;">{{rrProblemDate.dpcoi4M}}</td>
                         <td ng-class="{'claasRed': rrProblemDate.isRed, 'classGoldenRod': rrProblemDate.isGoldenRod, 'classYellow': rrProblemDate.isYellow, 'cassDeepSkyBlue': rrProblemDate.isDeepSkyBlue}" style="white-space:normal;padding: 0px;display:table-cell; vertical-align:middle;">{{rrProblemDate.persionLiable}}</td>

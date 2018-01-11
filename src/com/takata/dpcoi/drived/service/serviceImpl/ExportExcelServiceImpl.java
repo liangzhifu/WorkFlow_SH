@@ -57,7 +57,7 @@ public class ExportExcelServiceImpl implements ExportExcelService {
                 "品推表", "PFMEA", "C.P.QC工程表", "作业标准书", "设备点检表",
                 "始终件表", "检查基准书", "检查手顺书", "教育议事录", "变化点管理",
                 "展开及追踪是否完成", "人工", "物料", "解析报告", "4M",
-                "分层审核", "验岗结果", "NA待定", "其他资料"};
+                "分层审核", "验岗结果", "NA待定", "其他资料", "品号"};
         HSSFRow row = sheet.createRow(0);   //--->创建一行
         for (short i = 0; i < headers.length; i++) {
             HSSFCell cell = row.createCell(i);
@@ -435,6 +435,12 @@ public class ExportExcelServiceImpl implements ExportExcelService {
             cell = row.createCell(53);
             cell.setCellStyle(style);
             text = new HSSFRichTextString((String)map.get("otherInformation"));
+            cell.setCellValue(text);
+
+            //品号
+            cell = row.createCell(54);
+            cell.setCellStyle(style);
+            text = new HSSFRichTextString((String)map.get("productNumber"));
             cell.setCellValue(text);
         }
 
