@@ -110,11 +110,11 @@ public class UpdateRRProblemSpeedOfProgress {
                     timeTask.setComment(comment.toString());
                     String emailUser = "";
                     if("IV".equals(trackingLevel)){
-                        emailUser = this.rRDelayLeaderService.queryDelay4Email(rrProblem.getPersionLiable());
+                        emailUser = this.rRDelayLeaderService.queryDelay2Email(rrProblem.getPersionLiable());
                     }else if("III".equals(trackingLevel)){
                         emailUser = this.rRDelayLeaderService.queryDelay3Email(rrProblem.getPersionLiable());
                     }else {
-                        emailUser = this.rRDelayLeaderService.queryDelay2Email(rrProblem.getPersionLiable());
+                        emailUser = this.rRDelayLeaderService.queryDelay4Email(rrProblem.getPersionLiable());
                     }
                     //String emailUser = this.rRProblemService.queryDelayEmails(rrProblem);
                     timeTask.setUserEmail(emailUser);

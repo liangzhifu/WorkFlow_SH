@@ -413,6 +413,10 @@ rrProblemListApp.controller("rrProblemListController", function ($scope) {
     });
 
     $("#rrProblemToVoid").click(function () {
+        if($scope.rrProblemList.ministerJurisdiction == 0){
+            alert("你没有部长权限！");
+            return;
+        }
         var length = $("input[name='checkbox_records']:checked").length;
         if(length == 0 || length > 1){
             alert("请选择一条RR问题点！");

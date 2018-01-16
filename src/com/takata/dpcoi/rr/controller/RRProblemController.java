@@ -105,6 +105,35 @@ public class RRProblemController {
         return "dpcoi/rrProblemScreenShow";
     }
 
+    @RequestMapping("/getRRProblemScreenShowDlg2.do")
+    public String getRRProblemScreenShowDlg2(Map<String, Object> model) throws Exception{
+        List<Map<String, Object>> newMapList = new LinkedList<Map<String, Object>>();
+        List<Map<String, Object>> mapList = this.rRProblemService.queryRRProblemScreenShowList();
+        for(Map<String, Object> map : mapList){
+            String trackingLevel = (String)map.get("trackingLevel");
+            if(trackingLevel == null || "".equals(trackingLevel) || "V".equals(trackingLevel)){
+                map.put("backgroundColor", "background-color : #808080;color: #FFFFFF;!important;");
+            }else if("I".equals(trackingLevel)){
+                map.put("backgroundColor", "background-color : red;color: #FFFFFF;!important;");
+            }else if("II".equals(trackingLevel)){
+                map.put("backgroundColor", "background-color : red;color: #FFFFFF;!important;");
+            }else if("III".equals(trackingLevel)){
+                map.put("backgroundColor", "background-color : GoldenRod;color: #000000;!important;");
+            }else if("IV".equals(trackingLevel)){
+                map.put("backgroundColor", "background-color : yellow;color: #000000;!important;");
+            }else {
+                map.put("backgroundColor", "background-color : #808080;color: #FFFFFF;!important;");
+            }
+
+            String persionLiable = (String)map.get("persionLiable");
+            persionLiable = persionLiable.replace(",", "<br>");
+            map.put("persionLiable", persionLiable);
+            newMapList.add(map);
+        }
+        model.put("mapList", newMapList);
+        return "dpcoi/rrProblemScreenShow2";
+    }
+
     /**
      * 导出RR问题点EXCEL
      * @param request 参数
