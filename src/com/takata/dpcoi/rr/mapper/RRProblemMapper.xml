@@ -82,6 +82,9 @@
         <result column="cp_file_id" property="cpFileId" jdbcType="INTEGER" />
         <result column="standard_book_file_id" property="standardBookFileId" jdbcType="INTEGER" />
         <result column="product_number" property="productNumber" jdbcType="VARCHAR" />
+        <result column="estimate_close_date" property="estimateCloseDate" jdbcType="DATE" />
+        <result column="real_close_date" property="realCloseDate" jdbcType="DATE" />
+        <result column="customer_close_date" property="customerCloseDate" jdbcType="DATE" />
     </resultMap>
     <sql id="Base_Column_List" >
         id, problem_status, problem_no, problem_type, engineering, problem_progress, tracking_level,
@@ -97,7 +100,7 @@
         dpcoi4M, analytic_report, analytic_report_file_id, layered_audit, layered_audit_file_id, check_result,
         check_result_file_id, na_pending, na_pending_file_id, other_information, other_information_file_id,
         delay_application, is_delay, create_time, create_by,standard_book_file_id,pfmea_file_id,cp_file_id,
-        always_list_file_id, product_number
+        always_list_file_id, product_number,estimate_close_date,real_close_date,customer_close_date
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.takata.dpcoi.rr.domain.RRProblem" >
         select
@@ -390,6 +393,15 @@
             <if test="productNumber != null" >
                 product_number,
             </if>
+            <if test="estimateCloseDate != null" >
+                estimate_close_date,
+            </if>
+            <if test="realCloseDate != null" >
+                real_close_date,
+            </if>
+            <if test="customerCloseDate != null" >
+                customer_close_date,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="id != null" >
@@ -632,6 +644,15 @@
             <if test="productNumber != null" >
                 #{productNumber,jdbcType=VARCHAR},
             </if>
+            <if test="estimateCloseDate != null" >
+                #{estimateCloseDate,jdbcType=DATE},
+            </if>
+            <if test="realCloseDate != null" >
+                #{realCloseDate,jdbcType=DATE},
+            </if>
+            <if test="customerCloseDate != null" >
+                #{customerCloseDate,jdbcType=DATE},
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.takata.dpcoi.rr.domain.RRProblem" >
@@ -868,6 +889,15 @@
             <if test="productNumber != null" >
                 product_number = #{productNumber,jdbcType=VARCHAR},
             </if>
+            <if test="estimateCloseDate != null" >
+                estimate_close_date = #{estimateCloseDate,jdbcType=DATE},
+            </if>
+            <if test="realCloseDate != null" >
+                real_close_date = #{realCloseDate,jdbcType=DATE},
+            </if>
+            <if test="customerCloseDate != null" >
+                customer_close_date = #{customerCloseDate,jdbcType=DATE},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -1002,7 +1032,7 @@
     <select id="selectRRProblemListPage" resultType="java.util.HashMap" parameterType="com.takata.dpcoi.rr.query.RRProblemQuery">
       select id, problem_status as problemStatus, problem_no as problemNo, problem_type as problemType, engineering, problem_progress as problemProgress, tracking_level as trackingLevel,
         happen_date as happenDate, customer, vehicle, product_no as productNo, bad_content as badContent, persion_liable as persionLiable,
-        report_date as reportDate,
+        report_date as reportDate,estimate_close_date as estimateCloseDate,real_close_date as realCloseDate, customer_close_date as customerCloseDate,
         Speed_of_progress as speedOfProgress, reason_for_delay as reasonForDelay, first_date as firstDate, second_date as secondDate, third_date as thirdDate, fourth_date as fourthDate,
         close_confirm as closeConfirm, close_confirm_id, close_confirm_time, product_line as productLine, severity, occurrence_frequency as occurrenceFrequency,
         bad_quantity as badQuantity, batch, happen_shift as happenShift, responsible_department as responsibleDepartment, record_ppm as recordPpm, record_num as recordNum,
@@ -1030,7 +1060,7 @@
     <select id="selectRRProblemList" resultType="java.util.HashMap" parameterType="com.takata.dpcoi.rr.query.RRProblemQuery">
         select id, problem_status as problemStatus, problem_no as problemNo, problem_type as problemType, engineering, problem_progress as problemProgress, tracking_level as trackingLevel,
         happen_date as happenDate, customer, vehicle, product_no as productNo, bad_content as badContent, persion_liable as persionLiable,
-        report_date as reportDate,
+        report_date as reportDate,estimate_close_date as estimateCloseDate,real_close_date as realCloseDate, customer_close_date as customerCloseDate,
         Speed_of_progress as speedOfProgress, reason_for_delay as reasonForDelay, first_date as firstDate, second_date as secondDate, third_date as thirdDate, fourth_date as fourthDate,
         close_confirm as closeConfirm, close_confirm_id, close_confirm_time, product_line as productLine, severity, occurrence_frequency as occurrenceFrequency,
         bad_quantity as badQuantity, batch, happen_shift as happenShift, responsible_department as responsibleDepartment, record_ppm as recordPpm, record_num as recordNum,
@@ -1066,7 +1096,7 @@
     <select id="selectRRProblemScreenShowList" resultType="java.util.HashMap">
         select id, problem_status as problemStatus, problem_no as problemNo, problem_type as problemType, engineering, problem_progress as problemProgress, tracking_level as trackingLevel,
         happen_date as happenDate, customer, vehicle, product_no as productNo, bad_content as badContent, persion_liable as persionLiable,
-        report_date as reportDate,
+        report_date as reportDate,estimate_close_date as estimateCloseDate,real_close_date as realCloseDate, customer_close_date as customerCloseDate,
         Speed_of_progress as speedOfProgress, reason_for_delay as reasonForDelay, first_date as firstDate, second_date as secondDate, third_date as thirdDate, fourth_date as fourthDate,
         close_confirm as closeConfirm, close_confirm_id, close_confirm_time, product_line as productLine, severity, occurrence_frequency as occurrenceFrequency,
         bad_quantity as badQuantity, batch, happen_shift as happenShift, responsible_department as responsibleDepartment, record_ppm as recordPpm, record_num as recordNum,

@@ -108,7 +108,13 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
         "fourthDelay" : "0",
         "delayLevel" : "0",
         "isDelay" : "0",
-        "delayApplication" : "0"
+        "delayApplication" : "0",
+        "estimateCloseDate":"",
+        "estimateCloseDateStr":"",
+        "realCloseDate":"",
+        "realCloseDateStr":"",
+        "customerCloseDate":"",
+        "customerCloseDateStr":""
     };
 
     $scope.validData = function(){
@@ -223,6 +229,9 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
         $scope.rrProblemEdit.rrProblem.permanentGame = $("#permanentGame").val();
         $scope.rrProblemEdit.rrProblem.effectVerification = $("#effectVerification").val();
         $scope.rrProblemEdit.rrProblem.productLine = $("#productLine").val().toUpperCase();
+        $scope.rrProblemEdit.rrProblem.estimateCloseDate = $("#estimateCloseDate").val();
+        $scope.rrProblemEdit.rrProblem.realCloseDate = $("#realCloseDate").val();
+        $scope.rrProblemEdit.rrProblem.customerCloseDate = $("#customerCloseDate").val();
 
         $scope.rrProblemEdit.rrProblem.serialNumber = $("#serialNumber").val();
         $scope.rrProblemEdit.rrProblem.serialNumberFileId = $("#serialNumberFileId").val();
@@ -318,6 +327,9 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
         $scope.rrProblemEdit.rrProblem.permanentGame = $("#permanentGame").val();
         $scope.rrProblemEdit.rrProblem.effectVerification = $("#effectVerification").val();
         $scope.rrProblemEdit.rrProblem.productLine = $("#productLine").val().toUpperCase();
+        $scope.rrProblemEdit.rrProblem.estimateCloseDate = $("#estimateCloseDate").val();
+        $scope.rrProblemEdit.rrProblem.realCloseDate = $("#realCloseDate").val();
+        $scope.rrProblemEdit.rrProblem.customerCloseDate = $("#customerCloseDate").val();
 
         $scope.rrProblemEdit.rrProblem.serialNumber = $("#serialNumber").val();
         $scope.rrProblemEdit.rrProblem.serialNumberFileId = $("#serialNumberFileId").val();

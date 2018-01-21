@@ -57,7 +57,8 @@ public class ExportExcelServiceImpl implements ExportExcelService {
                 "品推表", "PFMEA", "C.P.QC工程表", "作业标准书", "设备点检表",
                 "始终件表", "检查基准书", "检查手顺书", "教育议事录", "变化点管理",
                 "展开及追踪是否完成", "人工", "物料", "解析报告", "4M",
-                "分层审核", "验岗结果", "NA待定", "其他资料", "品号"};
+                "分层审核", "验岗结果", "NA待定", "其他资料", "品号",
+                "预计关闭日期", "实际关闭日期", "客户关闭日期"};
         HSSFRow row = sheet.createRow(0);   //--->创建一行
         for (short i = 0; i < headers.length; i++) {
             HSSFCell cell = row.createCell(i);
@@ -441,6 +442,45 @@ public class ExportExcelServiceImpl implements ExportExcelService {
             cell = row.createCell(54);
             cell.setCellStyle(style);
             text = new HSSFRichTextString((String)map.get("productNumber"));
+            cell.setCellValue(text);
+
+            //预计关闭日期
+            Date estimateCloseDate = (Date)map.get("estimateCloseDate");
+            String estimateCloseDateStr;
+            if(estimateCloseDate == null){
+                estimateCloseDateStr = "";
+            }else {
+                estimateCloseDateStr = sdf.format(estimateCloseDate);
+            }
+            cell = row.createCell(55);
+            cell.setCellStyle(style);
+            text = new HSSFRichTextString(estimateCloseDateStr);
+            cell.setCellValue(text);
+
+            //实际关闭日期
+            Date realCloseDate = (Date)map.get("realCloseDate");
+            String realCloseDateStr;
+            if(realCloseDate == null){
+                realCloseDateStr = "";
+            }else {
+                realCloseDateStr = sdf.format(realCloseDate);
+            }
+            cell = row.createCell(56);
+            cell.setCellStyle(style);
+            text = new HSSFRichTextString(realCloseDateStr);
+            cell.setCellValue(text);
+
+            //客户关闭日期
+            Date customerCloseDate = (Date)map.get("customerCloseDate");
+            String customerCloseDateStr;
+            if(customerCloseDate == null){
+                customerCloseDateStr = "";
+            }else {
+                customerCloseDateStr = sdf.format(customerCloseDate);
+            }
+            cell = row.createCell(57);
+            cell.setCellStyle(style);
+            text = new HSSFRichTextString(customerCloseDateStr);
             cell.setCellValue(text);
         }
 
