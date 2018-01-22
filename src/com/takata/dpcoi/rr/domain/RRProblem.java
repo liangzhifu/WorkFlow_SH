@@ -208,6 +208,8 @@ public class RRProblem {
 
     private String customerCloseDateStr;
 
+    private String stateProgress;
+
     public Integer getId() {
         return id;
     }
@@ -953,5 +955,13 @@ public class RRProblem {
 
     public void setCustomerCloseDateStr(String customerCloseDateStr) {
         this.customerCloseDateStr = customerCloseDateStr;
+    }
+
+    public String getStateProgress() {
+        return stateProgress;
+    }
+
+    public void setStateProgress(String stateProgress) {
+        this.stateProgress = stateProgress;
     }
 }

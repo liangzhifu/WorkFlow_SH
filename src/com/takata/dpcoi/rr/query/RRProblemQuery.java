@@ -52,6 +52,8 @@ public class RRProblemQuery {
 
     private String productNumber;
 
+    private String stateProgress;
+
     public Integer getStart() {
         return start;
     }
@@ -226,5 +228,13 @@ public class RRProblemQuery {
 
     public void setProductNumber(String productNumber) {
         this.productNumber = productNumber;
+    }
+
+    public String getStateProgress() {
+        return stateProgress;
+    }
+
+    public void setStateProgress(String stateProgress) {
+        this.stateProgress = stateProgress;
     }
 }

@@ -21,7 +21,7 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
     $scope.rrProblemEdit.persionLiableList = [{
         "userId" : "",
         "userName" : ""
-    }]
+    }];
     $scope.rrProblemEdit.dpcoiConfigList = [{
         "configId" : "",
         "configCodeId" : "",
@@ -114,7 +114,8 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
         "realCloseDate":"",
         "realCloseDateStr":"",
         "customerCloseDate":"",
-        "customerCloseDateStr":""
+        "customerCloseDateStr":"",
+        "stateProgress":""
     };
 
     $scope.validData = function(){
@@ -232,6 +233,7 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
         $scope.rrProblemEdit.rrProblem.estimateCloseDate = $("#estimateCloseDate").val();
         $scope.rrProblemEdit.rrProblem.realCloseDate = $("#realCloseDate").val();
         $scope.rrProblemEdit.rrProblem.customerCloseDate = $("#customerCloseDate").val();
+        $scope.rrProblemEdit.rrProblem.stateProgress = $("#stateProgress").val();
 
         $scope.rrProblemEdit.rrProblem.serialNumber = $("#serialNumber").val();
         $scope.rrProblemEdit.rrProblem.serialNumberFileId = $("#serialNumberFileId").val();
@@ -330,6 +332,7 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
         $scope.rrProblemEdit.rrProblem.estimateCloseDate = $("#estimateCloseDate").val();
         $scope.rrProblemEdit.rrProblem.realCloseDate = $("#realCloseDate").val();
         $scope.rrProblemEdit.rrProblem.customerCloseDate = $("#customerCloseDate").val();
+        $scope.rrProblemEdit.rrProblem.stateProgress = $("#stateProgress").val();
 
         $scope.rrProblemEdit.rrProblem.serialNumber = $("#serialNumber").val();
         $scope.rrProblemEdit.rrProblem.serialNumberFileId = $("#serialNumberFileId").val();

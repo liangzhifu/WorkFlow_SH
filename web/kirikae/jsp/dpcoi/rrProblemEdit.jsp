@@ -34,6 +34,7 @@
         searchStr += "&responsibleDepartment=${rrProblemQuery.responsibleDepartment}";
         searchStr += "&trackingLevel=${rrProblemQuery.trackingLevel}";
         searchStr += "&dpcoi4M=${rrProblemQuery.dpcoi4M}";
+        searchStr += "&stateProgress=${rrProblemQuery.stateProgress}";
         searchStr += "&size=${rrProblemQuery.size}";
         searchStr += "&start=${rrProblemQuery.start}";
     </script>
@@ -155,19 +156,19 @@
                                        id="reportDate" name="reportDate" ng-model="rrProblemEdit.rrProblem.reportDateStr">
                             </div>
                             <div class="col-md-3">
-                                <label  class="control-label" for="estimateCloseDate"><span style="color:red;">*</span>预计关闭日期：</label>
+                                <label  class="control-label" for="estimateCloseDate">预计关闭日期：</label>
                                 <input class="form-control-order form-control clean" style="width: 60%" data-type="dateType1"
                                        id="estimateCloseDate" name="estimateCloseDate" ng-model="rrProblemEdit.rrProblem.estimateCloseDateStr">
                             </div>
                             <div class="col-md-3">
-                                <label  class="control-label" for="realCloseDate"><span style="color:red;">*</span>实际关闭日期：</label>
+                                <label  class="control-label" for="realCloseDate">实际关闭日期：</label>
                                 <input class="form-control-order form-control clean" style="width: 60%" data-type="dateType1"
                                        id="realCloseDate" name="realCloseDate" ng-model="rrProblemEdit.rrProblem.realCloseDateStr">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3">
-                                <label  class="control-label" for="customerCloseDate"><span style="color:red;">*</span>客户关闭日期：</label>
+                                <label  class="control-label" for="customerCloseDate">客户关闭日期：</label>
                                 <input class="form-control-order form-control clean" style="width: 60%" data-type="dateType1"
                                        id="customerCloseDate" name="customerCloseDate" ng-model="rrProblemEdit.rrProblem.customerCloseDateStr">
                             </div>
@@ -218,7 +219,7 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="productLine"><span style="color:red;">*</span>生产线：</label>
-                                <input class="form-control-order form-control clean" style="width: 60%" required="required" pattern="^[a-zA-Z]{3}\-[0-9][0-9]$"
+                                <input class="form-control-order form-control clean" style="width: 60%" required="required" pattern="^([a-zA-Z]{3}\-[0-9][0-9])|(N/A)|(n/A)|(N/a)|(n/a)$"
                                        id="productLine" name="productLine" ng-model="rrProblemEdit.rrProblem.productLine">
                             </div>
                             <div class="col-md-3">
@@ -441,6 +442,15 @@
                                 <input class="form-control-order form-control clean" style="width: 45%"
                                        id="otherInformation" name="otherInformation" ng-model="rrProblemEdit.rrProblem.otherInformation">
                             </div>
+                            <div class="col-md-3">
+                                <label  class="control-label" for="problemType">进展状态：</label>
+                                <select id="stateProgress" name="problemType" class="form-control-order form-control" style="width: 60%">
+                                    <option value="">请选择</option>
+                                    <option value="R-Open" ng-selected="rrProblemEdit.rrProblem.stateProgress=='R-Open'">R-Open</option>
+                                    <option value="Y-On going" ng-selected="rrProblemEdit.rrProblem.stateProgress=='Y-On going'">Y-On going</option>
+                                    <option value="G-Close" ng-selected="rrProblemEdit.rrProblem.stateProgress=='G-Close'">G-Close</option>
+                                </select>
+                            </div>
                         </div>
                         <div ng-hide="true">
                                 <label  class="control-label" for="expandTrace">展开追踪是否完成：</label>
@@ -495,5 +505,5 @@
     </div>
 </div>
 </body>
-<script src="<%=request.getContextPath()%>/kirikae/js/dpcoi/rrProblemEdit.js?version=4"></script>
+<script src="<%=request.getContextPath()%>/kirikae/js/dpcoi/rrProblemEdit.js?version=5"></script>
 </html>

@@ -157,7 +157,7 @@
                                class="form-control-order form-control" data-type="date" style="width: 60%;margin-left: 0%;padding: 1px 1px;font-size: 12px;margin-right: 15px;height: 25px;">
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" style="margin-bottom: 4px;">
                     <div class="col-md-2" style="padding-right: 1px;padding-left: 1px;">
                         <label  class="control-label" for="persionLiable">责任人：</label>
                         <input type="text" name="persionLiable" id="persionLiable" ng-model="rrProblemViewList.searchForm.persionLiable"
@@ -207,7 +207,17 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-10" style="padding-right: 1px;padding-left: 1px;">
+                    <div class="col-md-2" style="padding-right: 1px;padding-left: 1px;">
+                        <label  class="control-label" for="problemStatus">进展状态：</label>
+                        <select id="stateProgress" name="problemStatus" class="form-control-order form-control" required="required"
+                                ng-model="rrProblemViewList.searchForm.stateProgress" style="width: 60%;margin-left: 0%;padding: 1px 1px;font-size: 12px;margin-right: 15px;height: 25px;">
+                            <option value="">请选择</option>
+                            <option value="R-Open">R-Open</option>
+                            <option value="Y-On going">Y-On going</option>
+                            <option value="G-Close">G-Close</option>
+                        </select>
+                    </div>
+                    <div class="col-md-8" style="padding-right: 1px;padding-left: 1px;">
                     </div>
                     <div class="col-md-2" style="padding-right: 1px;padding-left: 1px;">
                         <button class="btn btn-small btn-purple" type="button" id="rrProblemSearch">
@@ -281,6 +291,7 @@
                         <th width="80px" class="x-grid3-header" style="padding: 0px">验岗结果</th>
                         <th width="80px" class="x-grid3-header" style="padding: 0px">NA待定</th>
                         <th width="80px" class="x-grid3-header" style="padding: 0px">其他资料</th>
+                        <th width="100px" class="x-grid3-header" style="padding: 0px">进展状态</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -429,6 +440,7 @@
                             <span ng-show="rrProblemDate.otherInformationFileId == 0">{{rrProblemDate.otherInformation}}</span>
                             <span ng-show="rrProblemDate.otherInformationFileId != 0"><a href="javascript:void(0);" ng-click="rrProblemViewList.downloadFile(rrProblemDate.otherInformationFileId)">{{rrProblemDate.otherInformation}}</a></span>
                         </td>
+                        <td ng-class="{'claasRed': rrProblemDate.isRed, 'classGoldenRod': rrProblemDate.isGoldenRod, 'classYellow': rrProblemDate.isYellow, 'cassDeepSkyBlue': rrProblemDate.isDeepSkyBlue}" style="white-space:normal;word-wrap:break-word;word-break:break-all;padding: 0px;display:table-cell; vertical-align:middle;text-align: left;">{{rrProblemDate.stateProgress}}</td>
                     </tr>
                     </tbody>
                 </table>

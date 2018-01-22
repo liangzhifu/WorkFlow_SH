@@ -99,6 +99,7 @@ rrProblemListApp.controller("rrProblemListController", function ($scope) {
         "responsibleDepartment" : responsibleDepartment,
         "trackingLevel" : trackingLevel,
         "dpcoi4M" : dpcoi4M,
+        "stateProgress" : stateProgress,
         "ids":""
     }
 
@@ -245,6 +246,7 @@ rrProblemListApp.controller("rrProblemListController", function ($scope) {
         searchStr += "&productLine=" + $scope.rrProblemList.searchForm.productLine;
         searchStr += "&severity=" + $scope.rrProblemList.searchForm.severity;
         searchStr += "&responsibleDepartment=" + $scope.rrProblemList.searchForm.responsibleDepartment;
+        searchStr += "&stateProgress=" + $scope.rrProblemList.searchForm.stateProgress;
         searchStr += "&size=" + $scope.rrProblemList.searchForm.pageCount;
         searchStr += "&start=" + $scope.rrProblemList.searchForm.pagenum * $scope.rrProblemList.searchForm.size;
         window.location.href = BASE_URL+"/rrProblem/getRRProblemEditDlg.do?id="+id+"&"+searchStr;
