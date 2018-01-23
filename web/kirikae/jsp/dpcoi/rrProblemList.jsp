@@ -237,9 +237,9 @@
                         <select id="stateProgress" name="problemStatus" class="form-control-order form-control" required="required"
                                 ng-model="rrProblemList.searchForm.stateProgress" style="width: 60%;margin-left: 0%;padding: 1px 1px;font-size: 12px;margin-right: 15px;height: 25px;">
                             <option value="">请选择</option>
-                            <option value="R-Open" ng-selected="'${rrProblemQuery.stateProgress}'=='R-Open'">R-Open</option>
-                            <option value="Y-On going" ng-selected="'${rrProblemQuery.stateProgress}'=='Y-On going'">Y-On going</option>
-                            <option value="G-Close" ng-selected="'${rrProblemQuery.stateProgress}'=='G-Close'">G-Close</option>
+                            <option ng-repeat="dpcoiConfigDate in rrProblemList.dpcoiConfigList | myFilter:14"
+                                    value="{{dpcoiConfigDate.configValue}}" ng-selected="dpcoiConfigDate.configValue == '${rrProblemQuery.stateProgress}'"
+                            >{{dpcoiConfigDate.configValue}}</option>
                         </select>
                     </div>
                     <div class="col-md-2" style="padding-right: 1px;padding-left: 1px;">

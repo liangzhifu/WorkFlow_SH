@@ -443,12 +443,12 @@
                                        id="otherInformation" name="otherInformation" ng-model="rrProblemEdit.rrProblem.otherInformation">
                             </div>
                             <div class="col-md-3">
-                                <label  class="control-label" for="problemType">进展状态：</label>
-                                <select id="stateProgress" name="problemType" class="form-control-order form-control" style="width: 60%">
+                                <label  class="control-label" for="stateProgress">进展状态：</label>
+                                <select id="stateProgress" name="stateProgress" class="form-control-order form-control" style="width: 60%">
                                     <option value="">请选择</option>
-                                    <option value="R-Open" ng-selected="rrProblemEdit.rrProblem.stateProgress=='R-Open'">R-Open</option>
-                                    <option value="Y-On going" ng-selected="rrProblemEdit.rrProblem.stateProgress=='Y-On going'">Y-On going</option>
-                                    <option value="G-Close" ng-selected="rrProblemEdit.rrProblem.stateProgress=='G-Close'">G-Close</option>
+                                    <option ng-repeat="dpcoiConfigDate in rrProblemEdit.dpcoiConfigList | myFilter:14"
+                                            value="{{dpcoiConfigDate.configValue}}" ng-selected="dpcoiConfigDate.configValue==rrProblemEdit.rrProblem.stateProgress"
+                                    >{{dpcoiConfigDate.configValue}}</option>
                                 </select>
                             </div>
                         </div>
