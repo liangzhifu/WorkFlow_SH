@@ -210,6 +210,8 @@ public class RRProblem {
 
     private String stateProgress;
 
+    private String badType;
+
     public Integer getId() {
         return id;
     }
@@ -963,5 +965,13 @@ public class RRProblem {
 
     public void setStateProgress(String stateProgress) {
         this.stateProgress = stateProgress;
+    }
+
+    public String getBadType() {
+        return badType;
+    }
+
+    public void setBadType(String badType) {
+        this.badType = badType;
     }
 }

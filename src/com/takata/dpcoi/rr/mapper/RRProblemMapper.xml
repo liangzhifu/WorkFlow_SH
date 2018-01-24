@@ -86,6 +86,7 @@
         <result column="real_close_date" property="realCloseDate" jdbcType="DATE" />
         <result column="customer_close_date" property="customerCloseDate" jdbcType="DATE" />
         <result column="state_progress" property="stateProgress" jdbcType="VARCHAR" />
+        <result column="bad_type" property="badType" jdbcType="VARCHAR" />
     </resultMap>
     <sql id="Base_Column_List" >
         id, problem_status, problem_no, problem_type, engineering, problem_progress, tracking_level,
@@ -101,7 +102,7 @@
         dpcoi4M, analytic_report, analytic_report_file_id, layered_audit, layered_audit_file_id, check_result,
         check_result_file_id, na_pending, na_pending_file_id, other_information, other_information_file_id,
         delay_application, is_delay, create_time, create_by,standard_book_file_id,pfmea_file_id,cp_file_id,
-        always_list_file_id, product_number,estimate_close_date,real_close_date,customer_close_date,state_progress
+        always_list_file_id, product_number,estimate_close_date,real_close_date,customer_close_date,state_progress,bad_type
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.takata.dpcoi.rr.domain.RRProblem" >
         select
@@ -406,6 +407,9 @@
             <if test="stateProgress != null" >
                 state_progress,
             </if>
+            <if test="badType != null" >
+                bad_type,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="id != null" >
@@ -660,6 +664,9 @@
             <if test="stateProgress != null" >
                 #{stateProgress,jdbcType=VARCHAR},
             </if>
+            <if test="badType != null" >
+                #{badType,jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.takata.dpcoi.rr.domain.RRProblem" >
@@ -908,6 +915,9 @@
             <if test="stateProgress != null" >
                 state_progress = #{stateProgress,jdbcType=VARCHAR},
             </if>
+            <if test="badType != null" >
+                bad_type = #{badType,jdbcType=VARCHAR},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
@@ -1058,7 +1068,7 @@
         analytic_report_file_id as analyticReportFileId, layered_audit as layeredAudit, layered_audit_file_id as layeredAuditFileId, check_result as checkResult,
         check_result_file_id as checkResultFileId, na_pending as naPending, na_pending_file_id as naPendingFileId, other_information as otherInformation,
         other_information_file_id as otherInformationFileId,standard_book_file_id as standardBookFileId, cp_file_id as cpFileId, pfmea_file_id as pfmeaFileId,
-        always_list_file_id as alwaysListFileId, product_number as productNumber, state_progress as stateProgress
+        always_list_file_id as alwaysListFileId, product_number as productNumber, state_progress as stateProgress, bad_type as badType
         from dpcoi_rr_problem
         <include refid="WHERE_SQL"></include>
         order by id desc limit #{start},#{size}
@@ -1086,7 +1096,7 @@
         analytic_report_file_id as analyticReportFileId, layered_audit as layeredAudit, layered_audit_file_id as layeredAuditFileId, check_result as checkResult,
         check_result_file_id as checkResultFileId, na_pending as naPending, na_pending_file_id as naPendingFileId, other_information as otherInformation,
         other_information_file_id as otherInformationFileId,standard_book_file_id as standardBookFileId, cp_file_id as cpFileId, pfmea_file_id as pfmeaFileId,
-        always_list_file_id as alwaysListFileId, product_number as productNumber, state_progress as stateProgress
+        always_list_file_id as alwaysListFileId, product_number as productNumber, state_progress as stateProgress, bad_type as badType
         from dpcoi_rr_problem
         <include refid="WHERE_SQL"></include>
     </select>
@@ -1116,7 +1126,8 @@
         temporary, root_cause as rootCause, permanent_game as permanentGame, effect_verification as effectVerification, serial_number as serialNumber, quality_warning_card_number as qualityWarningCardNumber,
         product_scale as productScale, pfmea, cp, standard_book as standardBook, equipment_checklist as equipmentChecklist, always_list as alwaysList, inspection_reference_book as inspectionReferenceBook,
         inspection_book as inspectionBook, education, change_point as changePoint, expand_trace as expandTrace, artificial, materiel, state, is_delay as isDelay,
-        standard_book_file_id as standardBookFileId, cp_file_id as cpFileId, pfmea_file_id as pfmeaFileId,always_list_file_id as alwaysListFileId, product_number as productNumber, state_progress as stateProgress
+        standard_book_file_id as standardBookFileId, cp_file_id as cpFileId, pfmea_file_id as pfmeaFileId,always_list_file_id as alwaysListFileId, product_number as productNumber, state_progress as stateProgress,
+        bad_type as badType
         from dpcoi_rr_problem
         where state = 1
         and is_hide = 0

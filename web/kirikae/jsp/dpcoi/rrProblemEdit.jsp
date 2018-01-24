@@ -144,6 +144,16 @@
                         </div>
                         <div class="row">
                             <div class="col-md-3">
+                                <label  class="control-label" for="badType">不良归类：</label>
+                                <select id="badType" name="productNo" class="form-control-order form-control" required="required"
+                                        style="width: 60%">
+                                    <option value="">请选择</option>
+                                    <option ng-repeat="dpcoiConfigDate in rrProblemEdit.dpcoiConfigList | myFilter:15"
+                                            value="{{dpcoiConfigDate.configValue}}" ng-selected="dpcoiConfigDate.configValue==rrProblemEdit.rrProblem.badType"
+                                    >{{dpcoiConfigDate.configValue}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
                                 <label  class="control-label" for="persionLiable"><span style="color:red;">*</span>责任人：</label>
                                 <select id="persionLiable" name="persionLiable" class="form-control-order form-control chosen-select"
                                         required="required" multiple="multiple">
@@ -160,13 +170,13 @@
                                 <input class="form-control-order form-control clean" style="width: 60%" data-type="dateType1"
                                        id="estimateCloseDate" name="estimateCloseDate" ng-model="rrProblemEdit.rrProblem.estimateCloseDateStr">
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="realCloseDate">实际关闭日期：</label>
                                 <input class="form-control-order form-control clean" style="width: 60%" data-type="dateType1"
                                        id="realCloseDate" name="realCloseDate" ng-model="rrProblemEdit.rrProblem.realCloseDateStr">
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="customerCloseDate">客户关闭日期：</label>
                                 <input class="form-control-order form-control clean" style="width: 60%" data-type="dateType1"
@@ -188,13 +198,13 @@
                                        id="reasonForDelay" name="reasonForDelay" ng-model="rrProblemEdit.rrProblem.reasonForDelay"
                                        ng-dblclick="editInput('reasonForDelay')">
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="firstDate">第一次原因调查：</label>
                                 <input class="form-control-order form-control clean" style="width: 60%" ng-disabled="true"
                                        id="firstDate" name="firstDate" ng-model="rrProblemEdit.rrProblem.firstDateStr">
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="secondDate">第二次永久对策制定：</label>
                                 <input class="form-control-order form-control clean" style="width: 50%" ng-disabled="true"
@@ -210,13 +220,13 @@
                                 <input class="form-control-order form-control clean" style="width: 60%" ng-disabled="true"
                                        id="fourthDate" name="fourthDate" ng-model="rrProblemEdit.rrProblem.fourthDateStr">
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="closeConfirm">关闭确认：</label>
                                 <input class="form-control-order form-control clean" style="width: 60%" ng-disabled="true"
                                        id="closeConfirm" name="closeConfirm" ng-model="rrProblemEdit.rrProblem.closeConfirm">
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="productLine"><span style="color:red;">*</span>生产线：</label>
                                 <input class="form-control-order form-control clean" style="width: 60%" required="required" pattern="^([a-zA-Z]{3}\-[0-9][0-9])|(N/A)|(n/A)|(N/a)|(n/a)$"
@@ -242,13 +252,13 @@
                                             >{{dpcoiConfigDate.configValue}}</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="badQuantity"><span style="color:red;">*</span>不良数量：</label>
                                 <input class="form-control-order form-control clean" style="width: 60%" required="required"
                                        id="badQuantity" name="badQuantity" ng-model="rrProblemEdit.rrProblem.badQuantity">
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="batch">批次：</label>
                                 <input class="form-control-order form-control clean" style="width: 60%"
@@ -274,6 +284,8 @@
                                             >{{dpcoiConfigDate.configValue}}</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="recordPpm"><span style="color:red;">*</span>客户是否记录PPM：</label>
                                 <select id="recordPpm" name="recordPpm" class="form-control-order form-control" required="required"
@@ -284,8 +296,6 @@
                                     >{{dpcoiConfigDate.configValue}}</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="recordNum"><span style="color:red;">*</span>记录数量：</label>
                                 <input class="form-control-order form-control clean" style="width: 60%" required="required"
@@ -303,14 +313,14 @@
                                        id="rootCause" name="rootCause" ng-model="rrProblemEdit.rrProblem.rootCause"
                                        ng-dblclick="editInput('rootCause')">
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="permanentGame">永久对策：</label>
                                 <input class="form-control-order form-control clean" style="width: 60%"
                                        id="permanentGame" name="permanentGame" ng-model="rrProblemEdit.rrProblem.permanentGame"
                                        ng-dblclick="editInput('permanentGame')">
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="effectVerification">效果校验：</label>
                                 <input class="form-control-order form-control clean" style="width: 60%"
@@ -331,6 +341,8 @@
                                 <input class="form-control-order form-control clean" style="width: 38%"
                                        id="qualityWarningCardNumber" name="qualityWarningCardNumber" ng-model="rrProblemEdit.rrProblem.qualityWarningCardNumber">
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="productScale">品推表编号：</label>
                                 <input type="button" ng-click="uploadFile('productScale','productScaleFileId')" value="上传文件">
@@ -338,8 +350,6 @@
                                 <input class="form-control-order form-control clean" style="width: 45%"
                                        id="productScale" name="productScale" ng-model="rrProblemEdit.rrProblem.productScale">
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="pfmea">PFMEA：</label>
                                 <input type="button" ng-click="uploadFile('pfmea','pfmeaFileId')" value="上传文件">
@@ -361,6 +371,8 @@
                                 <input class="form-control-order form-control clean" style="width: 60%"
                                        id="standardBook" name="standardBook" ng-model="rrProblemEdit.rrProblem.standardBook">
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="equipmentChecklist">设备点检表：</label>
                                 <input type="button" ng-click="uploadFile('equipmentChecklist','equipmentChecklistFileId')" value="上传文件">
@@ -368,8 +380,6 @@
                                 <input class="form-control-order form-control clean" style="width: 45%"
                                        id="equipmentChecklist" name="equipmentChecklist" ng-model="rrProblemEdit.rrProblem.equipmentChecklist">
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="alwaysList">始终件表：</label>
                                 <input type="button" ng-click="uploadFile('alwaysList','alwaysListFileId')" value="上传文件">
@@ -391,6 +401,8 @@
                                 <input class="form-control-order form-control clean" style="width: 45%"
                                        id="inspectionBook" name="inspectionBook" ng-model="rrProblemEdit.rrProblem.inspectionBook">
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="education">教育议事录：</label>
                                 <input type="button" ng-click="uploadFile('education','educationFileId')" value="上传文件">
@@ -398,8 +410,6 @@
                                 <input class="form-control-order form-control clean" style="width: 45%"
                                        id="education" name="education" ng-model="rrProblemEdit.rrProblem.education">
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="changePoint">变化点管理：</label>
                                 <input class="form-control-order form-control clean" style="width: 60%"
@@ -419,6 +429,8 @@
                                 <input class="form-control-order form-control clean" style="width: 45%"
                                        id="layeredAudit" name="layeredAudit" ng-model="rrProblemEdit.rrProblem.layeredAudit">
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="checkResult">验岗结果：</label>
                                 <input type="button" ng-click="uploadFile('checkResult','checkResultFileId')" value="上传文件">
@@ -426,8 +438,6 @@
                                 <input class="form-control-order form-control clean" style="width: 45%"
                                        id="checkResult" name="checkResult" ng-model="rrProblemEdit.rrProblem.checkResult">
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="naPending">NA待定：</label>
                                 <input type="button" ng-click="uploadFile('naPending','naPendingFileId')" value="上传文件">
@@ -505,5 +515,5 @@
     </div>
 </div>
 </body>
-<script src="<%=request.getContextPath()%>/kirikae/js/dpcoi/rrProblemEdit.js?version=5"></script>
+<script src="<%=request.getContextPath()%>/kirikae/js/dpcoi/rrProblemEdit.js?version=6"></script>
 </html>
