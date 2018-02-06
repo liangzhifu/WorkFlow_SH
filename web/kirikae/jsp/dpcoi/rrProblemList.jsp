@@ -261,6 +261,10 @@
                             <i class="icon-edit icon-on-right bigger-110"></i>作废
                         </button>
                         &nbsp;&nbsp;&nbsp;
+                        <button class="btn btn-small btn-purple" type="button" id="rrProblemToVoidRestore">
+                            <i class="icon-edit icon-on-right bigger-110"></i>作废还原
+                        </button>
+                        &nbsp;&nbsp;&nbsp;
                         <button class="btn btn-small btn-purple" type="button" id="rrProblemDown">
                             <i class="icon-save-file icon-on-right bigger-110"></i>导出
                         </button>
@@ -271,6 +275,10 @@
                         &nbsp;&nbsp;&nbsp;
                         <button class="btn btn-small btn-purple" type="button" id="rrProblemDelay">
                             <i class="icon-save-file icon-on-right bigger-110"></i>延期
+                        </button>
+                        &nbsp;&nbsp;&nbsp;
+                        <button class="btn btn-small btn-purple" type="button" id="rrProblemDelayRestore">
+                            <i class="icon-save-file icon-on-right bigger-110"></i>延期还原
                         </button>
                         &nbsp;&nbsp;&nbsp;
                         <button class="btn btn-small btn-purple" type="button" id="rrProblemHide" ng-hide="rrProblemList.ministerJurisdiction == 0">
@@ -350,7 +358,9 @@
                         <!--<th width="400px" class="x-grid3-header" style="padding: 0px">展开及追踪是否完成</th>
                         <th width="400px" class="x-grid3-header" style="padding: 0px">人工</th>
                         <th width="400px" class="x-grid3-header" style="padding: 0px">物料</th>-->
-                        <th width="400px" class="x-grid3-header" style="padding: 0px" ng-hide="rrProblemList.ministerJurisdiction == 0">是否隐藏</th>
+                        <th width="80px" class="x-grid3-header" style="padding: 0px" ng-hide="rrProblemList.ministerJurisdiction == 0">是否隐藏</th>
+                        <th width="80px" class="x-grid3-header" style="padding: 0px">是否延期</th>
+                        <th width="80px" class="x-grid3-header" style="padding: 0px">其否作废</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -505,6 +515,14 @@
                             <span ng-show="rrProblemDate.isHide == 1">是</span>
                             <span ng-show="rrProblemDate.isHide == 0">否</span>
                         </td>
+                        <td ng-class="{'claasRed': rrProblemDate.isRed, 'classGoldenRod': rrProblemDate.isGoldenRod, 'classYellow': rrProblemDate.isYellow, 'cassDeepSkyBlue': rrProblemDate.isDeepSkyBlue}" style="white-space:normal;padding: 0px;display:table-cell; vertical-align:middle;">
+                            <span ng-show="rrProblemDate.isDelay == 1">是</span>
+                            <span ng-show="rrProblemDate.isDelay == 0">否</span>
+                        </td>
+                        <td ng-class="{'claasRed': rrProblemDate.isRed, 'classGoldenRod': rrProblemDate.isGoldenRod, 'classYellow': rrProblemDate.isYellow, 'cassDeepSkyBlue': rrProblemDate.isDeepSkyBlue}" style="white-space:normal;padding: 0px;display:table-cell; vertical-align:middle;">
+                            <span ng-show="rrProblemDate.isVoid == 1">是</span>
+                            <span ng-show="rrProblemDate.isVoid == 0">否</span>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -588,5 +606,5 @@
     </form>
 </div>
 </body>
-<script src="<%=request.getContextPath()%>/kirikae/js/dpcoi/rrProblemList.js?version=4"></script>
+<script src="<%=request.getContextPath()%>/kirikae/js/dpcoi/rrProblemList.js?version=5"></script>
 </html>

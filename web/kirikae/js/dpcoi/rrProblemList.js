@@ -298,23 +298,26 @@ rrProblemListApp.controller("rrProblemListController", function ($scope) {
         $("input[name='checkbox_records']:checked").each(function () {
             id = $(this).val();
         });
-        $.ajax({
-            url : BASE_URL+'/rrProblem/closeRRProblem.do?id='+id,
-            method: "post",
-            success : function(resultJson) {
-                var obj =  angular.fromJson(resultJson);
-                if(obj.success){
-                    $scope.rrProblemList.firstPage();
-                }else {
-                    alert(obj.message);
+        var con = confirm("确认关闭RR问题点！");
+        if (con == true) {
+            $.ajax({
+                url: BASE_URL + '/rrProblem/closeRRProblem.do?id=' + id,
+                method: "post",
+                success: function (resultJson) {
+                    var obj = angular.fromJson(resultJson);
+                    if (obj.success) {
+                        $scope.rrProblemList.firstPage();
+                    } else {
+                        alert(obj.message);
+                        return;
+                    }
+                },
+                failure: function () {
+                    alert('失败！');
                     return;
                 }
-            },
-            failure : function() {
-                alert('失败！');
-                return;
-            }
-        });
+            });
+        }
     });
 
     $("#rrProblemDelay").click(function () {
@@ -331,24 +334,73 @@ rrProblemListApp.controller("rrProblemListController", function ($scope) {
         $("input[name='checkbox_records']:checked").each(function () {
             id = $(this).val();
         });
-        $.ajax({
-            url : BASE_URL+'/rrProblem/delayRRProblem.do?id='+id,
-            method: "post",
-            success : function(resultJson) {
-                var obj =  angular.fromJson(resultJson);
-                if(obj.success){
-                    $scope.rrProblemList.firstPage();
-                }else {
-                    alert(obj.message);
+        var con = confirm("确认延期RR问题点！");
+        if (con == true) {
+            $.ajax({
+                url: BASE_URL + '/rrProblem/delayRRProblem.do?id=' + id,
+                method: "post",
+                success: function (resultJson) {
+                    var obj = angular.fromJson(resultJson);
+                    if (obj.success) {
+                        $scope.rrProblemList.firstPage();
+                    } else {
+                        alert(obj.message);
+                        return;
+                    }
+                },
+                failure: function () {
+                    alert('失败！');
                     return;
                 }
-            },
-            failure : function() {
-                alert('失败！');
-                return;
-            }
-        });
+            });
+        }
     });
+
+    $("#rrProblemDelayRestore").click(function () {
+        if($scope.rrProblemList.ministerJurisdiction == 0){
+            alert("你没有部长权限！");
+            return;
+        }
+        var length = $("input[name='checkbox_records']:checked").length;
+        if(length == 0 || length > 1){
+            alert("请选择一条RR问题点！");
+            return ;
+        }
+        var id;
+        $("input[name='checkbox_records']:checked").each(function () {
+            id = $(this).val();
+        });
+        for(var i = 0; i < $scope.rrProblemList.rrProblemList.length; i++){
+            if($scope.rrProblemList.rrProblemList[i].id == id){
+                if($scope.rrProblemList.rrProblemList[i].isDelay == 0){
+                    alert("该RR问题点不是延期单，不能还原！");
+                    return;
+                }
+            }
+        }
+        var con = confirm("确认还原已延期的RR问题点！");
+        if (con == true) {
+            $.ajax({
+                url: BASE_URL + '/rrProblem/delayRRProblemRestore.do?id=' + id,
+                method: "post",
+                success: function (resultJson) {
+                    var obj = angular.fromJson(resultJson);
+                    if (obj.success) {
+                        $scope.rrProblemList.firstPage();
+                    } else {
+                        alert(obj.message);
+                        return;
+                    }
+                },
+                failure: function () {
+                    alert('失败！');
+                    return;
+                }
+            });
+        }
+    });
+
+
     $("#rrProblemHide").click(function () {
         if($scope.rrProblemList.ministerJurisdiction == 0){
             alert("你没有部长权限！");
@@ -363,24 +415,28 @@ rrProblemListApp.controller("rrProblemListController", function ($scope) {
         $("input[name='checkbox_records']:checked").each(function () {
             id = $(this).val();
         });
-        $.ajax({
-            url : BASE_URL+'/rrProblem/hideRRProblem.do?id='+id,
-            method: "post",
-            success : function(resultJson) {
-                var obj =  angular.fromJson(resultJson);
-                if(obj.success){
-                    $scope.rrProblemList.firstPage();
-                }else {
-                    alert(obj.message);
+        var con = confirm("确认隐藏RR问题点！");
+        if (con == true) {
+            $.ajax({
+                url: BASE_URL + '/rrProblem/hideRRProblem.do?id=' + id,
+                method: "post",
+                success: function (resultJson) {
+                    var obj = angular.fromJson(resultJson);
+                    if (obj.success) {
+                        $scope.rrProblemList.firstPage();
+                    } else {
+                        alert(obj.message);
+                        return;
+                    }
+                },
+                failure: function () {
+                    alert('失败！');
                     return;
                 }
-            },
-            failure : function() {
-                alert('失败！');
-                return;
-            }
-        });
+            });
+        }
     });
+
     $("#rrProblemCancleHide").click(function () {
         if($scope.rrProblemList.ministerJurisdiction == 0){
             alert("你没有部长权限！");
@@ -395,23 +451,26 @@ rrProblemListApp.controller("rrProblemListController", function ($scope) {
         $("input[name='checkbox_records']:checked").each(function () {
             id = $(this).val();
         });
-        $.ajax({
-            url : BASE_URL+'/rrProblem/cancleHideRRProblem.do?id='+id,
-            method: "post",
-            success : function(resultJson) {
-                var obj =  angular.fromJson(resultJson);
-                if(obj.success){
-                    $scope.rrProblemList.firstPage();
-                }else {
-                    alert(obj.message);
+        var con = confirm("确认取消隐藏的RR问题点！");
+        if (con == true) {
+            $.ajax({
+                url: BASE_URL + '/rrProblem/cancleHideRRProblem.do?id=' + id,
+                method: "post",
+                success: function (resultJson) {
+                    var obj = angular.fromJson(resultJson);
+                    if (obj.success) {
+                        $scope.rrProblemList.firstPage();
+                    } else {
+                        alert(obj.message);
+                        return;
+                    }
+                },
+                failure: function () {
+                    alert('失败！');
                     return;
                 }
-            },
-            failure : function() {
-                alert('失败！');
-                return;
-            }
-        });
+            });
+        }
     });
 
     $("#rrProblemToVoid").click(function () {
@@ -432,6 +491,50 @@ rrProblemListApp.controller("rrProblemListController", function ($scope) {
         if (con == true){
             $.ajax({
                 url : BASE_URL+'/rrProblem/toVoidRRProblem.do?id='+id,
+                method: "post",
+                success : function(resultJson) {
+                    var obj =  angular.fromJson(resultJson);
+                    if(obj.success){
+                        $scope.rrProblemList.firstPage();
+                    }else {
+                        alert(obj.message);
+                        return;
+                    }
+                },
+                failure : function() {
+                    alert('失败！');
+                    return;
+                }
+            });
+        }
+    });
+
+    $("#rrProblemToVoidRestore").click(function () {
+        if($scope.rrProblemList.ministerJurisdiction == 0){
+            alert("你没有部长权限！");
+            return;
+        }
+        var length = $("input[name='checkbox_records']:checked").length;
+        if(length == 0 || length > 1){
+            alert("请选择一条RR问题点！");
+            return ;
+        }
+        var id;
+        $("input[name='checkbox_records']:checked").each(function () {
+            id = $(this).val();
+        });
+        for(var i = 0; i < $scope.rrProblemList.rrProblemList.length; i++){
+            if($scope.rrProblemList.rrProblemList[i].id == id){
+                if($scope.rrProblemList.rrProblemList[i].isVoid == 0){
+                    alert("该RR问题点不是作废单，不能还原！");
+                    return;
+                }
+            }
+        }
+        var con = confirm("确认还原已作废的RR问题点！")
+        if (con == true){
+            $.ajax({
+                url : BASE_URL+'/rrProblem/toVoidRRProblemRestore.do?id='+id,
                 method: "post",
                 success : function(resultJson) {
                     var obj =  angular.fromJson(resultJson);

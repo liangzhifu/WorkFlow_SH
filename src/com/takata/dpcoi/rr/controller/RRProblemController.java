@@ -516,6 +516,35 @@ public class RRProblemController {
     }
 
     /**
+     * 还原已作废RR问题点
+     * @param rrProblem 参数
+     */
+    @RequestMapping("toVoidRRProblemRestore.do")
+    @ResponseBody
+    public Object toVoidRRProblemRestore(RRProblem rrProblem){
+        Map<String, Object> map = new HashMap<String, Object>();
+        try{
+            RRProblem newRRProblem = this.rRProblemService.queryRRProblem(rrProblem);
+            Integer state = newRRProblem.getState();
+            if(state == 2){
+                throw new Exception("RR问题点已关闭，不能还原！");
+            }else {
+                newRRProblem.setState(1);
+                newRRProblem.setCloseConfirm(" ");
+                this.rRProblemService.updateSpeedOfProgress(newRRProblem);
+                this.rRProblemService.updateTrackingLevel(newRRProblem);
+                this.rRProblemService.updateRRProblem(newRRProblem);
+            }
+            map.put("success", true);
+        }catch (Exception e){
+            e.printStackTrace();
+            map.put("success", false);
+            map.put("message", e.getMessage());
+        }
+        return map;
+    }
+
+    /**
      * RR问题点延期
      * @param response 参数
      * @param rrProblem 参数
@@ -534,6 +563,38 @@ public class RRProblemController {
             }else{
                 rrProblem.setCloseConfirm("延期");
                 rrProblem.setIsDelay(1);
+                this.rRProblemService.updateTrackingLevel(rrProblem);
+                this.rRProblemService.updateRRProblem(rrProblem);
+            }
+            map.put("success", true);
+        }catch (Exception e){
+            e.printStackTrace();
+            map.put("success", false);
+            map.put("message", e.getMessage());
+        }
+        return map;
+    }
+
+
+    /**
+     * RR问题点延期还原
+     * @param response 参数
+     * @param rrProblem 参数
+     */
+    @RequestMapping("delayRRProblemRestore.do")
+    @ResponseBody
+    public Object delayRRProblemRestore(HttpServletResponse response, RRProblem rrProblem){
+        Map<String, Object> map = new HashMap<String, Object>();
+        try{
+            rrProblem = this.rRProblemService.queryRRProblem(rrProblem);
+            Integer state = rrProblem.getState();
+            if(state == 2){
+                throw new Exception("RR问题点已关闭，不能还原！");
+            }else if(state == 3){
+                throw new Exception("RR问题点已作废，不能还原！");
+            }else{
+                rrProblem.setCloseConfirm(" ");
+                rrProblem.setIsDelay(0);
                 this.rRProblemService.updateTrackingLevel(rrProblem);
                 this.rRProblemService.updateRRProblem(rrProblem);
             }

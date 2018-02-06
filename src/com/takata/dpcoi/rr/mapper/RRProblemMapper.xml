@@ -1068,7 +1068,8 @@
         analytic_report_file_id as analyticReportFileId, layered_audit as layeredAudit, layered_audit_file_id as layeredAuditFileId, check_result as checkResult,
         check_result_file_id as checkResultFileId, na_pending as naPending, na_pending_file_id as naPendingFileId, other_information as otherInformation,
         other_information_file_id as otherInformationFileId,standard_book_file_id as standardBookFileId, cp_file_id as cpFileId, pfmea_file_id as pfmeaFileId,
-        always_list_file_id as alwaysListFileId, product_number as productNumber, state_progress as stateProgress, bad_type as badType
+        always_list_file_id as alwaysListFileId, product_number as productNumber, state_progress as stateProgress, bad_type as badType,
+        (case when state = 3 then 1 else 0 end) as isVoid
         from dpcoi_rr_problem
         <include refid="WHERE_SQL"></include>
         order by id desc limit #{start},#{size}
