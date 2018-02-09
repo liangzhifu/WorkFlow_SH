@@ -589,6 +589,11 @@ public class RRProblemServiceImpl implements RRProblemService {
         }
     }
 
+    @Override
+    public void updateByPrimaryKey(RRProblem rrProblem) throws Exception {
+        this.rRProblemDao.updateByPrimaryKey(rrProblem);
+    }
+
 
     /**
      * 计算公式

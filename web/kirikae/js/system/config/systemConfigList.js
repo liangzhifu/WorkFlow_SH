@@ -59,23 +59,43 @@ systemConfigListApp.controller("systemConfigListController", function ($scope) {
     };
 
     $scope.deleteSystemConfig = function (id) {
-        var con = confirm("确定删除！");
-        if (con == true){
-            $.ajax({
-                method: 'post',
-                url: BASE_URL + "/system/config/delete.do",
-                data: {"id" : id},
-                async: false,
-                success: function (resultJson) {
-                    var result = angular.fromJson(resultJson);
-                    if (result.success) {
-                        $scope.pageTool.search();
-                    } else {
-                        alert(result.mesage);
+        $.ajax({
+            method: 'post',
+            url: BASE_URL + "/dpcoiConfigVehicle/getDpcoiConfigVehicleList.do",
+            data: {"configId" : id},
+            async: false,
+            success: function (resultJson) {
+                var result = angular.fromJson(resultJson);
+                if (result.success) {
+                    var dpcoiConfigVehicleList = result.dpcoiConfigVehicleList;
+                    var str = "";
+                    if(dpcoiConfigVehicleList == undefined || dpcoiConfigVehicleList == null || dpcoiConfigVehicleList.length == 0){
+                        str = "确定删除下拉菜单！";
+                    }else {
+                        str = "客户有关联车型，确定删除客户！";
                     }
+                    var con = confirm(str);
+                    if (con == true){
+                        $.ajax({
+                            method: 'post',
+                            url: BASE_URL + "/system/config/delete.do",
+                            data: {"id" : id},
+                            async: false,
+                            success: function (resultJson) {
+                                var result = angular.fromJson(resultJson);
+                                if (result.success) {
+                                    $scope.pageTool.search();
+                                } else {
+                                    alert(result.mesage);
+                                }
+                            }
+                        });
+                    }
+                } else {
+                    alert(result.mesage);
                 }
-            });
-        }
+            }
+        });
     };
 
     $scope.systemConfig = {};

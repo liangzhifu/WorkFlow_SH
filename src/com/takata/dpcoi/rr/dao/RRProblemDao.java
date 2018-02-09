@@ -38,6 +38,15 @@ public class RRProblemDao extends SqlDao {
     }
 
     /**
+     * 更新RR问题点
+     * @param rrProblem RR问题点
+     * @return 返回结果
+     */
+    public Integer updateByPrimaryKey(RRProblem rrProblem){
+        return this.writerSqlSession.update("RRProblemMapper.updateByPrimaryKey", rrProblem);
+    }
+
+    /**
      * 查询RR问题点
      * @param rrProblem RR问题点
      * @return 返回结果

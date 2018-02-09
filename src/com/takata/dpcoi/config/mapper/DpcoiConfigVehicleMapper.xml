@@ -84,6 +84,7 @@
         <where>
             dcv.`config_id` = config.`id`
             and dcv.`delete_state` = '0'
+            and config.`delete_state` = '0'
             <if test="configId != null and configId != ''">
                 and dcv.`config_id` = #{configId,jdbcType=INTEGER}
             </if>

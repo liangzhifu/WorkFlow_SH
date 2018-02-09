@@ -152,4 +152,12 @@ public interface RRProblemService {
      * @throws Exception 异常
      */
     void addEmailByProblemProgress(RRProblem rrProblem) throws Exception;
+
+    /**
+     * 更新RR问题点
+     * @param rrProblem RR问题点实体
+     * @throws Exception 异常
+     */
+    void updateByPrimaryKey(RRProblem rrProblem) throws Exception;
+
 }

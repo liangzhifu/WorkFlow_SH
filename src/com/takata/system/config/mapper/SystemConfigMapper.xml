@@ -114,6 +114,7 @@
         scc.`config_code_name` AS configCodeName
         FROM system_config sc, system_config_code scc
         <include refid="WHERE_SQL"></include>
+        ORDER BY scc.`id`,sc.`config_value`
         LIMIT #{start,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}
     </select>
 

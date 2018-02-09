@@ -134,5 +134,5 @@
 </div>
 
 </body>
-<script src="<%=request.getContextPath()%>/kirikae/js/system/config/systemConfigList.js"></script>
+<script src="<%=request.getContextPath()%>/kirikae/js/system/config/systemConfigList.js?version=2"></script>
 </html>

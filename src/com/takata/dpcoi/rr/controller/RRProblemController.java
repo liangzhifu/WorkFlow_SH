@@ -329,6 +329,7 @@ public class RRProblemController {
                 }
             }
             this.rRProblemService.updateRRProblem(rrProblem);
+            this.rRProblemService.updateByPrimaryKey(rrProblem);
             String trackingLevel = rrProblem.getTrackingLevel();
             if(!"V".equals(trackingLevel)){
                 map.put("message", "已超期！");
@@ -410,6 +411,7 @@ public class RRProblemController {
                 }
             }
             this.rRProblemService.updateRRProblem(rrProblem);
+            this.rRProblemService.updateByPrimaryKey(rrProblem);
             this.rRProblemService.addSendMinisterEmail(rrProblem);
             this.rRProblemService.addEmailByProblemProgress(rrProblem);
             map.put("success", true);
