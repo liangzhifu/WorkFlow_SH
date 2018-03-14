@@ -167,20 +167,20 @@
                             </div>
                             <div class="col-md-3">
                                 <label  class="control-label" for="estimateCloseDate">预计关闭日期：</label>
-                                <input class="form-control-order form-control clean" style="width: 60%" data-type="dateType1"
-                                       id="estimateCloseDate" name="estimateCloseDate" ng-model="rrProblemEdit.rrProblem.estimateCloseDateStr">
+                                <input class="form-control-order form-control clean" style="width: 60%" data-type="dateType4"
+                                       id="estimateCloseDate" name="estimateCloseDate" ng-model="rrProblemEdit.rrProblem.estimateCloseDate">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3">
                                 <label  class="control-label" for="realCloseDate">实际关闭日期：</label>
-                                <input class="form-control-order form-control clean" style="width: 60%" data-type="dateType1"
-                                       id="realCloseDate" name="realCloseDate" ng-model="rrProblemEdit.rrProblem.realCloseDateStr">
+                                <input class="form-control-order form-control clean" style="width: 60%" data-type="dateType4"
+                                       id="realCloseDate" name="realCloseDate" ng-model="rrProblemEdit.rrProblem.realCloseDate">
                             </div>
                             <div class="col-md-3">
                                 <label  class="control-label" for="customerCloseDate">客户关闭日期：</label>
-                                <input class="form-control-order form-control clean" style="width: 60%" data-type="dateType1"
-                                       id="customerCloseDate" name="customerCloseDate" ng-model="rrProblemEdit.rrProblem.customerCloseDateStr">
+                                <input class="form-control-order form-control clean" style="width: 60%" data-type="dateType4"
+                                       id="customerCloseDate" name="customerCloseDate" ng-model="rrProblemEdit.rrProblem.customerCloseDate">
                             </div>
                             <div class="col-md-3">
                                 <label  class="control-label" for="dpcoi4M">4M：</label>

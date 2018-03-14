@@ -193,20 +193,11 @@ public class RRProblem {
 
     private Integer createBy;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    private Date estimateCloseDate;
+    private String estimateCloseDate;
 
-    private String estimateCloseDateStr;
+    private String realCloseDate;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    private Date realCloseDate;
-
-    private String realCloseDateStr;
-
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    private Date customerCloseDate;
-
-    private String customerCloseDateStr;
+    private String customerCloseDate;
 
     private String stateProgress;
 
@@ -908,57 +899,6 @@ public class RRProblem {
         this.productNumber = productNumber;
     }
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    public Date getEstimateCloseDate() {
-        return estimateCloseDate;
-    }
-
-    public void setEstimateCloseDate(Date estimateCloseDate) {
-        this.estimateCloseDate = estimateCloseDate;
-    }
-
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    public Date getRealCloseDate() {
-        return realCloseDate;
-    }
-
-    public void setRealCloseDate(Date realCloseDate) {
-        this.realCloseDate = realCloseDate;
-    }
-
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    public Date getCustomerCloseDate() {
-        return customerCloseDate;
-    }
-
-    public void setCustomerCloseDate(Date customerCloseDate) {
-        this.customerCloseDate = customerCloseDate;
-    }
-
-    public String getEstimateCloseDateStr() {
-        return estimateCloseDateStr;
-    }
-
-    public void setEstimateCloseDateStr(String estimateCloseDateStr) {
-        this.estimateCloseDateStr = estimateCloseDateStr;
-    }
-
-    public String getRealCloseDateStr() {
-        return realCloseDateStr;
-    }
-
-    public void setRealCloseDateStr(String realCloseDateStr) {
-        this.realCloseDateStr = realCloseDateStr;
-    }
-
-    public String getCustomerCloseDateStr() {
-        return customerCloseDateStr;
-    }
-
-    public void setCustomerCloseDateStr(String customerCloseDateStr) {
-        this.customerCloseDateStr = customerCloseDateStr;
-    }
-
     public String getStateProgress() {
         return stateProgress;
     }
@@ -973,5 +913,29 @@ public class RRProblem {
 
     public void setBadType(String badType) {
         this.badType = badType;
+    }
+
+    public String getEstimateCloseDate() {
+        return estimateCloseDate;
+    }
+
+    public void setEstimateCloseDate(String estimateCloseDate) {
+        this.estimateCloseDate = estimateCloseDate;
+    }
+
+    public String getRealCloseDate() {
+        return realCloseDate;
+    }
+
+    public void setRealCloseDate(String realCloseDate) {
+        this.realCloseDate = realCloseDate;
+    }
+
+    public String getCustomerCloseDate() {
+        return customerCloseDate;
+    }
+
+    public void setCustomerCloseDate(String customerCloseDate) {
+        this.customerCloseDate = customerCloseDate;
     }
 }

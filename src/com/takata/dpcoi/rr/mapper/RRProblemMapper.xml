@@ -82,9 +82,9 @@
         <result column="cp_file_id" property="cpFileId" jdbcType="INTEGER" />
         <result column="standard_book_file_id" property="standardBookFileId" jdbcType="INTEGER" />
         <result column="product_number" property="productNumber" jdbcType="VARCHAR" />
-        <result column="estimate_close_date" property="estimateCloseDate" jdbcType="DATE" />
-        <result column="real_close_date" property="realCloseDate" jdbcType="DATE" />
-        <result column="customer_close_date" property="customerCloseDate" jdbcType="DATE" />
+        <result column="estimate_close_date" property="estimateCloseDate" jdbcType="VARCHAR" />
+        <result column="real_close_date" property="realCloseDate" jdbcType="VARCHAR" />
+        <result column="customer_close_date" property="customerCloseDate" jdbcType="VARCHAR" />
         <result column="state_progress" property="stateProgress" jdbcType="VARCHAR" />
         <result column="bad_type" property="badType" jdbcType="VARCHAR" />
     </resultMap>
@@ -904,13 +904,13 @@
                 product_number = #{productNumber,jdbcType=VARCHAR},
             </if>
             <if test="estimateCloseDate != null" >
-                estimate_close_date = #{estimateCloseDate,jdbcType=DATE},
+                estimate_close_date = #{estimateCloseDate,jdbcType=VARCHAR},
             </if>
             <if test="realCloseDate != null" >
-                real_close_date = #{realCloseDate,jdbcType=DATE},
+                real_close_date = #{realCloseDate,jdbcType=VARCHAR},
             </if>
             <if test="customerCloseDate != null" >
-                customer_close_date = #{customerCloseDate,jdbcType=DATE},
+                customer_close_date = #{customerCloseDate,jdbcType=VARCHAR},
             </if>
             <if test="stateProgress != null" >
                 state_progress = #{stateProgress,jdbcType=VARCHAR},
@@ -923,9 +923,9 @@
     </update>
     <update id="updateByPrimaryKey" parameterType="com.takata.dpcoi.rr.domain.RRProblem" >
         update dpcoi_rr_problem
-        set estimate_close_date = #{estimateCloseDate,jdbcType=DATE},
-        real_close_date = #{realCloseDate,jdbcType=DATE},
-        customer_close_date = #{customerCloseDate,jdbcType=DATE}
+        set estimate_close_date = #{estimateCloseDate,jdbcType=VARCHAR},
+        real_close_date = #{realCloseDate,jdbcType=VARCHAR},
+        customer_close_date = #{customerCloseDate,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
 

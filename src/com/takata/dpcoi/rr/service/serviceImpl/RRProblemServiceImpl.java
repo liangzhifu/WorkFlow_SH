@@ -185,21 +185,6 @@ public class RRProblemServiceImpl implements RRProblemService {
         rrProblem.setSecondDateStr(formatter.format(rrProblem.getSecondDate()));
         rrProblem.setThirdDateStr(formatter.format(rrProblem.getThirdDate()));
         rrProblem.setFourthDateStr(formatter.format(rrProblem.getFourthDate()));
-        if(rrProblem.getEstimateCloseDate() == null){
-            rrProblem.setEstimateCloseDateStr("");
-        }else {
-            rrProblem.setEstimateCloseDateStr(formatter.format(rrProblem.getEstimateCloseDate()));
-        }
-        if(rrProblem.getRealCloseDate() == null){
-            rrProblem.setRealCloseDateStr("");
-        }else {
-            rrProblem.setRealCloseDateStr(formatter.format(rrProblem.getRealCloseDate()));
-        }
-        if(rrProblem.getCustomerCloseDate() == null){
-            rrProblem.setCustomerCloseDateStr("");
-        }else {
-            rrProblem.setCustomerCloseDateStr(formatter.format(rrProblem.getCustomerCloseDate()));
-        }
         return rrProblem;
     }
 

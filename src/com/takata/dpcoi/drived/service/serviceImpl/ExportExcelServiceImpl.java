@@ -445,42 +445,33 @@ public class ExportExcelServiceImpl implements ExportExcelService {
             cell.setCellValue(text);
 
             //预计关闭日期
-            Date estimateCloseDate = (Date)map.get("estimateCloseDate");
-            String estimateCloseDateStr;
-            if(estimateCloseDate == null){
-                estimateCloseDateStr = "";
-            }else {
-                estimateCloseDateStr = sdf.format(estimateCloseDate);
+            String estimateCloseDate = (String)map.get("estimateCloseDate");
+            if (estimateCloseDate == null) {
+                estimateCloseDate = "";
             }
             cell = row.createCell(55);
             cell.setCellStyle(style);
-            text = new HSSFRichTextString(estimateCloseDateStr);
+            text = new HSSFRichTextString(estimateCloseDate);
             cell.setCellValue(text);
 
             //实际关闭日期
-            Date realCloseDate = (Date)map.get("realCloseDate");
-            String realCloseDateStr;
-            if(realCloseDate == null){
-                realCloseDateStr = "";
-            }else {
-                realCloseDateStr = sdf.format(realCloseDate);
+            String realCloseDate = (String)map.get("realCloseDate");
+            if (realCloseDate == null) {
+                realCloseDate = "";
             }
             cell = row.createCell(56);
             cell.setCellStyle(style);
-            text = new HSSFRichTextString(realCloseDateStr);
+            text = new HSSFRichTextString(realCloseDate);
             cell.setCellValue(text);
 
             //客户关闭日期
-            Date customerCloseDate = (Date)map.get("customerCloseDate");
-            String customerCloseDateStr;
-            if(customerCloseDate == null){
-                customerCloseDateStr = "";
-            }else {
-                customerCloseDateStr = sdf.format(customerCloseDate);
+            String customerCloseDate = (String)map.get("customerCloseDate");
+            if (customerCloseDate == null) {
+                customerCloseDate = "";
             }
             cell = row.createCell(57);
             cell.setCellStyle(style);
-            text = new HSSFRichTextString(customerCloseDateStr);
+            text = new HSSFRichTextString(customerCloseDate);
             cell.setCellValue(text);
 
             //进展状态

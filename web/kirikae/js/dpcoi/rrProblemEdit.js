@@ -110,11 +110,8 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
         "isDelay" : "0",
         "delayApplication" : "0",
         "estimateCloseDate":"",
-        "estimateCloseDateStr":"",
         "realCloseDate":"",
-        "realCloseDateStr":"",
         "customerCloseDate":"",
-        "customerCloseDateStr":"",
         "stateProgress":"",
         "badType":""
     };
@@ -559,7 +556,14 @@ rrProblemEditApp.controller("rrProblemEditController", function ($scope) {
                 format: 'Y-m-d'
             });
         });
-
+        $("input[data-type='dateType4']").each(function () {
+            $(this).datetimepicker({
+                timepicker: false,
+                showApplyButton: true,
+                applyButtonName: 'N/A',
+                format: 'Y-m-d'
+            });
+        });
         $scope.showVehicle();
 
     });
