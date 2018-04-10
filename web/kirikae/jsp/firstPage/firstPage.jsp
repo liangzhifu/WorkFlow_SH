@@ -10,7 +10,7 @@
 </head>
 <body>
 <div id="Layer1" style="position:absolute; width:99%; height:98%; z-index:-1">
-    <img src="<%=request.getContextPath()%>/images/welcome.jpg" height="100%" width="100%"/>
+    <img src="<%=request.getContextPath()%>/images/welcome2.jpg" height="100%" width="100%"/>
 </div>
 </body>
 </html>

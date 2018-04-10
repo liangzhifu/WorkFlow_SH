@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>高田汽配工作流系统Web主页面</title>
+    <title>均胜工作流系统Web主页面</title>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/kirikae/third/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="<%=request.getContextPath()%>/kirikae/style/common/common.css" />
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/kirikae/style/mainframe/mainframe.css">
