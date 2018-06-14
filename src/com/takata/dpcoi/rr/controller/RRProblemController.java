@@ -288,55 +288,59 @@ public class RRProblemController {
             String oldChangePoint = oldRRProblem.getChangePoint();
             String oldTrackingLevel = oldRRProblem.getTrackingLevel();
             String oldSpeedOfProgress = rrProblem.getSpeedOfProgress();
-            String changePoint = rrProblem.getChangePoint();
-            changePoint = changePoint.toUpperCase();
-            rrProblem.setChangePoint(changePoint);
-            if(changePoint == null || "".equals(changePoint)){
-                if(!(oldChangePoint == null || "".equals(oldChangePoint))){
-                    throw new Exception("变化点管理已有值，不可修改为空！");
-                }
-            }else if("N/A".equals(changePoint)){
-                if(oldChangePoint == null || "".equals(oldChangePoint)){
+            if ("close".equals(oldSpeedOfProgress)){
+                this.rRProblemService.updateRRProblem(rrProblem);
+            } else {
+                String changePoint = rrProblem.getChangePoint();
+                changePoint = changePoint.toUpperCase();
+                rrProblem.setChangePoint(changePoint);
+                if(changePoint == null || "".equals(changePoint)){
+                    if(!(oldChangePoint == null || "".equals(oldChangePoint))){
+                        throw new Exception("变化点管理已有值，不可修改为空！");
+                    }
+                }else if("N/A".equals(changePoint)){
+                    if(oldChangePoint == null || "".equals(oldChangePoint)){
 
+                    }else {
+                        if(!("N/A".equals(oldChangePoint))){
+                            throw new Exception("变化点管理原有值不是N/A，不能修改为N/A！");
+                        }
+                    }
                 }else {
-                    if(!("N/A".equals(oldChangePoint))){
-                        throw new Exception("变化点管理原有值不是N/A，不能修改为N/A！");
+                    throw new Exception("变化点管理不存在！");
+                }
+                this.rRProblemService.updateSpeedOfProgress(rrProblem);
+                this.rRProblemService.updateTrackingLevel(rrProblem);
+                if(oldTrackingLevel == null || "".equals(oldTrackingLevel) || "V".equals(oldTrackingLevel)){
+                    String trackingLevel = rrProblem.getTrackingLevel();
+                    String speedOfProgress = rrProblem.getSpeedOfProgress();
+                    if("I".equals(trackingLevel) || "II".equals(trackingLevel) || "III".equals(trackingLevel) || "IV".equals(trackingLevel)) {
+                        String persionLiable = rrProblem.getPersionLiable();
+                        String[] persionLiableArray = persionLiable.split(",");
+                        for (int i = 0; i < persionLiableArray.length; i++) {
+                            RRDelayStatistics rrDelayStatistics = new RRDelayStatistics();
+                            rrDelayStatistics.setSpeedOfProgress(speedOfProgress);
+                            rrDelayStatistics.setDelayDate(new Date());
+                            rrDelayStatistics.setDelayType(2);
+                            rrDelayStatistics.setPersionLiable(persionLiableArray[i]);
+                            rrDelayStatistics.setRrProblemId(rrProblem.getId());
+                            rrDelayStatistics.setProblemStatus(rrProblem.getProblemStatus());
+                            rrDelayStatistics.setProblemProgress(rrProblem.getProblemProgress());
+                            rrDelayStatistics.setTrackingLevel(rrProblem.getTrackingLevel());
+                            this.rRDelayStatisticsService.addRRDelayStatistics(rrDelayStatistics);
+                        }
                     }
                 }
-            }else {
-                throw new Exception("变化点管理不存在！");
-            }
-            this.rRProblemService.updateSpeedOfProgress(rrProblem);
-            this.rRProblemService.updateTrackingLevel(rrProblem);
-            if(oldTrackingLevel == null || "".equals(oldTrackingLevel) || "V".equals(oldTrackingLevel)){
+                this.rRProblemService.updateRRProblem(rrProblem);
+                this.rRProblemService.updateByPrimaryKey(rrProblem);
                 String trackingLevel = rrProblem.getTrackingLevel();
-                String speedOfProgress = rrProblem.getSpeedOfProgress();
-                if("I".equals(trackingLevel) || "II".equals(trackingLevel) || "III".equals(trackingLevel) || "IV".equals(trackingLevel)) {
-                    String persionLiable = rrProblem.getPersionLiable();
-                    String[] persionLiableArray = persionLiable.split(",");
-                    for (int i = 0; i < persionLiableArray.length; i++) {
-                        RRDelayStatistics rrDelayStatistics = new RRDelayStatistics();
-                        rrDelayStatistics.setSpeedOfProgress(speedOfProgress);
-                        rrDelayStatistics.setDelayDate(new Date());
-                        rrDelayStatistics.setDelayType(2);
-                        rrDelayStatistics.setPersionLiable(persionLiableArray[i]);
-                        rrDelayStatistics.setRrProblemId(rrProblem.getId());
-                        rrDelayStatistics.setProblemStatus(rrProblem.getProblemStatus());
-                        rrDelayStatistics.setProblemProgress(rrProblem.getProblemProgress());
-                        rrDelayStatistics.setTrackingLevel(rrProblem.getTrackingLevel());
-                        this.rRDelayStatisticsService.addRRDelayStatistics(rrDelayStatistics);
-                    }
+                if(!"V".equals(trackingLevel)){
+                    map.put("message", "已超期！");
+                }else {
+                    map.put("message", "");
                 }
+                this.rRProblemService.addEmailByProblemProgress(rrProblem);
             }
-            this.rRProblemService.updateRRProblem(rrProblem);
-            this.rRProblemService.updateByPrimaryKey(rrProblem);
-            String trackingLevel = rrProblem.getTrackingLevel();
-            if(!"V".equals(trackingLevel)){
-                map.put("message", "已超期！");
-            }else {
-                map.put("message", "");
-            }
-            this.rRProblemService.addEmailByProblemProgress(rrProblem);
             map.put("success", true);
         }catch (Exception e){
             e.printStackTrace();

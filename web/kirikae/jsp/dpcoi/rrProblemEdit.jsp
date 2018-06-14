@@ -480,10 +480,12 @@
                         <div class="modal-footer">
                             <span ng-hide="action=='add'">
                                 <span ng-hide="rrProblemEdit.rrProblem.trackingLevel=='V'">
-                                    <button type="button" id="rrProblemDelayConfirm"
-                                            class="btn btn-small btn-primary">申请延期
-                                    </button>
-                                    &nbsp;&nbsp;
+                                    <span ng-hide="rrProblemEdit.rrProblem.speedOfProgress=='close'">
+                                        <button type="button" id="rrProblemDelayConfirm"
+                                                class="btn btn-small btn-primary">申请延期
+                                        </button>
+                                        &nbsp;&nbsp;
+                                    </span>
                                 </span>
                             </span>
                             <button type="button" id="rrProblemEditConfirm"
@@ -515,5 +517,5 @@
     </div>
 </div>
 </body>
-<script src="<%=request.getContextPath()%>/kirikae/js/dpcoi/rrProblemEdit.js?version=6"></script>
+<script src="<%=request.getContextPath()%>/kirikae/js/dpcoi/rrProblemEdit.js?version=7"></script>
 </html>

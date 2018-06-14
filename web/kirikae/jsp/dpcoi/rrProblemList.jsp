@@ -606,5 +606,5 @@
     </form>
 </div>
 </body>
-<script src="<%=request.getContextPath()%>/kirikae/js/dpcoi/rrProblemList.js?version=5"></script>
+<script src="<%=request.getContextPath()%>/kirikae/js/dpcoi/rrProblemList.js?version=7"></script>
 </html>

@@ -222,11 +222,12 @@ rrProblemListApp.controller("rrProblemListController", function ($scope) {
             }else if(state == 3){
                 alert("已作废，不能修改！");
                 return;
-            }
-            var persionLiable = ","+rrProblem.persionLiable+",";
-            if(persionLiable.indexOf(","+userName+",") < 0){
-                alert("你不是责任人，不能修改此问题点。");
-                return ;
+            } else {
+                var persionLiable = ","+rrProblem.persionLiable+",";
+                if(persionLiable.indexOf(","+userName+",") < 0){
+                    alert("你不是责任人，不能修改此问题点。");
+                    return ;
+                }
             }
         }
         var searchStr = ""
@@ -237,6 +238,7 @@ rrProblemListApp.controller("rrProblemListController", function ($scope) {
         searchStr += "&engineering=" + $scope.getMultiselectValue("engineering");
         searchStr += "&trackingLevel=" + $scope.getMultiselectValue("trackingLevel");
         searchStr += "&dpcoi4M=" + $scope.getMultiselectValue("dpcoi4M");
+        searchStr += "&speedOfProgress=" + $scope.getMultiselectValue("speedOfProgress");
         searchStr += "&customer=" + $scope.rrProblemList.searchForm.customer;
         searchStr += "&vehicle=" + $scope.rrProblemList.searchForm.vehicle;
         searchStr += "&productNo=" + $scope.rrProblemList.searchForm.productNo;
