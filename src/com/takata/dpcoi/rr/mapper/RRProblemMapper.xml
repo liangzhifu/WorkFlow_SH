@@ -931,7 +931,7 @@
 
     <select id="selectProblemNoMax" resultType="Integer" parameterType="String">
         <![CDATA[
-			select MAX(SUBSTRING(problem_no,10)+0)
+			select MAX(REPLACE(problem_no, #{problemNo}, '')+0)
 			from dpcoi_rr_problem
 			where problem_no like CONCAT(#{problemNo},'%');
 		]]>
