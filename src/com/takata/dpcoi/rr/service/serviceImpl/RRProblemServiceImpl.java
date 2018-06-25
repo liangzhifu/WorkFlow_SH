@@ -79,6 +79,8 @@ public class RRProblemServiceImpl implements RRProblemService {
             problemNo = "TS-SC-"+shortYear+"-";
         }else if("客户投诉非量产".equals(problemType)) {
             problemNo = "TS-KSF-"+shortYear+"-";
+        }else if("COP/LAT".equals(problemType)) {
+            problemNo = "TS-COP-"+shortYear+"-";
         }else{
             throw new Exception("问题类型不存在！");
         }
