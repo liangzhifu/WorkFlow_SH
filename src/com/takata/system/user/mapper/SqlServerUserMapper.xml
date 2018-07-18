@@ -6,7 +6,7 @@
         select Name as userName,
         EMail_Main as userEmail
         from [dbo].[VW_Userinfo_Full]
-        where Company in ('TSAC','JSSS')
+        where Company in ('TSAC','JSSS','JSSH','JTTA')
         and StaffID = #{userCode, jdbcType=VARCHAR}
     </select>
 
