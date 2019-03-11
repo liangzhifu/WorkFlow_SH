@@ -13,11 +13,12 @@
         <result column="update_by" property="updateBy" jdbcType="INTEGER" />
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
         <result column="company_id" property="companyId" jdbcType="INTEGER" />
+        <result column="ISHEADER" property="isheader" jdbcType="VARCHAR" />
     </resultMap>
 
     <sql id="Base_Column_List" >
         id, user_name, user_code, user_password, user_email, delete_state, create_by, create_time,
-        update_by, update_time, company_id
+        update_by, update_time, company_id, ISHEADER
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.takata.system.user.domain.SystemUser" >
@@ -63,6 +64,9 @@
             <if test="companyId != null" >
                 company_id,
             </if>
+            <if test="isheader != null" >
+                ISHEADER,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="id != null" >
@@ -97,6 +101,9 @@
             </if>
             <if test="companyId != null" >
                 #{companyId,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isheader != null" >
+                #{isheader,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -133,6 +140,9 @@
             </if>
             <if test="companyId != null" >
                 company_id = #{companyId,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isheader != null" >
+                ISHEADER = #{isheader,jdbcType=VARCHAR},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
@@ -175,7 +185,8 @@
         user_code AS userCode,
         user_name AS userName,
         user_email AS userEmail,
-        company_id AS companyId
+        company_id AS companyId,
+        ISHEADER as isheader
         FROM system_user su
         <include refid="WHERE_SQL_PAGELIST"></include>
         ORDER BY su.`USER_NAME`
@@ -219,5 +230,16 @@
         AND sur.`delete_state` = 0
         AND srp.`delete_state` = 0
         AND srp.`permisssion_id` = 2)
+    </select>
+
+    <select id="selectSystemUserListByPermission" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        SELECT su.id, su.`user_email`
+        FROM SYSTEM_USER su, system_user_role sur, system_role_permission srp
+        WHERE su.`id` = sur.`user_id`
+        AND sur.`role_id` = srp.`role_id`
+        AND su.`delete_state` = '0'
+        AND sur.`delete_state` = '0'
+        AND srp.`delete_state` = '0'
+        AND srp.`permisssion_id` = #{permission}
     </select>
 </mapper>

@@ -174,7 +174,7 @@ var taskWoOrderConfirm = (function() {
 	            		 xtype: 'button',                       
                          text:'确定',
                          columnWidth:0.05,
-                         icon: '/WorkFlow/images/submit.png',
+                         icon: contextPath  + '/images/submit.png',
                          listeners:{
                         	 "click": doSubmit
                          }
@@ -186,7 +186,7 @@ var taskWoOrderConfirm = (function() {
 	            		 xtype: 'button',                       
                          text:'取消',
                          columnWidth:0.05,
-                         icon: '/WorkFlow/images/close.png',
+                         icon: contextPath  + '/images/close.png',
                          listeners:{
                                "click": doClose                        
                          }

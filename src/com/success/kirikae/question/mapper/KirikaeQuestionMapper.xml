@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="KirikaeQuestionMapper" >
+
+    <resultMap id="BaseResultMap" type="com.success.kirikae.question.domain.KirikaeQuestion" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="confirm_project" property="confirmProject" jdbcType="VARCHAR" />
+        <result column="confirm_content" property="confirmContent" jdbcType="VARCHAR" />
+        <result column="delete_state" property="deleteState" jdbcType="INTEGER" />
+        <result column="create_by" property="createBy" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_by" property="updateBy" jdbcType="INTEGER" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, confirm_project, confirm_content, delete_state, create_by, create_time, update_by, update_time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.success.kirikae.question.domain.KirikaeQuestion" >
+        select
+        <include refid="Base_Column_List" />
+        from kirikae_question
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.success.kirikae.question.domain.KirikaeQuestion" >
+        insert into kirikae_question
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="confirmProject != null" >
+                confirm_project,
+            </if>
+            <if test="confirmContent != null" >
+                confirm_content,
+            </if>
+            <if test="deleteState != null" >
+                delete_state,
+            </if>
+            <if test="createBy != null" >
+                create_by,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updateBy != null" >
+                update_by,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="confirmProject != null" >
+                #{confirmProject,jdbcType=VARCHAR},
+            </if>
+            <if test="confirmContent != null" >
+                #{confirmContent,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteState != null" >
+                #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null" >
+                #{createBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null" >
+                #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.success.kirikae.question.domain.KirikaeQuestion" >
+        update kirikae_question
+        <set >
+            <if test="confirmProject != null" >
+                confirm_project = #{confirmProject,jdbcType=VARCHAR},
+            </if>
+            <if test="confirmContent != null" >
+                confirm_content = #{confirmContent,jdbcType=VARCHAR},
+            </if>
+            <if test="deleteState != null" >
+                delete_state = #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null" >
+                create_by = #{createBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null" >
+                update_by = #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectKirikaeQuestionByConfirm" resultMap="BaseResultMap" parameterType="com.success.kirikae.question.domain.KirikaeQuestion" >
+        select
+        <include refid="Base_Column_List" />
+        from kirikae_question
+        where confirm_project = #{confirmProject,jdbcType=VARCHAR}
+        and confirm_content = #{confirmContent,jdbcType=VARCHAR}
+    </select>
+
+    <sql id="PAGE_WHERE_SQL">
+        <where>
+            kq.`delete_state` = 0
+            <if test="confirmProject != null">
+                and kq.`confirm_project` LIKE concat('%',#{confirmProject,jdbcType=VARCHAR} ,'%')
+            </if>
+            <if test="confirmContent != null">
+                and kq.`confirm_content` LIKE concat('%',#{confirmContent,jdbcType=VARCHAR} ,'%')
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectKirikaeQuestionPageList" resultType="java.util.HashMap" parameterType="com.success.kirikae.question.query.KirikaeQuestionQuery">
+        select kq.`id`,
+        kq.`confirm_project` as confirmProject,
+        kq.`confirm_content` as confirmContent
+        from kirikae_question kq
+        <include refid="PAGE_WHERE_SQL"></include>
+        ORDER BY kq.`confirm_project`,kq.`confirm_content`
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="selectKirikaeQuestionCount" resultType="java.lang.Integer" parameterType="com.success.kirikae.question.query.KirikaeQuestionQuery">
+        select count(1)
+        from kirikae_question kq
+        <include refid="PAGE_WHERE_SQL"></include>
+    </select>
+
+</mapper>

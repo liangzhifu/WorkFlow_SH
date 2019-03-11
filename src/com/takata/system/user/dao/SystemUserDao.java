@@ -87,4 +87,13 @@ public class SystemUserDao extends SqlDao {
     public List<Map<String, Object>> selectSystemUserCompleteList(SystemUserQuery systemUserQuery){
         return this.readSqlSession.selectList("SystemUserMapper.selectSystemUserCompleteList", systemUserQuery);
     }
+
+    /**
+     * 根据权限ID查询用户列表
+     * @param permission 权限
+     * @return 返回结果
+     */
+    public List<SystemUser> selectSystemUserListByPermission(Integer permission) {
+        return this.readSqlSession.selectList("SystemUserMapper.selectSystemUserListByPermission", permission);
+    }
 }

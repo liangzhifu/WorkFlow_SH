@@ -1,5 +1,6 @@
 package com.takata.system.menu.controller;
 
+import com.success.task.detail.query.DetailQuery;
 import com.takata.common.shiro.Principal;
 import com.takata.common.shiro.PrincipalUtils;
 import com.takata.system.constant.Url;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -83,7 +85,20 @@ public class SystemMenuController {
             Principal principal = PrincipalUtils.getPrincipal();
             systemMenuQuery.setUserId(principal.getId());
             List<Map<String, Object>> dataMapList = this.systemMenuService.queryUserMenuByModule(systemMenuQuery);
-            map.put("dataMapList", dataMapList);
+            List<Map<String, Object>> tempList = new LinkedList<Map<String, Object>>();
+            for(Map<String, Object> temp: dataMapList) {
+                Integer id = (Integer) temp.get("id");
+                if (id.intValue() == 11) {
+                    DetailQuery query = new DetailQuery();
+                    query.setUserId(principal.getId());
+                    Long count = this.systemMenuService.selectPageTaskAgentCount(query);
+                    temp.put("woOrderNum", count);
+                } else {
+                    temp.put("woOrderNum", 0);
+                }
+                tempList.add(temp);
+            }
+            map.put("dataMapList", tempList);
             map.put("success", true);
         }catch (Exception e){
             logger.error(e.getMessage());

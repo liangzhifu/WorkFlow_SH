@@ -167,6 +167,14 @@
                         <input type="text" title="" style="width: 75%"
                                class="form-control-order form-control clean" ng-model="editSystemUser.userEmail" required="required">
                     </div>
+                    <div class="col-md-6">
+                        <label class="control-label" title="">领导：</label>
+                        <select class="form-control-order form-control clean" style="width: 75%" ng-model="editSystemUser.isheader">
+                            <option value="">请选择</option>
+                            <option value="0">否</option>
+                            <option value="1">是</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="modal-body">

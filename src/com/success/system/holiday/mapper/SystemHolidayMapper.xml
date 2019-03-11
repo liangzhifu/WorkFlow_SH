@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SystemHolidayMapper2" >
+    <resultMap id="BaseResultMap" type="com.success.system.holiday.domain.SystemHoliday" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="holiday" property="holiday" jdbcType="DATE" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, holiday
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.success.system.holiday.domain.SystemHoliday" >
+        select
+        <include refid="Base_Column_List" />
+        from system_holiday
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from system_holiday
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insertSelective" parameterType="com.success.system.holiday.domain.SystemHoliday" >
+        insert into system_holiday
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="holiday != null" >
+                holiday,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="holiday != null" >
+                #{holiday,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+
+    <sql id="WHERE_SQL">
+        <where>
+            <if test="holidayStart != null" >
+                and DATE_FORMAT(`holiday`,'%Y-%m-%d') &gt;= DATE_FORMAT(#{holidayStart},'%Y-%m-%d')
+            </if>
+            <if test="holidayEnd != null" >
+                and DATE_FORMAT(`holiday`,'%Y-%m-%d') &lt;= DATE_FORMAT(#{holidayEnd},'%Y-%m-%d')
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectSystemHolidayListPage" resultMap="BaseResultMap" parameterType="com.success.system.holiday.query.SystemHolidayQuery">
+        SELECT <include refid="Base_Column_List" />
+        FROM system_holiday
+        <include refid="WHERE_SQL"></include>
+        order by holiday
+        LIMIT #{start,jdbcType=INTEGER}, #{size,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectSystemHolidayCount" resultType="java.lang.Integer" parameterType="com.success.system.holiday.query.SystemHolidayQuery">
+        SELECT count(1)
+        FROM system_holiday
+        <include refid="WHERE_SQL"></include>
+    </select>
+
+    <select id="selectSystemHolidayList" resultMap="BaseResultMap" parameterType="com.success.system.holiday.query.SystemHolidayQuery">
+        SELECT <include refid="Base_Column_List" />
+        FROM system_holiday
+        <include refid="WHERE_SQL"></include>
+        order by holiday
+    </select>
+
+</mapper>

@@ -241,7 +241,12 @@ function generBasicObj(infoTypeId, taskTypeInfo, taskOrderInfoArray){
 }
 
 function doConfirm(){
-    Ext.Msg.confirm("确认框", "确定提交时间变更时间！：", function (btn) {
+    var realChangeTime = Ext.getCmp('order_real_change_time').value;
+    if(realChangeTime == undefined || realChangeTime == null || realChangeTime == ""){
+        alert("请填写真实变更时间！");
+        return;
+    }
+    Ext.Msg.confirm("确认框", "确定提交真实变更时间！：", function (btn) {
         if (btn == 'yes') {
             Ext.Ajax.request({
                 url: contextPath + '/taskOrder/confirmRealChangeTime.do',

@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="KirikaeOrderAgencyMapper" >
+
+    <select id="selectKirikaeOrderAgencyPageList" resultType="java.util.HashMap" parameterType="com.success.kirikae.order.query.KirikaeOrderAgencyQuery">
+        select ko.order_id as orderId, a.order_agency as orderAgency, ko.kirikae_order_type as kirikaeOrderType, ko.tk_no as tkNo,
+        ko.kirikae_order_state as kirikaeOrderState, ko.customer, ko.vehicle_name as vehicleName, ko.design_change_timing as designChangeTiming
+        from kirikae_order ko,
+        (select kop.`order_id`, 1 as order_agency
+        from kirikae_order_procedure kop, alteration_order ao
+        where kop.order_id = ao.id
+        AND ao.`delete_state` = 0
+        AND ao.`order_state` = '10B'
+        AND kop.`delete_state` = 0
+        AND kop.`procedure_state` = 2
+        AND kop.procedure_code = 1
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 14
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        SELECT kwo.`order_id`, 2001 as order_agency
+        FROM kirikae_wo_order kwo, system_user_org suo, alteration_order ao
+        WHERE kwo.`order_id` = ao.id
+        and kwo.org_id = suo.org_id
+        AND ao.`delete_state` = 0
+        AND ao.`order_state` = '10B'
+        and kwo.`delete_state` = 0
+        AND kwo.`wo_order_state` = 2
+        and suo.`user_id` = #{userId, jdbcType=INTEGER}
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 5
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select kwo.`order_id`, 2002 as order_agency
+        from kirikae_wo_order kwo, kirikae_wo_order_attr kwoa, alteration_order ao
+        where kwo.`order_id` = ao.id
+        and kwo.id = kwoa.`wo_order_id`
+        AND ao.`delete_state` = 0
+        AND ao.`order_state` = '10B'
+        and kwo.`delete_state` = 0
+        and kwo.`wo_order_state` = 3
+        and kwoa.`delete_state` = 0
+        and kwoa.`question_id` &lt;&gt; 1
+        and kwoa.`prepared_state` = 0
+        and kwoa.`prepared_user` = #{userId, jdbcType=INTEGER}
+        UNION
+        select ao.id as order_id, 3 as order_agency
+        from alteration_order ao, kirikae_order_procedure kop
+        where ao.`id` = kop.`order_id`
+        and kop.`procedure_code` = 3
+        and kop.`procedure_state` = 2
+        and kop.`delete_state` = 0
+        AND ao.`delete_state` = 0
+        AND ao.`order_state` = '10B'
+        and ao.`create_by` = #{userId, jdbcType=INTEGER}
+        UNION
+        select kop.`order_id`, 4 as order_agency
+        from kirikae_order_procedure kop, kirikae_wo_order kwo, kirikae_wo_order_attr kwoa, alteration_order ao
+        where kop.`order_id` = ao.id
+        and kop.`order_id` = kwo.`order_id`
+        and kwo.id = kwoa.`wo_order_id`
+        AND ao.`delete_state` = 0
+        AND ao.`order_state` = '10B'
+        and kwo.`delete_state` = 0
+        and kwoa.`delete_state` = 0
+        and kwoa.`question_id` &lt;&gt; 1
+        and kwoa.`prepared_user` = #{userId, jdbcType=INTEGER}
+        AND kop.`procedure_code` = 4
+        AND kop.`procedure_state` = 2
+        AND kop.`delete_state` = 0
+        and kwoa.file_state = 0
+        UNION
+        select ao.id as order_id, 5 as order_agency
+        from alteration_order ao, kirikae_order_procedure kop
+        where ao.`id` = kop.`order_id`
+        and kop.`procedure_code` = 5
+        and kop.`procedure_state` = 2
+        and kop.`delete_state` = 0
+        AND ao.`delete_state` = 0
+        AND ao.`order_state` = '10B'
+        and ao.`create_by` = #{userId, jdbcType=INTEGER}
+        UNION
+        SELECT kop.`order_id`, 15 AS order_agency
+        FROM alteration_order ao, kirikae_order_procedure kop
+        WHERE ao.`id` = kop.`order_id`
+        AND kop.`procedure_code` = 15
+        AND kop.`procedure_state` = 2
+        AND kop.`delete_state` = 0
+        AND ao.`delete_state` = 0
+        AND ao.`order_state` = '10B'
+        AND EXISTS (SELECT 1
+        FROM kirikae_wo_order kwo, kirikae_wo_order_attr kwoa, system_user_org suo
+        WHERE kwo.`order_id` = ao.`id`
+        AND kwo.org_id = suo.org_id
+        AND kwo.id = kwoa.wo_order_id
+        AND kwo.`delete_state` = 0
+        AND kwoa.`delete_state` = 0
+        AND kwoa.agreement_state = 0
+        AND kwoa.`question_id` &lt;&gt; 1
+        AND suo.`user_id` = #{userId, jdbcType=INTEGER}
+        AND suo.`delete_state` = 0)
+        AND EXISTS (SELECT 1
+        FROM system_user_role sur, system_role_permission srp
+        WHERE sur.`role_id` = srp.`role_id`
+        AND sur.`delete_state` = 0
+        AND srp.`delete_state` = 0
+        AND srp.`permisssion_id` = 5
+        AND sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select ao.id as order_id, 6 as order_agency
+        from alteration_order ao, kirikae_order_procedure kop
+        where ao.`id` = kop.`order_id`
+        and kop.`procedure_code` = 6
+        and kop.`procedure_state` = 2
+        and kop.`delete_state` = 0
+        AND ao.`delete_state` = 0
+        AND ao.`order_state` = '10B'
+        and ao.`create_by` = #{userId, jdbcType=INTEGER}
+        UNION
+        select kop.`order_id`, 7 as order_agency
+        from kirikae_order_procedure kop
+        where kop.`delete_state` = 0
+        AND kop.`procedure_state` = 2
+        AND kop.procedure_code = 7
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 6
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select kop.`order_id`, 8 as order_agency
+        from kirikae_order_procedure kop
+        where kop.`delete_state` = 0
+        AND kop.`procedure_state` = 2
+        AND kop.procedure_code = 8
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 7
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select kop.`order_id`, 9 as order_agency
+        from kirikae_order_procedure kop
+        where kop.`delete_state` = 0
+        AND kop.`procedure_state` = 2
+        AND kop.procedure_code = 9
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 8
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select kop.`order_id`, 10 as order_agency
+        from kirikae_order_procedure kop
+        where kop.`delete_state` = 0
+        AND kop.`procedure_state` = 2
+        AND kop.procedure_code = 10
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 9
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select kop.`order_id`, 11 as order_agency
+        from kirikae_order_procedure kop
+        where kop.`delete_state` = 0
+        AND kop.`procedure_state` = 2
+        AND kop.procedure_code = 11
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 10
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select kop.`order_id`, 12 as order_agency
+        from kirikae_order_procedure kop
+        where kop.`delete_state` = 0
+        AND kop.`procedure_state` = 2
+        AND kop.procedure_code = 12
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 11
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select kop.`order_id`, 13 as order_agency
+        from kirikae_order_procedure kop
+        where kop.`delete_state` = 0
+        AND kop.`procedure_state` = 2
+        AND kop.procedure_code = 13
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 12
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select kop.`order_id`, 14 as order_agency
+        from kirikae_order_procedure kop
+        where kop.`delete_state` = 0
+        AND kop.`procedure_state` = 2
+        AND kop.procedure_code = 14
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 13
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select kop.`order_id`, 15 as order_agency
+        from kirikae_order_procedure kop
+        where kop.`delete_state` = 0
+        AND kop.`procedure_state` = 2
+        AND kop.procedure_code = 15
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 8
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select kop.`order_id`, 104 as order_agency
+        from kirikae_order_procedure kop, kirikae_wo_order kwo, kirikae_wo_order_attr kwoa, alteration_order ao
+        where kop.`order_id` = ao.id
+        and kop.`order_id` = kwo.`order_id`
+        and kwo.id = kwoa.`wo_order_id`
+        AND ao.`delete_state` = 0
+        AND ao.`order_state` = '10B'
+        and kwo.`delete_state` = 0
+        and kwoa.`delete_state` = 0
+        and kwoa.`question_id` &lt;&gt; 1
+        and kwoa.`prepared_user` = #{userId, jdbcType=INTEGER}
+        AND kop.`procedure_code` = 4
+        AND kop.`procedure_state` = 5
+        AND kop.`delete_state` = 0
+        and kwoa.file_state = 0
+        ) a
+        where ko.`order_id` = a.order_id
+        order by ko.`id` desc
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="selectKirikaeOrderAgencyCount" resultType="java.lang.Integer" parameterType="com.success.kirikae.order.query.KirikaeOrderAgencyQuery">
+        select count(1)
+        from kirikae_order ko,
+        (select kop.`order_id`, 1 as order_agency
+        from kirikae_order_procedure kop, alteration_order ao
+        where kop.order_id = ao.id
+        AND ao.`delete_state` = 0
+        AND ao.`order_state` = '10B'
+        AND kop.`delete_state` = 0
+        AND kop.`procedure_state` = 2
+        AND kop.procedure_code = 1
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 14
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        SELECT kwo.`order_id`, 2001 as order_agency
+        FROM kirikae_wo_order kwo, system_user_org suo, alteration_order ao
+        WHERE kwo.`order_id` = ao.id
+        and kwo.org_id = suo.org_id
+        AND ao.`delete_state` = 0
+        AND ao.`order_state` = '10B'
+        and kwo.`delete_state` = 0
+        AND kwo.`wo_order_state` = 2
+        and suo.`user_id` = #{userId, jdbcType=INTEGER}
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 5
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select kwo.`order_id`, 2002 as order_agency
+        from kirikae_wo_order kwo, kirikae_wo_order_attr kwoa, alteration_order ao
+        where kwo.`order_id` = ao.id
+        and kwo.id = kwoa.`wo_order_id`
+        AND ao.`delete_state` = 0
+        AND ao.`order_state` = '10B'
+        and kwo.`delete_state` = 0
+        and kwo.`wo_order_state` = 3
+        and kwoa.`delete_state` = 0
+        and kwoa.`question_id` &lt;&gt; 1
+        and kwoa.`prepared_state` = 0
+        and kwoa.`prepared_user` = #{userId, jdbcType=INTEGER}
+        UNION
+        select ao.id as order_id, 3 as order_agency
+        from alteration_order ao, kirikae_order_procedure kop
+        where ao.`id` = kop.`order_id`
+        and kop.`procedure_code` = 3
+        and kop.`procedure_state` = 2
+        and kop.`delete_state` = 0
+        AND ao.`delete_state` = 0
+        AND ao.`order_state` = '10B'
+        and ao.`create_by` = #{userId, jdbcType=INTEGER}
+        UNION
+        select kop.`order_id`, 4 as order_agency
+        from kirikae_order_procedure kop, kirikae_wo_order kwo, kirikae_wo_order_attr kwoa, alteration_order ao
+        where kop.`order_id` = ao.id
+        and kop.`order_id` = kwo.`order_id`
+        and kwo.id = kwoa.`wo_order_id`
+        AND ao.`delete_state` = 0
+        AND ao.`order_state` = '10B'
+        and kwo.`delete_state` = 0
+        and kwoa.`delete_state` = 0
+        and kwoa.`question_id` &lt;&gt; 1
+        and kwoa.`prepared_user` = #{userId, jdbcType=INTEGER}
+        AND kop.`procedure_code` = 4
+        AND kop.`procedure_state` = 2
+        AND kop.`delete_state` = 0
+        and kwoa.file_state = 0
+        UNION
+        select ao.id as order_id, 5 as order_agency
+        from alteration_order ao, kirikae_order_procedure kop
+        where ao.`id` = kop.`order_id`
+        and kop.`procedure_code` = 5
+        and kop.`procedure_state` = 2
+        and kop.`delete_state` = 0
+        AND ao.`delete_state` = 0
+        AND ao.`order_state` = '10B'
+        and ao.`create_by` = #{userId, jdbcType=INTEGER}
+        UNION
+        SELECT kop.`order_id`, 15 AS order_agency
+        FROM alteration_order ao, kirikae_order_procedure kop
+        WHERE ao.`id` = kop.`order_id`
+        AND kop.`procedure_code` = 15
+        AND kop.`procedure_state` = 2
+        AND kop.`delete_state` = 0
+        AND ao.`delete_state` = 0
+        AND ao.`order_state` = '10B'
+        AND EXISTS (SELECT 1
+        FROM kirikae_wo_order kwo, kirikae_wo_order_attr kwoa, system_user_org suo
+        WHERE kwo.`order_id` = ao.`id`
+        AND kwo.org_id = suo.org_id
+        AND kwo.id = kwoa.wo_order_id
+        AND kwo.`delete_state` = 0
+        AND kwoa.`delete_state` = 0
+        AND kwoa.agreement_state = 0
+        AND kwoa.`question_id` &lt;&gt; 1
+        AND suo.`user_id` = #{userId, jdbcType=INTEGER}
+        AND suo.`delete_state` = 0)
+        AND EXISTS (SELECT 1
+        FROM system_user_role sur, system_role_permission srp
+        WHERE sur.`role_id` = srp.`role_id`
+        AND sur.`delete_state` = 0
+        AND srp.`delete_state` = 0
+        AND srp.`permisssion_id` = 5
+        AND sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select ao.id as order_id, 6 as order_agency
+        from alteration_order ao, kirikae_order_procedure kop
+        where ao.`id` = kop.`order_id`
+        and kop.`procedure_code` = 6
+        and kop.`procedure_state` = 2
+        and kop.`delete_state` = 0
+        AND ao.`delete_state` = 0
+        AND ao.`order_state` = '10B'
+        and ao.`create_by` = #{userId, jdbcType=INTEGER}
+        UNION
+        select kop.`order_id`, 7 as order_agency
+        from kirikae_order_procedure kop
+        where kop.`delete_state` = 0
+        AND kop.`procedure_state` = 2
+        AND kop.procedure_code = 7
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 6
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select kop.`order_id`, 8 as order_agency
+        from kirikae_order_procedure kop
+        where kop.`delete_state` = 0
+        AND kop.`procedure_state` = 2
+        AND kop.procedure_code = 8
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 7
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select kop.`order_id`, 9 as order_agency
+        from kirikae_order_procedure kop
+        where kop.`delete_state` = 0
+        AND kop.`procedure_state` = 2
+        AND kop.procedure_code = 9
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 8
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select kop.`order_id`, 10 as order_agency
+        from kirikae_order_procedure kop
+        where kop.`delete_state` = 0
+        AND kop.`procedure_state` = 2
+        AND kop.procedure_code = 10
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 9
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select kop.`order_id`, 11 as order_agency
+        from kirikae_order_procedure kop
+        where kop.`delete_state` = 0
+        AND kop.`procedure_state` = 2
+        AND kop.procedure_code = 11
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 10
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select kop.`order_id`, 12 as order_agency
+        from kirikae_order_procedure kop
+        where kop.`delete_state` = 0
+        AND kop.`procedure_state` = 2
+        AND kop.procedure_code = 12
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 11
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select kop.`order_id`, 13 as order_agency
+        from kirikae_order_procedure kop
+        where kop.`delete_state` = 0
+        AND kop.`procedure_state` = 2
+        AND kop.procedure_code = 13
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 12
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select kop.`order_id`, 14 as order_agency
+        from kirikae_order_procedure kop
+        where kop.`delete_state` = 0
+        AND kop.`procedure_state` = 2
+        AND kop.procedure_code = 14
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 13
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select kop.`order_id`, 15 as order_agency
+        from kirikae_order_procedure kop
+        where kop.`delete_state` = 0
+        AND kop.`procedure_state` = 2
+        AND kop.procedure_code = 15
+        AND exists (select 1
+        from system_user_role sur, system_role_permission srp
+        where sur.`role_id` = srp.`role_id`
+        and sur.`delete_state` = 0
+        and srp.`delete_state` = 0
+        and srp.`permisssion_id` = 8
+        and sur.`user_id` =  #{userId, jdbcType=INTEGER})
+        UNION
+        select kop.`order_id`, 104 as order_agency
+        from kirikae_order_procedure kop, kirikae_wo_order kwo, kirikae_wo_order_attr kwoa, alteration_order ao
+        where kop.`order_id` = ao.id
+        and kop.`order_id` = kwo.`order_id`
+        and kwo.id = kwoa.`wo_order_id`
+        AND ao.`delete_state` = 0
+        AND ao.`order_state` = '10B'
+        and kwo.`delete_state` = 0
+        and kwoa.`delete_state` = 0
+        and kwoa.`question_id` &lt;&gt; 1
+        and kwoa.`prepared_user` = #{userId, jdbcType=INTEGER}
+        AND kop.`procedure_code` = 4
+        AND kop.`procedure_state` = 5
+        AND kop.`delete_state` = 0
+        and kwoa.file_state = 0
+        ) a
+        where ko.`order_id` = a.order_id
+    </select>
+
+</mapper>

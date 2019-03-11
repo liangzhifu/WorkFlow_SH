@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="FourOrderHistoryMapper" >
+    <resultMap id="BaseResultMap" type="com.success.four.order.domain.FourOrder" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="order_id" property="orderId" jdbcType="INTEGER" />
+        <result column="change_after_product_no" property="changeAfterProductNo" jdbcType="VARCHAR" />
+        <result column="change_befor_product_no" property="changeBeforProductNo" jdbcType="VARCHAR" />
+        <result column="real_change_time" property="realChangeTime" jdbcType="VARCHAR" />
+        <result column="estimate_change_time" property="estimateChangeTime" jdbcType="VARCHAR" />
+        <result column="release_date" property="releaseDate" jdbcType="VARCHAR" />
+        <result column="issue_number" property="issueNumber" jdbcType="VARCHAR" />
+        <result column="product_line" property="productLine" jdbcType="VARCHAR" />
+        <result column="car_name" property="carName" jdbcType="VARCHAR" />
+        <result column="installation_mat" property="installationMat" jdbcType="VARCHAR" />
+        <result column="change_content" property="changeContent" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, order_id, change_after_product_no, change_befor_product_no, real_change_time,
+        estimate_change_time, release_date, issue_number, product_line, car_name, installation_mat,
+        change_content
+    </sql>
+    <insert id="insertSelective" parameterType="com.success.four.order.domain.FourOrder" >
+        insert into four_order_history
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="orderId != null" >
+                order_id,
+            </if>
+            <if test="changeAfterProductNo != null" >
+                change_after_product_no,
+            </if>
+            <if test="changeBeforProductNo != null" >
+                change_befor_product_no,
+            </if>
+            <if test="realChangeTime != null" >
+                real_change_time,
+            </if>
+            <if test="estimateChangeTime != null" >
+                estimate_change_time,
+            </if>
+            <if test="releaseDate != null" >
+                release_date,
+            </if>
+            <if test="issueNumber != null" >
+                issue_number,
+            </if>
+            <if test="productLine != null" >
+                product_line,
+            </if>
+            <if test="carName != null" >
+                car_name,
+            </if>
+            <if test="installationMat != null" >
+                installation_mat,
+            </if>
+            <if test="changeContent != null" >
+                change_content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="orderId != null" >
+                #{orderId,jdbcType=INTEGER},
+            </if>
+            <if test="changeAfterProductNo != null" >
+                #{changeAfterProductNo,jdbcType=VARCHAR},
+            </if>
+            <if test="changeBeforProductNo != null" >
+                #{changeBeforProductNo,jdbcType=VARCHAR},
+            </if>
+            <if test="realChangeTime != null" >
+                #{realChangeTime,jdbcType=VARCHAR},
+            </if>
+            <if test="estimateChangeTime != null" >
+                #{estimateChangeTime,jdbcType=VARCHAR},
+            </if>
+            <if test="releaseDate != null" >
+                #{releaseDate,jdbcType=VARCHAR},
+            </if>
+            <if test="issueNumber != null" >
+                #{issueNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="productLine != null" >
+                #{productLine,jdbcType=VARCHAR},
+            </if>
+            <if test="carName != null" >
+                #{carName,jdbcType=VARCHAR},
+            </if>
+            <if test="installationMat != null" >
+                #{installationMat,jdbcType=VARCHAR},
+            </if>
+            <if test="changeContent != null" >
+                #{changeContent,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectFourOrderHistoryByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from four_order_history
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </select>
+</mapper>

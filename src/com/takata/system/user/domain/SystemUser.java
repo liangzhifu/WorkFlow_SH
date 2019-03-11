@@ -41,6 +41,9 @@ public class SystemUser {
     //更新时间
     private Date updateTime;
 
+    // 是否领导
+    private String isheader;
+
     public String getUserCode() {
         return userCode;
     }
@@ -127,5 +130,13 @@ public class SystemUser {
 
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
+    }
+
+    public String getIsheader() {
+        return isheader;
+    }
+
+    public void setIsheader(String isheader) {
+        this.isheader = isheader;
     }
 }

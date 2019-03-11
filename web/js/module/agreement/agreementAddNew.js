@@ -234,7 +234,7 @@ var agreementAdd = (function() {
                         xtype: 'button',
                         text:'确定',
                         columnWidth:0.05,
-                        icon: '/WorkFlow/images/submit.png',
+                        icon: contextPath  + '/images/submit.png',
                         listeners:{
                             "click":doSubmit
                         }
@@ -246,7 +246,7 @@ var agreementAdd = (function() {
                         xtype: 'button',
                         text:'取消',
                         columnWidth:0.05,
-                        icon: '/WorkFlow/images/close.png',
+                        icon: contextPath  + '/images/close.png',
                         listeners:{
                             "click":doClose
                         }
@@ -260,17 +260,17 @@ var agreementAdd = (function() {
 
 function generBasicObj(taskTache) {
     var userArray = new Array();
-    var j = 0;
+    userArray[0] = ["", "请选择"];
+    var j = 1;
     var tacheUserList = Ext.decode(tacheUserListJson);
     for(var i = 0; i < tacheUserList.length; i ++){
         if(tacheUserList[i].tacheId == taskTache.tacheId){
-            userArray[j] = {'userId' : tacheUserList[i].userId, "userName" : tacheUserList[i].userName};
+            userArray[j] = [tacheUserList[i].userId, tacheUserList[i].userName];
             j ++;
         }
     }
-    var userStore = new Ext.data.JsonStore({
-        autoLoad : true,
-        fields:['userId', 'userName' ],
+    var userStore = new Ext.data.ArrayStore({
+        fields: ['userId', 'userName'],
         data: userArray
     });
 
@@ -284,13 +284,10 @@ function generBasicObj(taskTache) {
             valueField: 'userId',
             displayField: 'userName',
             triggerAction:'all',
-            hideTrigger:false,
             allowBlank:true,
-            editable: false,
             store: userStore,
             anchor:'95%',
             emptyText:'-----请选择-----',
-            showSelectAll:true,
             mode : 'local'
         }]
     };
@@ -367,24 +364,27 @@ function doSubmit(){
     var responsibleJson = Ext.encode(responsibleArray);
     var submitBasicUrl = contextPath + '/agreement/addAgreement.do?orderId='+orderId+"&userId="+userId;
 
-    Ext.getCmp('basicForm').getForm().submit({
-        url : submitBasicUrl,
-        waitTitle : '提示',
-        waitMsg: '请稍后,正在提交数据...',
-        params : {
-            problemJson : problemJson,
-            responsibleJson : responsibleJson
-        },
-        async: false,
-        success : function(form, action) {
-            alert('新增立合成功！');
-            window.close();
-        },
-        failure : function(form, action) {
-            var responseText = Ext.decode(action.response.responseText);
-            Ext.Msg.alert('提示', responseText.message);
-        }
-    });
+    var con = confirm("确定新增立合！");
+    if (con == true){
+        Ext.getCmp('basicForm').getForm().submit({
+            url : submitBasicUrl,
+            waitTitle : '提示',
+            waitMsg: '请稍后,正在提交数据...',
+            params : {
+                problemJson : problemJson,
+                responsibleJson : responsibleJson
+            },
+            async: false,
+            success : function(form, action) {
+                alert('新增立合成功！');
+                window.close();
+            },
+            failure : function(form, action) {
+                var responseText = Ext.decode(action.response.responseText);
+                Ext.Msg.alert('提示', responseText.message);
+            }
+        });
+    }
 }
 
 function doClose(){

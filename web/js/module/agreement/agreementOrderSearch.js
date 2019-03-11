@@ -64,7 +64,7 @@ var agreementOrderSearch = (function() {
 			            		 xtype: 'button',                       
 	                             text:'查询',
 	                             columnWidth:0.05,
-	                             icon: '/WorkFlow/images/search.png',
+	                             icon: contextPath  + '/images/search.png',
 	                             listeners:{
 	                               "click":doQry                                                           
 	                             }
@@ -76,7 +76,7 @@ var agreementOrderSearch = (function() {
 			            		 xtype: 'button',                       
 	                             text:'立合',
 	                             columnWidth:0.05,
-	                             icon: '/WorkFlow/images/add.gif',
+	                             icon: contextPath  + '/images/add.gif',
 	                             listeners:{
 	                               "click":doAddAgreement                                                           
 	                             }

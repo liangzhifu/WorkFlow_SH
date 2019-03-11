@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="KirikaeWoOrderAttrMapper" >
+    <resultMap id="BaseResultMap" type="com.success.kirikae.wo.domain.KirikaeWoOrderAttr" >
+        <result column="id" property="id" jdbcType="INTEGER" />
+        <result column="wo_order_id" property="woOrderId" jdbcType="INTEGER" />
+        <result column="file_state" property="fileState" jdbcType="INTEGER" />
+        <result column="file_confirm_time" property="fileConfirmTime" jdbcType="TIMESTAMP" />
+        <result column="file_id" property="fileId" jdbcType="INTEGER" />
+        <result column="agreement_state" property="agreementState" jdbcType="INTEGER" />
+        <result column="agreement_time" property="agreementTime" jdbcType="TIMESTAMP" />
+        <result column="agreement_result" property="agreementResult" jdbcType="VARCHAR" />
+        <result column="question_id" property="questionId" jdbcType="INTEGER" />
+        <result column="review_result" property="reviewResult" jdbcType="VARCHAR" />
+        <result column="review_principle" property="reviewPrinciple" jdbcType="VARCHAR" />
+        <result column="review_time" property="reviewTime" jdbcType="TIMESTAMP" />
+        <result column="change_complete_time" property="changeCompleteTime" jdbcType="TIMESTAMP" />
+        <result column="prepared_time" property="preparedTime" jdbcType="TIMESTAMP" />
+        <result column="prepared_user" property="preparedUser" jdbcType="INTEGER" />
+        <result column="prepared_state" property="preparedState" jdbcType="INTEGER" />
+        <result column="delete_state" property="deleteState" jdbcType="INTEGER" />
+        <result column="create_by" property="createBy" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_by" property="updateBy" jdbcType="INTEGER" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="agreement_valid_result" property="agreementValidResult" jdbcType="VARCHAR" />
+        <result column="agreement_valid_time" property="agreementValidTime" jdbcType="TIMESTAMP" />
+        <result column="agreement_valid_state" property="agreementValidState" jdbcType="INTEGER" />
+        <result column="agreement_email_time" property="agreementEmailTime" jdbcType="TIMESTAMP" />
+        <result column="refuse_reason" property="refuseReason" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, wo_order_id, file_state, file_confirm_time, file_id, agreement_state, agreement_time,
+        agreement_result, question_id, review_result, review_principle, review_time, change_complete_time,
+        prepared_time, prepared_user, prepared_state, delete_state, create_by, create_time, refuse_reason,
+        update_by, update_time, agreement_valid_result, agreement_valid_time, agreement_valid_state, agreement_email_time
+    </sql>
+    <insert id="insertSelective" parameterType="com.success.kirikae.wo.domain.KirikaeWoOrderAttr"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into kirikae_wo_order_attr
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="woOrderId != null" >
+                wo_order_id,
+            </if>
+            <if test="fileState != null" >
+                file_state,
+            </if>
+            <if test="fileConfirmTime != null" >
+                file_confirm_time,
+            </if>
+            <if test="fileId != null" >
+                file_id,
+            </if>
+            <if test="agreementState != null" >
+                agreement_state,
+            </if>
+            <if test="agreementTime != null" >
+                agreement_time,
+            </if>
+            <if test="agreementResult != null" >
+                agreement_result,
+            </if>
+            <if test="questionId != null" >
+                question_id,
+            </if>
+            <if test="reviewResult != null" >
+                review_result,
+            </if>
+            <if test="reviewPrinciple != null" >
+                review_principle,
+            </if>
+            <if test="reviewTime != null" >
+                review_time,
+            </if>
+            <if test="changeCompleteTime != null" >
+                change_complete_time,
+            </if>
+            <if test="preparedTime != null" >
+                prepared_time,
+            </if>
+            <if test="preparedUser != null" >
+                prepared_user,
+            </if>
+            <if test="preparedState != null" >
+                prepared_state,
+            </if>
+            <if test="deleteState != null" >
+                delete_state,
+            </if>
+            <if test="createBy != null" >
+                create_by,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updateBy != null" >
+                update_by,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+            <if test="agreementValidResult != null" >
+                agreement_valid_result,
+            </if>
+            <if test="agreementValidTime != null" >
+                agreement_valid_time,
+            </if>
+            <if test="agreementValidState != null" >
+                agreement_valid_state,
+            </if>
+            <if test="agreementEmailTime != null" >
+                agreement_email_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="woOrderId != null" >
+                #{woOrderId,jdbcType=INTEGER},
+            </if>
+            <if test="fileState != null" >
+                #{fileState,jdbcType=INTEGER},
+            </if>
+            <if test="fileConfirmTime != null" >
+                #{fileConfirmTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="fileId != null" >
+                #{fileId,jdbcType=INTEGER},
+            </if>
+            <if test="agreementState != null" >
+                #{agreementState,jdbcType=INTEGER},
+            </if>
+            <if test="agreementTime != null" >
+                #{agreementTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="agreementResult != null" >
+                #{agreementResult,jdbcType=VARCHAR},
+            </if>
+            <if test="questionId != null" >
+                #{questionId,jdbcType=INTEGER},
+            </if>
+            <if test="reviewResult != null" >
+                #{reviewResult,jdbcType=VARCHAR},
+            </if>
+            <if test="reviewPrinciple != null" >
+                #{reviewPrinciple,jdbcType=VARCHAR},
+            </if>
+            <if test="reviewTime != null" >
+                #{reviewTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="changeCompleteTime != null" >
+                #{changeCompleteTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="preparedTime != null" >
+                #{preparedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="preparedUser != null" >
+                #{preparedUser,jdbcType=INTEGER},
+            </if>
+            <if test="preparedState != null" >
+                #{preparedState,jdbcType=INTEGER},
+            </if>
+            <if test="deleteState != null" >
+                #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null" >
+                #{createBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null" >
+                #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="agreementValidResult != null" >
+                #{agreementValidResult,jdbcType=VARCHAR},
+            </if>
+            <if test="agreementValidTime != null" >
+                #{agreementValidTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="agreementValidState != null" >
+                #{agreementValidState,jdbcType=INTEGER},
+            </if>
+            <if test="agreementEmailTime != null" >
+                #{agreementEmailTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.success.kirikae.wo.domain.KirikaeWoOrderAttr">
+        update kirikae_wo_order_attr
+        <set >
+            <if test="fileState != null" >
+                file_state = #{fileState,jdbcType=INTEGER},
+            </if>
+            <if test="fileConfirmTime != null" >
+                file_confirm_time = #{fileConfirmTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="fileId != null" >
+                file_id = #{fileId,jdbcType=INTEGER},
+            </if>
+            <if test="agreementState != null" >
+                agreement_state = #{agreementState,jdbcType=INTEGER},
+            </if>
+            <if test="agreementTime != null" >
+                agreement_time = #{agreementTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="agreementResult != null" >
+                agreement_result = #{agreementResult,jdbcType=VARCHAR},
+            </if>
+            <if test="reviewResult != null" >
+                review_result = #{reviewResult,jdbcType=VARCHAR},
+            </if>
+            <if test="reviewPrinciple != null" >
+                review_principle = #{reviewPrinciple,jdbcType=VARCHAR},
+            </if>
+            <if test="reviewTime != null" >
+                review_time = #{reviewTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="changeCompleteTime != null" >
+                change_complete_time = #{changeCompleteTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="preparedTime != null" >
+                prepared_time = #{preparedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="preparedState != null" >
+                prepared_state = #{preparedState,jdbcType=INTEGER},
+            </if>
+            <if test="preparedUser != null" >
+                prepared_user = #{preparedUser,jdbcType=INTEGER},
+            </if>
+            <if test="deleteState != null" >
+                delete_state = #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="updateBy != null" >
+                update_by = #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="agreementValidResult != null" >
+                agreement_valid_result = #{agreementValidResult,jdbcType=VARCHAR},
+            </if>
+            <if test="agreementValidTime != null" >
+                agreement_valid_time = #{agreementValidTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="agreementValidState != null" >
+                agreement_valid_state = #{agreementValidState,jdbcType=INTEGER},
+            </if>
+            <if test="agreementEmailTime != null" >
+                agreement_email_time = #{agreementEmailTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="refuseReason != null" >
+                refuse_reason = #{refuseReason,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectKirikaeWoOrderAttrAddList" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT kwo.`id` AS woOrderId, kq.`id` AS questionId, kq.`confirm_content` AS confirmContent,
+        kq.`confirm_project` AS confirmProject, kwo.`org_id` as orgId, kwo.`org_name` as orgName,
+        kwo.`parent_org_name` as parentOrgName, kwo.`order_id` as orderId, kwo.`parent_org_id` as parentOrgId
+        FROM system_user_org suo, kirikae_wo_order kwo, kirikae_org_question koq, kirikae_question kq
+        WHERE kwo.`org_id` = suo.`org_id`
+        AND kwo.`org_id` = koq.`org_id`
+        AND koq.`question_id` = kq.`id`
+        AND suo.`delete_state` = 0
+        AND kwo.`delete_state` = 0
+        AND koq.`delete_state` = 0
+        AND kq.`delete_state` = 0
+        AND kwo.`wo_order_state` = 2
+        AND suo.`user_id` = #{userId, jdbcType=INTEGER}
+        AND kwo.`order_id` = #{orderId, jdbcType=INTEGER}
+        ORDER BY kwo.`parent_org_id`, kwo.`org_id`,  kq.`id`
+    </select>
+
+    <select id="selectKirikaeWoOrderAttrMapListByOrderId" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+        SELECT kwoa.id, kq.`confirm_content` AS confirmContent,kq.`confirm_project` AS confirmProject, kwo.id as woOrderId,
+                kwo.`org_id` AS orgId, kwo.`org_name` AS orgName,kwo.`parent_org_name` AS parentOrgName, kwo.`parent_org_id` AS parentOrgId,
+                DATE_FORMAT(kwoa.`change_complete_time`, '%Y-%m-%d') AS changeCompleteTime,kwoa.`prepared_user` AS preparedUser,
+                kq.`id` AS questionId, (SELECT su.user_name FROM sys_users su WHERE su.`USER_ID` = kwoa.`prepared_user`) as preparedUserName,
+                kwoa.`review_principle` as reviewPrinciple, kwoa.`review_result` as reviewResult, kwoa.`agreement_result` as agreementResult,
+                DATE_FORMAT(kwoa.`review_time`, '%Y-%m-%d') AS reviewTime, kwoa.`file_id` AS fileId, kwoa.`agreement_valid_result` as agreementValidResult,
+                (SELECT fu.`FILE_NAME` FROM file_upload fu WHERE fu.`FILE_ID` = kwoa.`file_id`) as fileName, kwoa.refuse_reason as refuseReason,
+                (CASE WHEN kwoa.`question_id` = 1 THEN FALSE
+                WHEN DATE_FORMAT(kwoa.`change_complete_time`, '%Y-%m-%d') &gt; DATE_FORMAT(ko.`design_change_timing`, '%Y-%m-%d') THEN TRUE
+                ELSE FALSE END) AS overtimeFlag
+                FROM kirikae_wo_order kwo, kirikae_wo_order_attr kwoa, kirikae_question kq, `kirikae_order` ko
+                WHERE kwo.`id` = kwoa.`wo_order_id`
+                AND kwoa.`question_id` = kq.`id`
+                AND kwo.`order_id` = ko.`order_id`
+                AND kwo.`delete_state` = 0
+                AND kwoa.`delete_state` = 0
+                AND kwo.`order_id` = #{orderId, jdbcType=INTEGER}
+                ORDER BY kwo.`parent_org_id`, kwo.`org_id`,  kq.`id`
+    </select>
+
+    <select id="selectKirikaeWoOrderAttrListByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT kwoa.id, kwoa.wo_order_id, kwoa.file_state, kwoa.file_confirm_time, kwoa.file_id, kwoa.agreement_state, kwoa.agreement_time,
+        kwoa.agreement_result, kwoa.question_id, kwoa.review_result, kwoa.review_principle, kwoa.review_time, kwoa.change_complete_time,
+        kwoa.prepared_time, kwoa.prepared_user, kwoa.prepared_state, kwoa.delete_state, kwoa.create_by, kwoa.create_time,
+        kwoa.update_by, kwoa.update_time, kwoa.`agreement_valid_result`, kwoa.refuse_reason
+        FROM kirikae_wo_order kwo, kirikae_wo_order_attr kwoa, kirikae_question kq
+        WHERE kwo.`id` = kwoa.`wo_order_id`
+        AND kwoa.`question_id` = kq.`id`
+        AND kwo.`delete_state` = 0
+        AND kwoa.`delete_state` = 0
+        AND kwo.`order_id` = #{orderId, jdbcType=INTEGER}
+        ORDER BY kwo.`parent_org_id`, kwo.`org_id`,  kq.`id`
+    </select>
+
+    <select id="selectKirikaeWoOrderAttrListByWoOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT kwoa.id, kwoa.wo_order_id, kwoa.file_state, kwoa.file_confirm_time, kwoa.file_id, kwoa.agreement_state, kwoa.agreement_time,
+        kwoa.agreement_result, kwoa.question_id, kwoa.review_result, kwoa.review_principle, kwoa.review_time, kwoa.change_complete_time,
+        kwoa.prepared_time, kwoa.prepared_user, kwoa.prepared_state, kwoa.delete_state, kwoa.create_by, kwoa.create_time,
+        kwoa.update_by, kwoa.update_time, kwoa.`agreement_valid_result`, kwoa.refuse_reason
+        FROM kirikae_wo_order kwo, kirikae_wo_order_attr kwoa, kirikae_question kq
+        WHERE kwo.`id` = kwoa.`wo_order_id`
+        AND kwoa.`question_id` = kq.`id`
+        AND kwo.`delete_state` = 0
+        AND kwoa.`delete_state` = 0
+        AND kwo.`id` = #{woOrderId, jdbcType=INTEGER}
+        ORDER BY kwo.`parent_org_id`, kwo.`org_id`,  kq.`id`
+    </select>
+
+    <select id="selectKirikaeWoOrderAttrListByUserId" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT kwoa.id, kq.`confirm_content` AS confirmContent,kq.`confirm_project` AS confirmProject,kwo.id as woOrderId,
+        kwo.`org_id` as orgId, kwo.`org_name` as orgName,kwo.`parent_org_name` as parentOrgName, kwo.`parent_org_id` as parentOrgId,
+        DATE_FORMAT(kwoa.`change_complete_time`, '%Y-%m-%d') AS changeCompleteTime, kwoa.`agreement_result` as agreementResult,
+        (SELECT su.user_name FROM sys_users su WHERE su.`USER_ID` = kwoa.`prepared_user`) as preparedUserName,
+        kwoa.`review_principle` as reviewPrinciple, kwoa.`review_result` as reviewResult, kwoa.`file_id` AS fileId,
+        DATE_FORMAT(kwoa.`review_time`, '%Y-%m-%d') AS reviewTime, kwoa.`agreement_valid_result` as agreementValidResult,
+        (SELECT fu.`FILE_NAME` FROM file_upload fu WHERE fu.`FILE_ID` = kwoa.`file_id`) as fileName,
+        kwoa.refuse_reason as refuseReason
+        FROM kirikae_wo_order kwo, kirikae_wo_order_attr kwoa, kirikae_question kq
+        WHERE kwo.`id` = kwoa.`wo_order_id`
+        AND kwoa.`question_id` = kq.`id`
+        AND kwo.`delete_state` = 0
+        AND kwoa.`delete_state` = 0
+        AND kwoa.`question_id` &lt;&gt; 1
+        AND kwo.`order_id` = #{orderId, jdbcType=INTEGER}
+        AND kwoa.prepared_user = #{userId, jdbcType=INTEGER}
+        <if test="stateType == 'confirm'" >
+            AND kwoa.`prepared_state` = 0
+        </if>
+        <if test="stateType == 'upload'" >
+            AND kwoa.`file_state` = 0
+        </if>
+        <if test="stateType == 'standclose'" >
+            AND kwoa.`agreement_state` = 0
+        </if>
+        <if test="stateType == 'standcloseValid'" >
+            AND kwoa.`agreement_valid_state` = 0
+        </if>
+        ORDER BY kwo.`parent_org_id`, kwo.`org_id`,  kq.`id`
+    </select>
+
+    <update id="deleteWoOrderAttrByWoOrderId" parameterType="java.lang.Integer">
+      update kirikae_wo_order_attr
+      set delete_state = 1
+      where wo_order_id = #{woOrderId, jdbcType=INTEGER}
+      and delete_state = 0
+    </update>
+
+    <select id="selectWoOrderAttrNoConfirmCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(1)
+        from kirikae_wo_order kwo
+        where kwo.`delete_state` = 0
+        and kwo.`wo_order_state` &lt;&gt; 4
+        and kwo.`order_id` = #{orderId, jdbcType=INTEGER}
+    </select>
+
+    <select id="selectWoOrderAttrNoStandCloseCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(1)
+        from kirikae_wo_order kwo, kirikae_wo_order_attr kwoa
+        where kwo.`id` = kwoa.`wo_order_id`
+        and kwo.`delete_state` = 0
+        and kwoa.`delete_state` = 0
+        and kwoa.`agreement_state` &lt;&gt; 1
+        and kwo.`order_id` = #{orderId, jdbcType=INTEGER}
+    </select>
+
+    <select id="selectWoOrderAttrNoUploadCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select count(1)
+        from kirikae_wo_order kwo, kirikae_wo_order_attr kwoa
+        where kwo.`id` = kwoa.`wo_order_id`
+        and kwo.`delete_state` = 0
+        and kwoa.`delete_state` = 0
+        and kwoa.`file_state` &lt;&gt; 1
+        and kwo.`order_id` = #{orderId, jdbcType=INTEGER}
+    </select>
+
+    <select id="selectKirikaeAgreementList" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+        SELECT kwoa.id, kq.`confirm_content` AS confirmContent,kq.`confirm_project` AS confirmProject,kwo.id as woOrderId,
+        kwo.`org_id` as orgId, kwo.`org_name` as orgName,kwo.`parent_org_name` as parentOrgName, kwo.`parent_org_id` as parentOrgId,
+        DATE_FORMAT(kwoa.`change_complete_time`, '%Y-%m-%d') AS changeCompleteTime, kwoa.`agreement_result` as agreementResult,
+        (SELECT su.user_name FROM sys_users su WHERE su.`USER_ID` = kwoa.`prepared_user`) as preparedUserName,
+        kwoa.`review_principle` as reviewPrinciple, kwoa.`review_result` as reviewResult, kwoa.`file_id` AS fileId,
+        DATE_FORMAT(kwoa.`review_time`, '%Y-%m-%d') AS reviewTime, kwoa.`agreement_valid_result` as agreementValidResult,
+        (SELECT fu.`FILE_NAME` FROM file_upload fu WHERE fu.`FILE_ID` = kwoa.`file_id`) as fileName,
+        kwoa.refuse_reason as refuseReason
+        FROM kirikae_wo_order kwo, kirikae_wo_order_attr kwoa, kirikae_question kq
+        WHERE kwo.`id` = kwoa.`wo_order_id`
+        AND kwoa.`question_id` = kq.`id`
+        AND kwo.`delete_state` = 0
+        AND kwoa.`delete_state` = 0
+        AND kwoa.`question_id` &lt;&gt; 1
+        AND kwo.`order_id` = #{orderId, jdbcType=INTEGER}
+        AND kwoa.`agreement_valid_state` = 0
+        ORDER BY kwo.`parent_org_id`, kwo.`org_id`,  kq.`id`
+    </select>
+
+</mapper>

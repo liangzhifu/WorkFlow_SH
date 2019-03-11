@@ -1,5 +1,6 @@
 package com.takata.system.menu.service;
 
+import com.success.task.detail.query.DetailQuery;
 import com.takata.system.menu.query.SystemMenuQuery;
 
 import java.util.List;
@@ -29,5 +30,12 @@ public interface SystemMenuService {
      * @throws Exception 异常
      */
     List<Map<String, Object>> queryUserMenuByModule(SystemMenuQuery systemMenuQuery) throws Exception;
+
+    /**
+     * 查询代办任务数量
+     * @param query 查询条件
+     * @return 返回结果
+     */
+    Long selectPageTaskAgentCount(DetailQuery query);
 
 }

@@ -56,9 +56,14 @@ public class SendEmailImpl {
                         this.timeTaskDao.deleteTimeTask(timeTask);
                         continue;
                     }
+                    toMailAddress = "," + toMailAddress + ",";
                     while(toMailAddress.indexOf(",,") >= 0){
                         toMailAddress = toMailAddress.replaceAll(",,", ",");
                     }
+                    while(toMailAddress.indexOf(",null,") >= 0){
+                        toMailAddress = toMailAddress.replaceAll(",null,", ",");
+                    }
+                    toMailAddress = toMailAddress.substring(1, toMailAddress.length() - 1);
                     try{
                         //主题
                         String subject = "";
@@ -143,6 +148,10 @@ public class SendEmailImpl {
                             subject = "RR问题点申请延期";
                         }else if(noticeType == 40){
                             subject = "实际变更时间确认";
+                        }else if(noticeType == 41){
+                            subject = "立合审核";
+                        }else if(noticeType == 42){
+                            subject = "立合审核拒绝";
                         }else {
 
                         }

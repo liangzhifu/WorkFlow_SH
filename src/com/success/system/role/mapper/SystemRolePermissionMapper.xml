@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SystemRolePermissionMapper2" >
+    <resultMap id="BaseResultMap" type="com.success.system.role.domain.SystemRolePermission" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="role_id" property="roleId" jdbcType="INTEGER" />
+        <result column="permisssion_id" property="permisssionId" jdbcType="INTEGER" />
+        <result column="delete_state" property="deleteState" jdbcType="INTEGER" />
+        <result column="create_by" property="createBy" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_by" property="updateBy" jdbcType="INTEGER" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
+        <result column="explaination" property="explaination" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <insert id="insertSystemRolePermission" parameterType="com.success.system.role.domain.SystemRolePermission" >
+        insert into system_role_permission
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="roleId != null" >
+                role_id,
+            </if>
+            <if test="permisssionId != null" >
+                permisssion_id,
+            </if>
+            <if test="deleteState != null" >
+                delete_state,
+            </if>
+            <if test="createBy != null" >
+                create_by,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updateBy != null" >
+                update_by,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="roleId != null" >
+                #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="permisssionId != null" >
+                #{permisssionId,jdbcType=INTEGER},
+            </if>
+            <if test="deleteState != null" >
+                #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null" >
+                #{createBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null" >
+                #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateSystemRolePermission" parameterType="com.success.system.role.domain.SystemRolePermission" >
+        update system_role_permission
+        <set >
+            <if test="deleteState != null" >
+                delete_state = #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="updateBy != null" >
+                update_by = #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <!-- 查询角色权限关联列表 -->
+    <select id="selectSystemRolePermissionList" resultMap="BaseResultMap" parameterType="com.success.system.role.query.SystemRolePermissionQuery">
+        select srp.`id`, srp.`permisssion_id`, srp.`role_id`, sp.`explaination`, sp.`permission_name`
+        FROM system_role_permission srp, system_permission sp
+        <where>
+            srp.permisssion_id = sp.id
+            and srp.delete_state = 0
+            <if test="roleId != null">
+                AND srp.`role_id` = #{roleId, jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+</mapper>

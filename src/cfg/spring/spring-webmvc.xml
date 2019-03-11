@@ -17,7 +17,7 @@
 
 	<mvc:annotation-driven />
 	
-    <context:component-scan base-package="com.takata">
+    <context:component-scan base-package="com">
         <!-- controller包下所有的以Controller为后缀的类都扫描 -->
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />   

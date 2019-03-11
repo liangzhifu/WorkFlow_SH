@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="KirikaeConfirmationMapper" >
+    <resultMap id="BaseResultMap" type="com.success.kirikae.confirmation.domain.KirikaeConfirmation" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="order_id" property="orderId" jdbcType="INTEGER" />
+        <result column="release_date" property="releaseDate" jdbcType="DATE" />
+        <result column="factory" property="factory" jdbcType="VARCHAR" />
+        <result column="production_batch" property="productionBatch" jdbcType="VARCHAR" />
+        <result column="create_by" property="createBy" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, order_id, release_date, factory, create_by, create_time, production_batch
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from kirikae_confirmation
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <insert id="insertSelective" parameterType="com.success.kirikae.confirmation.domain.KirikaeConfirmation" >
+        insert into kirikae_confirmation
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="orderId != null" >
+                order_id,
+            </if>
+            <if test="releaseDate != null" >
+                release_date,
+            </if>
+            <if test="factory != null" >
+                factory,
+            </if>
+            <if test="productionBatch != null" >
+                production_batch,
+            </if>
+            <if test="createBy != null" >
+                create_by,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="orderId != null" >
+                #{orderId,jdbcType=INTEGER},
+            </if>
+            <if test="releaseDate != null" >
+                #{releaseDate,jdbcType=DATE},
+            </if>
+            <if test="factory != null" >
+                #{factory,jdbcType=VARCHAR},
+            </if>
+            <if test="productionBatch != null" >
+                #{productionBatch,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null" >
+                #{createBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectKirikaeConfirmationByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from kirikae_confirmation
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </select>
+</mapper>

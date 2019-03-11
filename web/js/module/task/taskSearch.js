@@ -255,7 +255,7 @@ var taskSearch = (function() {
 			            		 xtype: 'button',                       
 	                             text:'查询',
 	                             columnWidth:0.05,
-	                             icon: '/WorkFlow/images/search.png',
+	                             icon: contextPath + '/images/search.png',
 	                             listeners:{
 	                               "click":doQry                                                           
 	                             }
@@ -267,7 +267,7 @@ var taskSearch = (function() {
 			            		 xtype: 'button',                       
 	                             text:'新增',
 	                             columnWidth:0.05,
-	                             icon: '/WorkFlow/images/add.gif',
+	                             icon: contextPath + '/images/add.gif',
 	                             listeners:{
 	                               "click":doAddTask                                                           
 	                             }
@@ -279,7 +279,7 @@ var taskSearch = (function() {
 			            		 xtype: 'button',                       
 	                             text:'修改',
 	                             columnWidth:0.05,
-	                             icon: '/WorkFlow/images/modify.gif',
+	                             icon: contextPath + '/images/modify.gif',
 	                             listeners:{
 	                               "click":doEditTask                                                           
 	                             }
@@ -291,21 +291,9 @@ var taskSearch = (function() {
 			            		 xtype: 'button',                       
 	                             text:'作废',
 	                             columnWidth:0.05,
-	                             icon: '/WorkFlow/images/delete.gif',
+	                             icon: contextPath + '/images/delete.gif',
 	                             listeners:{
 	                               "click":doDelTask                                                           
-	                             }
-			            	},{
-								xtype:'label',
-								columnWidth:0.05,
-								html: '&nbsp;&nbsp;'
-							},{
-			            		 xtype: 'button',                       
-	                             text:'导出PDF',
-	                             columnWidth:0.05,
-	                             icon: '/WorkFlow/images/save.gif',
-	                             listeners:{
-	                               "click":doDown                                                           
 	                             }
 			            	}]
 		            	}] 
@@ -611,7 +599,8 @@ function doDown(){
 		url : contextPath+'/taskDetail/doExportPDF.do',
  		async: false,
 		params : {
-			orderId : record.data.orderId
+			orderId : record.data.orderId,
+			agreementId: record.data.agreementId
 		},
  		method: "post",
 		success : function(response, action) {
@@ -638,10 +627,10 @@ function doAddTask(){
 }
 
 function doEditTask(){
-	if(parent.userOrgId != 237){
-		alert("只有审核组织下的人员才能修改变更单！");
-		return;
-	}
+	// if(parent.userOrgId != 237){
+	// 	alert("只有审核组织下的人员才能修改变更单！");
+	// 	return;
+	// }
 	var record = Ext.getCmp('mainDataGrid').getSelectionModel().getSelected();
 	if(record==null){
 		Ext.Msg.alert('提示','请选择变更单！');
@@ -655,10 +644,10 @@ function doEditTask(){
 }
 
 function doDelTask(){
-	if(parent.userOrgId != 237){
-		alert("只有审核组织下的人员才能作废变更单！");
-		return;
-	}
+	// if(parent.userOrgId != 237){
+	// 	alert("只有审核组织下的人员才能作废变更单！");
+	// 	return;
+	// }
 	var record = Ext.getCmp('mainDataGrid').getSelectionModel().getSelected();
 	if(record==null){
 		Ext.Msg.alert('提示','请选择变更单！');

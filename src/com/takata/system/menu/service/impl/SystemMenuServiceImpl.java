@@ -1,5 +1,7 @@
 package com.takata.system.menu.service.impl;
 
+import com.success.task.detail.dao.DetailDao;
+import com.success.task.detail.query.DetailQuery;
 import com.takata.common.constant.CommonConstant;
 import com.takata.system.menu.dao.SystemMenuDao;
 import com.takata.system.menu.query.SystemMenuQuery;
@@ -18,6 +20,9 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 
     @Resource(name = "systemMenuDao")
     private SystemMenuDao systemMenuDao;
+
+    @Resource(name = "detailDao")
+    private DetailDao detailDao;
 
     @Override
     public List<Map<String, Object>> queryTreeMenuList() throws Exception {
@@ -41,5 +46,10 @@ public class SystemMenuServiceImpl implements SystemMenuService {
             systemMenuQuery.setUserId(null);
         }
         return this.systemMenuDao.selectUserMenuByModule(systemMenuQuery);
+    }
+
+    @Override
+    public Long selectPageTaskAgentCount(DetailQuery query) {
+        return this.detailDao.selectPageTaskAgentCount(query);
     }
 }

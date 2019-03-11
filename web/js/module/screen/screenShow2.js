@@ -130,7 +130,7 @@ var screenShow2 = (function() {
 			            		 xtype: 'button',                       
 	                             text:'查询',
 	                             columnWidth:0.05,
-	                             icon: '/WorkFlow/images/search.png',
+	                             icon: contextPath  + '/images/search.png',
 	                             listeners:{
 	                               "click":doQry                                                           
 	                             }
@@ -142,7 +142,7 @@ var screenShow2 = (function() {
 			            		 xtype: 'button',                       
 	                             text:'导出EXCEL',
 	                             columnWidth:0.05,
-	                             icon: '/WorkFlow/images/save.gif',
+	                             icon: contextPath  + '/images/save.gif',
 	                             listeners:{
 	                               "click":doDown                                                           
 	                             }

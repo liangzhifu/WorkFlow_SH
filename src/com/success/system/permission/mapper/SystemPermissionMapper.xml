@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SystemPermissionMapper" >
+
+    <resultMap id="BaseResultMap" type="com.success.system.permission.domain.SystemPermission" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="permission_name" property="permissionName" jdbcType="VARCHAR" />
+        <result column="explaination" property="explaination" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, permission_name, explaination
+    </sql>
+
+    <select id="selectAddSystemPermissionList" resultMap="BaseResultMap" parameterType="com.success.system.role.query.SystemRolePermissionQuery" >
+        select
+        <include refid="Base_Column_List" />
+        from system_permission
+        where id not IN
+        (SELECT srp.`permisssion_id`
+        FROM system_role_permission srp
+        WHERE srp.`delete_state` = 0
+        AND srp.`role_id` = #{roleId, jdbcType=VARCHAR})
+    </select>
+
+</mapper>

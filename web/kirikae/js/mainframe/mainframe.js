@@ -23,7 +23,7 @@ mainframeApp.controller("mainframeController", function ($scope) {
         $("#mainIframe").attr("src",BASE_URL + url);
     };
     $scope.logOut = function () {
-        window.location.href = BASE_URL + "/logout.do";
+        window.location.href = BASE_URL + "/login.do";
     };
     $scope.editUserPasswordDialog = function () {
         $("#oldPassword").val("");

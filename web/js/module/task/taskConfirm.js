@@ -233,7 +233,7 @@ var taskConfirm = (function() {
  		            		 xtype: 'button',                       
  	                         text:'拒绝',
  	                         columnWidth:0.05,
- 	                         icon: '/WorkFlow/images/refuse.gif',
+ 	                         icon: contextPath  + '/images/refuse.gif',
  	                         listeners:{
  	                        	 "click":doRefuse2                        
  	                         }
@@ -245,7 +245,7 @@ var taskConfirm = (function() {
  		            		 xtype: 'button',                       
  	                         text:'作废',
  	                         columnWidth:0.05,
- 	                         icon: '/WorkFlow/images/delete.gif',
+ 	                         icon: contextPath  + '/images/delete.gif',
  	                         listeners:{
  	                        	 "click":doDelTask                        
  	                         }
@@ -257,7 +257,7 @@ var taskConfirm = (function() {
  		            		 xtype: 'button',                       
  	                         text:'确定',
  	                         columnWidth:0.05,
- 	                         icon: '/WorkFlow/images/submit.png',
+ 	                         icon: contextPath  + '/images/submit.png',
  	                         listeners:{
  	                        	 "click":doConfirm                        
  	                         }
@@ -269,7 +269,7 @@ var taskConfirm = (function() {
  		            		 xtype: 'button',                       
  	                         text:'取消',
  	                         columnWidth:0.05,
- 	                         icon: '/WorkFlow/images/close.png',
+ 	                         icon: contextPath  + '/images/close.png',
  	                         listeners:{
  	                        	 "click":doClose                       
  	                         }
@@ -296,7 +296,7 @@ var taskConfirm = (function() {
  		            		 xtype: 'button',                       
  	                         text:'作废',
  	                         columnWidth:0.05,
- 	                         icon: '/WorkFlow/images/delete.gif',
+ 	                         icon: contextPath  + '/images/delete.gif',
  	                         listeners:{
  	                        	 "click":doDelTask                        
  	                         }
@@ -308,7 +308,7 @@ var taskConfirm = (function() {
  		            		 xtype: 'button',                       
  	                         text:'确定',
  	                         columnWidth:0.05,
- 	                         icon: '/WorkFlow/images/submit.png',
+ 	                         icon: contextPath  + '/images/submit.png',
  	                         listeners:{
  	                        	 "click":doConfirm                        
  	                         }
@@ -320,7 +320,7 @@ var taskConfirm = (function() {
  		            		 xtype: 'button',                       
  	                         text:'取消',
  	                         columnWidth:0.05,
- 	                         icon: '/WorkFlow/images/close.png',
+ 	                         icon: contextPath  + '/images/close.png',
  	                         listeners:{
  	                        	 "click":doClose                       
  	                         }

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="KirikaeOrderChangeContentMapper">
+  <resultMap id="BaseResultMap" type="com.success.kirikae.order.domain.KirikaeOrderChangeContent">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="before_change" jdbcType="VARCHAR" property="beforeChange" />
+    <result column="after_change" jdbcType="VARCHAR" property="afterChange" />
+    <result column="before_file_id" jdbcType="INTEGER" property="beforeFileId" />
+    <result column="before_file_name" jdbcType="INTEGER" property="beforeFileName" />
+    <result column="new_file_id" jdbcType="INTEGER" property="newFileId" />
+    <result column="new_file_name" jdbcType="INTEGER" property="newFileName" />
+    <result column="delete_state" jdbcType="INTEGER" property="deleteState" />
+    <result column="create_by" jdbcType="INTEGER" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_by" jdbcType="INTEGER" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, before_change, after_change, before_file_id, new_file_id, delete_state, create_by, 
+    create_time, update_by, update_time, order_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.success.kirikae.order.domain.KirikaeOrderChangeContent" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kirikae_order_change_content
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.success.kirikae.order.domain.KirikaeOrderChangeContent">
+    insert into kirikae_order_change_content
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="beforeChange != null">
+        before_change,
+      </if>
+      <if test="afterChange != null">
+        after_change,
+      </if>
+      <if test="beforeFileId != null">
+        before_file_id,
+      </if>
+      <if test="newFileId != null">
+        new_file_id,
+      </if>
+      <if test="deleteState != null">
+        delete_state,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="beforeChange != null">
+        #{beforeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="afterChange != null">
+        #{afterChange,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeFileId != null">
+        #{beforeFileId,jdbcType=INTEGER},
+      </if>
+      <if test="newFileId != null">
+        #{newFileId,jdbcType=INTEGER},
+      </if>
+      <if test="deleteState != null">
+        #{deleteState,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.success.kirikae.order.domain.KirikaeOrderChangeContent">
+    update kirikae_order_change_content
+    <set>
+      <if test="beforeChange != null">
+        before_change = #{beforeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="afterChange != null">
+        after_change = #{afterChange,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeFileId != null">
+        before_file_id = #{beforeFileId,jdbcType=INTEGER},
+      </if>
+      <if test="newFileId != null">
+        new_file_id = #{newFileId,jdbcType=INTEGER},
+      </if>
+      <if test="deleteState != null">
+        delete_state = #{deleteState,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectKirikaeOrderChangeContentListByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select id, before_change, after_change, before_file_id, new_file_id, delete_state, create_by,
+        create_time, update_by, update_time, order_id,
+        (select file_name from file_upload fu where fu.file_id = akocc.before_file_id) as before_file_name,
+        (select file_name from file_upload fu where fu.file_id = akocc.new_file_id) as new_file_name
+        from kirikae_order_change_content akocc
+        where akocc.delete_state = 0
+        and akocc.order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteKirikaeOrderChangeContentByOrderId" parameterType="java.lang.Integer">
+    delete from kirikae_order_change_content from order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+</mapper>

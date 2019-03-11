@@ -38,6 +38,7 @@
         <div id="divSubCatalog" class="subNav subc2">
             <div class="subM02 subc2" ng-repeat="data in menuList" ng-click="menuClick(data.menuUrl)">
                 {{data.menuName}}
+                <span ng-show="data.woOrderNum != 0" style="position:absolute;top: 0px;right: 0px;width: 20px;height: 18px;font-size: 14px;line-height: 14px;color:red;font-weight:bold;font-style:italic;background-color:blue;">{{data.woOrderNum}}</span>
             </div>
         </div>
         <ul class="password_menu">

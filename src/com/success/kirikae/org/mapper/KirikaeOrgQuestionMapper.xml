@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="KirikaeOrgQuestionMapper">
+
+    <resultMap id="BaseResultMap" type="com.success.kirikae.org.domain.KirikaeOrgQuestion">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="org_id" jdbcType="INTEGER" property="orgId" />
+        <result column="question_id" jdbcType="INTEGER" property="questionId" />
+        <result column="delete_state" jdbcType="INTEGER" property="deleteState" />
+        <result column="create_by" jdbcType="INTEGER" property="createBy" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_by" jdbcType="INTEGER" property="updateBy" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, org_id, question_id, delete_state, create_by, create_time, update_by, update_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="com.success.kirikae.org.domain.KirikaeOrgQuestion" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from kirikae_org_question
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.success.kirikae.org.domain.KirikaeOrgQuestion">
+        insert into kirikae_org_question
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="orgId != null">
+                org_id,
+            </if>
+            <if test="questionId != null">
+                question_id,
+            </if>
+            <if test="deleteState != null">
+                delete_state,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="orgId != null">
+                #{orgId,jdbcType=INTEGER},
+            </if>
+            <if test="questionId != null">
+                #{questionId,jdbcType=INTEGER},
+            </if>
+            <if test="deleteState != null">
+                #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.success.kirikae.org.domain.KirikaeOrgQuestion">
+        update kirikae_org_question
+        <set>
+            <if test="orgId != null">
+                org_id = #{orgId,jdbcType=INTEGER},
+            </if>
+            <if test="questionId != null">
+                question_id = #{questionId,jdbcType=INTEGER},
+            </if>
+            <if test="deleteState != null">
+                delete_state = #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectKirikaeOrgQuestionList" resultType="java.util.HashMap" parameterType="com.success.kirikae.org.query.KirikaeOrgQuestionQuery">
+        SELECT koq.`id`,
+        koq.`org_id` AS orgId,
+        koq.`question_id` AS questionId,
+        kq.`confirm_project` AS confirmProject,
+        kq.`confirm_content` AS confirmContent,
+        so.`org_name` AS orgName
+        FROM kirikae_org_question koq, kirikae_question kq, system_org so
+        WHERE koq.`question_id` = kq.`id`
+        AND koq.`org_id` = so.`id`
+        AND koq.`delete_state` = '0'
+        AND kq.`delete_state` = '0'
+        AND so.`delete_state` = '0'
+        <if test="orgId != null">
+            and koq.`org_id` = #{orgId,jdbcType=INTEGER}
+        </if>
+        <if test="questionId != null">
+            and koq.`question_id` = #{questionId,jdbcType=INTEGER}
+        </if>
+        order by koq.`org_id`, kq.`confirm_project`, kq.`confirm_content`
+    </select>
+
+    <select id="selectAddQuestionList" resultType="java.util.HashMap" parameterType="com.success.kirikae.org.query.KirikaeOrgQuestionQuery">
+        SELECT kq.`id`,
+        kq.`confirm_project` AS confirmProject,
+        kq.`confirm_content` AS confirmContent
+        FROM kirikae_question kq
+        <where>
+            kq.`delete_state` = 0
+            AND kq.id NOT IN
+            (SELECT koq.`question_id`
+            FROM kirikae_org_question koq
+            WHERE koq.`org_id` = #{orgId, jdbcType=INTEGER}
+            AND koq.`delete_state` = 0)
+            <if test="confirmProject != null and confirmProject != ''">
+                and kq.`confirm_project` LIKE concat('%',#{confirmProject,jdbcType=VARCHAR} ,'%')
+            </if>
+            <if test="confirmContent != null and confirmContent != ''">
+                and kq.`confirm_content` LIKE concat('%',#{confirmContent,jdbcType=VARCHAR} ,'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectWoOrderOrgAddQuestionList" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        SELECT kq.`id`,
+        kq.`confirm_project` AS confirmProject,
+        kq.`confirm_content` AS confirmContent
+        FROM kirikae_org_question koq, kirikae_question kq
+        WHERE koq.`question_id` = kq.`id`
+        AND koq.`delete_state` = 0
+        AND koq.`org_id` = #{orgId, jdbcType=INTEGER}
+        AND kq.`id` NOT IN
+        (SELECT kwoa.`question_id`
+        FROM `kirikae_wo_order_attr` kwoa
+        WHERE kwoa.`delete_state` = 0
+        AND kwoa.`wo_order_id` = #{woOrderId, jdbcType=INTEGER}
+        )
+    </select>
+
+</mapper>

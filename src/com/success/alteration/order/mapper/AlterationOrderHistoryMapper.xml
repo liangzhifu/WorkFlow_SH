@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="AlterationOrderHistoryMapper" >
+    <resultMap id="BaseResultMap" type="com.success.alteration.order.domain.AlterationOrderHistory" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="order_channel" property="orderChannel" jdbcType="INTEGER" />
+        <result column="delete_state" property="deleteState" jdbcType="INTEGER" />
+        <result column="create_by" property="createBy" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_by" property="updateBy" jdbcType="INTEGER" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="order_state" property="orderState" jdbcType="VARCHAR" />
+        <result column="invalidate_text" property="invalidateText" jdbcType="VARCHAR" />
+        <result column="order_version" property="orderVersion" jdbcType="INTEGER" />
+        <result column="order_id" property="orderId" jdbcType="INTEGER" />
+        <result column="generate_four" property="generateFour" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, order_channel, delete_state, create_by, create_time, update_by, update_time,
+        order_state, invalidate_text, order_version, order_id, generate_four
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.success.alteration.order.domain.AlterationOrderHistory" >
+        select
+        <include refid="Base_Column_List" />
+        from alteration_order_history
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <insert id="insertSelective" parameterType="com.success.alteration.order.domain.AlterationOrderHistory"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into alteration_order_history
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="orderChannel != null" >
+                order_channel,
+            </if>
+            <if test="deleteState != null" >
+                delete_state,
+            </if>
+            <if test="createBy != null" >
+                create_by,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="updateBy != null" >
+                update_by,
+            </if>
+            <if test="updateTime != null" >
+                update_time,
+            </if>
+            <if test="orderState != null" >
+                order_state,
+            </if>
+            <if test="invalidateText != null" >
+                invalidate_text,
+            </if>
+            <if test="orderVersion != null" >
+                order_version,
+            </if>
+            <if test="orderId != null" >
+                order_id,
+            </if>
+            <if test="generateFour != null" >
+                generate_four,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="orderChannel != null" >
+                #{orderChannel,jdbcType=INTEGER},
+            </if>
+            <if test="deleteState != null" >
+                #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null" >
+                #{createBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateBy != null" >
+                #{updateBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orderState != null" >
+                #{orderState,jdbcType=VARCHAR},
+            </if>
+            <if test="invalidateText != null" >
+                #{invalidateText,jdbcType=VARCHAR},
+            </if>
+            <if test="orderVersion != null" >
+                #{orderVersion,jdbcType=INTEGER},
+            </if>
+            <if test="orderId != null" >
+                #{orderId,jdbcType=INTEGER},
+            </if>
+            <if test="generateFour != null" >
+                #{generateFour,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectAlterationOrderVersion" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select count(1) from alteration_order_history where order_id = #{orderId, jdbcType=INTEGER}
+    </select>
+</mapper>

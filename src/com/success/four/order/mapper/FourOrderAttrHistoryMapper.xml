@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="FourOrderAttrHistoryMapper" >
+    <resultMap id="BaseResultMap" type="com.success.four.order.domain.FourOrderAttr" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="order_id" property="orderId" jdbcType="INTEGER" />
+        <result column="attr_id" property="attrId" jdbcType="INTEGER" />
+        <result column="attr_checked" property="attrChecked" jdbcType="INTEGER" />
+        <result column="attr_value" property="attrValue" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, order_id, attr_id, attr_checked, attr_value
+    </sql>
+    <insert id="insertSelective" parameterType="com.success.four.order.domain.FourOrderAttr" >
+        insert into four_order_attr_history
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="orderId != null" >
+                order_id,
+            </if>
+            <if test="attrId != null" >
+                attr_id,
+            </if>
+            <if test="attrChecked != null" >
+                attr_checked,
+            </if>
+            <if test="attrValue != null" >
+                attr_value,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="orderId != null" >
+                #{orderId,jdbcType=INTEGER},
+            </if>
+            <if test="attrId != null" >
+                #{attrId,jdbcType=INTEGER},
+            </if>
+            <if test="attrChecked != null" >
+                #{attrChecked,jdbcType=INTEGER},
+            </if>
+            <if test="attrValue != null" >
+                #{attrValue,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectFourOrderAttrHistoryListByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from four_order_attr_history
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </select>
+</mapper>

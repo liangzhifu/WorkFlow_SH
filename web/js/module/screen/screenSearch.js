@@ -101,7 +101,7 @@ var screenSearch = (function() {
 			            		 xtype: 'button',                       
 	                             text:'查询',
 	                             columnWidth:0.05,
-	                             icon: '/WorkFlow/images/search.png',
+	                             icon: contextPath  + '/images/search.png',
 	                             listeners:{
 	                               "click":doQry                                                           
 	                             }
@@ -113,7 +113,7 @@ var screenSearch = (function() {
 			            		 xtype: 'button',                       
 	                             text:'修改',
 	                             columnWidth:0.05,
-	                             icon: '/WorkFlow/images/modify.gif',
+	                             icon: contextPath  + '/images/modify.gif',
 	                             listeners:{
 	                               "click":doEditTask                                                           
 	                             }

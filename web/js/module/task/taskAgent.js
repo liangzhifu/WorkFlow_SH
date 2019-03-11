@@ -171,7 +171,7 @@ var taskAgent = (function() {
 			            		 xtype: 'button',                       
 	                             text:'查询',
 	                             columnWidth:0.1,
-	                             icon: '/WorkFlow/images/search.png',
+	                             icon: contextPath  + '/images/search.png',
 	                             listeners:{
 	                               "click":doQry                                                           
 	                             }
@@ -222,25 +222,40 @@ var taskAgent = (function() {
 				dataIndex : "changeContent",
 				width : Ext.getBody().getSize().width * 0.2,
 			    renderer: function(value, meta, record) {    
-			         meta.attr = 'style="white-space:normal;"';     
-			         return value;     
+			         meta.attr = 'style="white-space:normal;"';
+			         if (record.data.agentType == '101') {
+                         return '<a href="'+contextPath+'/agreement/getAgreementDetailDlg.do?orderId='+record.data.orderId+'&agreementId='+record.data.agentId+'" target="_blank">'+value+'</a>';
+					 } else {
+                         return value;
+                     }
 			    }
 			}, {
 				header : "发行编号",
 				dataIndex : "publishCode",
 				width : Ext.getBody().getSize().width * 0.1,
 				renderer: function(value, meta, record) {
-					return "<a href='javascript:void(0)' onclick='openWin("+record.data.agentType+","+record.data.orderId+","+record.data.agentId+")'>"+value+"</a>"
+                    if (record.data.agentType == '101') {
+                        return '<a href="'+contextPath+'/taskDetail/getTaskDetailDlg.do?orderId='+record.data.orderId+'">'+record.data.changeContent.substring(0, (record.data.changeContent.length - 2))+'</a>'
+                    } else {
+                        return "<a href='javascript:void(0)' onclick='openWin("+record.data.agentType+","+record.data.orderId+","+record.data.agentId+")'>"+value+"</a>"
+					}
 				}
 			}, {
 				header : "变更时间",
 				dataIndex : "changeTime",
-				width : Ext.getBody().getSize().width * 0.08
+				width : Ext.getBody().getSize().width * 0.08,
+                    renderer: function(value, meta, record) {
+                        if (record.data.agentType == '101') {
+                            return '<a href="javascript:void(0);" onclick="showFile('+record.data.agentId+',2)">附件</a>';
+                        } else {
+                        	return value;
+						}
+                    }
 			}, {
 				header : "定单状态",
 				dataIndex : "orderStateCode",
 				width : Ext.getBody().getSize().width * 0.05,
-				renderer:function(value){
+				renderer:function(value, meta, record){
 					if(value=="10A"){
 						return "初始化";
 					}else if(value=="10B"){
@@ -248,7 +263,11 @@ var taskAgent = (function() {
 					}else if(value=="10C"){
 						return "完成";
 					}else {
-						return "未知";
+                        if (record.data.agentType == '101') {
+                        	return "";
+						} else {
+                            return "未知";
+						}
 					}
 				}
 			}, {
@@ -271,11 +290,15 @@ var taskAgent = (function() {
 				header : "是否延期",
 				dataIndex : "isDelay",
 				width : Ext.getBody().getSize().width * 0.05,
-				renderer:function(value){
+				renderer:function(value, meta, record){
 					if(value == 1){
 						return "是";
 					}else {
-						return "否";
+                        if (record.data.agentType == '101') {
+                            return "";
+                        } else {
+                            return "否";
+                        }
 					}
 				}
 			}, {
@@ -286,7 +309,7 @@ var taskAgent = (function() {
 				header : "待办类型",
 				dataIndex : "agentType",
 				width : Ext.getBody().getSize().width * 0.1,
-				renderer:function(value){
+				renderer:function(value, meta, record){
 					if(value == 1){
 						return "待确认";
 					}else if(value == 2){
@@ -299,6 +322,8 @@ var taskAgent = (function() {
 						return "立合待确认";
 					}else if(value == 7){
                         return "真实变更时间";
+                    }else if(value == 101){
+                        return '<input type="button" value="通过" onclick="acceptAgreement('+record.data.agentId+')">&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="拒绝" onclick="refuseAgreement('+record.data.agentId+')">';
                     }else {
 						return "未知";
 					}
@@ -436,4 +461,72 @@ function openWin(agentType, orderId, agentId){
     	alert("未知代办!");
     	return;
     }
+}
+
+function showCreateWin2(titile, url){
+    win = new Ext.Window({
+        id: "myWin",
+        title: titile,
+        width: document.body.clientWidth-100,
+        height: 450,
+        layout: "fit",
+        modal : true,
+        autoShow: true,
+        closeAction: 'close',
+        html: '<iframe style="overflow:scroll;width:100%; height:100%;" src="'+url+'" frameborder="0"></iframe>'
+    });
+    win.show();
+}
+
+function showFile(id, closeState) {
+    var title = "内容填写";
+    var url = contextPath+"/kirikae/jsp/agreement/agreementFile.jsp?id="+id+"&closeState="+closeState;
+    showCreateWin2(title, url);
+}
+
+function acceptAgreement(id) {
+    Ext.MessageBox.confirm("确认框", "您确认审核通过吗？", function(btn, txt) {
+        if (btn == "yes") {
+            Ext.Ajax.request({
+                url: contextPath + '/agreement/acceptAgreement.do',
+                waitTitle: '提示',
+                waitMsg: '请稍后,正在提交数据...',
+                params: {
+                    agreementId: id
+                },
+                success: function (response, action) {
+                    doQry();
+                },
+                failure: function (a) {
+                    Ext.Msg.alert('错误', '审核失败！');
+                }
+            });
+        }
+    });
+}
+
+function refuseAgreement(id) {
+    Ext.MessageBox.prompt("输入框","请输入拒绝原因：",function(bu, txt){
+        if("cancel" == bu) return;
+        var refuseText = txt;
+        if(refuseText == undefined || refuseText == null || refuseText == ""){
+            Ext.Msg.alert('提示','作废原因不能为空！');
+            return;
+        }
+        Ext.Ajax.request( {
+            url : contextPath+'/agreement/refuseAgreement.do',
+            waitTitle : '提示',
+            waitMsg: '请稍后,正在提交数据...',
+            params : {
+                agreementId : id,
+                refuseText: refuseText
+            },
+            success : function(response, action) {
+                doQry();
+            },
+            failure : function(a) {
+                Ext.Msg.alert('错误', '拒绝失败！');
+            }
+        });
+    });
 }

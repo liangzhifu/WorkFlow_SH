@@ -5,7 +5,7 @@ vehicleListApp.controller("vehicleListController", function ($scope) {
         "id" : "",
         "vehicleName" : ""
     }];
-    $scope.vehicleList.pageInfo = {"url":"/WorkFlow/vehicle/getVehicleListPage.do"};
+    $scope.vehicleList.pageInfo = {"url":BASE_URL+"/vehicle/getVehicleListPage.do"};
     $scope.vehicleList.firstPage = function () {
         $scope.vehicleList.pageInfo.page = 1;
         $scope.vehicleList.Search();
@@ -76,7 +76,7 @@ vehicleListApp.controller("vehicleListController", function ($scope) {
     $scope.vehicleList.deleteVehicle = function (id) {
         $.ajax({
             method:'post',
-            url:"/WorkFlow/vehicle/deleteVehicle.do",
+            url:BASE_URL+"/vehicle/deleteVehicle.do",
             data:{"id":id},
             success: function(resultJson) {
                 var result = angular.fromJson(resultJson);

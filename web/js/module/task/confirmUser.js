@@ -106,7 +106,7 @@ function Oper() {
 							xtype : 'button',
 							text : '查询',
 							columnWidth : 0.05,
-							icon : '/WorkFlow/images/icon/icon07.gif',
+							icon : contextPath  + '/images/icon/icon07.gif',
 							listeners : {
 								"click" : doQry
 							}
@@ -120,7 +120,7 @@ function Oper() {
 							xtype : 'button',
 							text : '重置',
 							columnWidth : 0.05,
-							icon : '/WorkFlow/images/icon/icon07.gif',
+							icon : contextPath  + '/images/icon/icon07.gif',
 							listeners : {
 								"click" : deReset
 							}

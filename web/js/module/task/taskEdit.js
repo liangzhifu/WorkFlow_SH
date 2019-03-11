@@ -33,6 +33,35 @@ var taskDetail = (function() {
 			var taskOrder = Ext.decode(taskOrderJSON2);
 			var taskType  = taskOrder.taskType;
 			var taskTypeInfoArray = taskType.taskTypeInfo;
+			var taskOrderId = taskOrder.orderId;
+			if (taskOrderId > 1044){
+                var taskTypeInfoArray2 = new Array();
+                var taskTypeInfo5 = null;
+                for (var i = 0; i < taskTypeInfoArray.length; i++) {
+                    var taskTypeInfo = taskTypeInfoArray[i];
+                    var taskTypeInfoId = taskTypeInfo.taskTypeInfoId;
+                    if (taskTypeInfoId == 5) {
+                        taskTypeInfo5 = taskTypeInfo;
+                    } else {
+                        taskTypeInfoArray2.push(taskTypeInfo);
+                    }
+                }
+                var taskTypeInfoArray3 = new Array();
+                for (var i = 0; i < taskTypeInfoArray2.length; i++) {
+                    var taskTypeInfo = taskTypeInfoArray2[i];
+                    var taskTypeInfoId = taskTypeInfo.taskTypeInfoId;
+                    if (taskTypeInfoId == 6) {
+                        var infoValueList = taskTypeInfo5.infoValueList;
+                        for(var j = 0; j < infoValueList.length; j++){
+                            taskTypeInfo.infoValueList.push(infoValueList[j]);
+                        }
+                        taskTypeInfoArray3.push(taskTypeInfo);
+                    } else {
+                        taskTypeInfoArray3.push(taskTypeInfo);
+                    }
+                }
+                taskTypeInfoArray = taskTypeInfoArray3;
+            }
 			var len = taskTypeInfoArray.length;
 			for (var i = 0; i < len; i++) {
 				var taskTypeInfo = taskTypeInfoArray[i];
@@ -195,7 +224,7 @@ var taskDetail = (function() {
 	            		 xtype: 'button',                       
                          text:'确定',
                          columnWidth:0.05,
-                         icon: '/WorkFlow/images/submit.png',
+                         icon: contextPath  + '/images/submit.png',
                          listeners:{
                         	 "click":doSubmit                       
                          }
@@ -207,7 +236,7 @@ var taskDetail = (function() {
 	            		 xtype: 'button',                       
                          text:'取消',
                          columnWidth:0.05,
-                         icon: '/WorkFlow/images/close.png',
+                         icon: contextPath  + '/images/close.png',
                          listeners:{
                         	 "click":doClose                       
                          }
@@ -503,10 +532,12 @@ function doSubmit(){
     var order_12 = Ext.getCmp("order_12").getValue();
 	var order_8_input = document.getElementById("order_check_8_13_value").value;
 	var order_5_value = "";
-	var order_5 = Ext.getCmp('order_5').getValue();
-	Ext.each(order_5, function(item){
-		order_5_value += ","+item.inputValue;
-	});
+	if (parseInt(orderId) <= 1044) {
+		var order_5 = Ext.getCmp('order_5').getValue();
+		Ext.each(order_5, function(item){
+			order_5_value += ","+item.inputValue;
+		});
+    }
 	var order_6_value = "";
 	var order_6 = Ext.getCmp('order_6').getValue();
 	Ext.each(order_6, function(item){

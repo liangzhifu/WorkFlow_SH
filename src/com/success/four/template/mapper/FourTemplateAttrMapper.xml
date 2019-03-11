@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="FourTemplateAttrMapper" >
+
+    <resultMap id="BaseResultMap" type="com.success.four.template.domain.FourTemplateAttr" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="attr_type" property="attrType" jdbcType="INTEGER" />
+        <result column="attr_name" property="attrName" jdbcType="VARCHAR" />
+        <result column="attr_other" property="attrOther" jdbcType="INTEGER" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, attr_type, attr_name, attr_other
+    </sql>
+
+    <select id="selectFourTemplateAttrList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT fta.id,
+        fta.`attr_name`,
+        fta.`attr_other`,
+        fta.`attr_type`
+        FROM four_template_attr fta
+        WHERE fta.`template_id` = #{templateId,jdbcType=INTEGER}
+        ORDER BY fta.id
+    </select>
+
+</mapper>

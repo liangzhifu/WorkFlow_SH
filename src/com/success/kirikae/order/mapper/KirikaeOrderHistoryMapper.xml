@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="KirikaeOrderHistoryMapper" >
+    <resultMap id="BaseResultMap" type="com.success.kirikae.order.domain.KirikaeOrder" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="order_id" property="orderId" jdbcType="INTEGER" />
+        <result column="tk_no" property="tkNo" jdbcType="VARCHAR" />
+        <result column="design_change_no" property="designChangeNo" jdbcType="VARCHAR" />
+        <result column="sales_date" property="salesDate" jdbcType="DATE" />
+        <result column="sales_approved" property="salesApproved" jdbcType="VARCHAR" />
+        <result column="sales_checked" property="salesChecked" jdbcType="VARCHAR" />
+        <result column="sales_prepared" property="salesPrepared" jdbcType="VARCHAR" />
+        <result column="sales_customer_protocal" property="salesCustomerProtocal" jdbcType="INTEGER" />
+        <result column="engineering_data" property="engineeringData" jdbcType="DATE" />
+        <result column="engineering_approved" property="engineeringApproved" jdbcType="VARCHAR" />
+        <result column="engineering_checked" property="engineeringChecked" jdbcType="VARCHAR" />
+        <result column="engineering_prepared" property="engineeringPrepared" jdbcType="VARCHAR" />
+        <result column="customer" property="customer" jdbcType="VARCHAR" />
+        <result column="vehicle_name" property="vehicleName" jdbcType="VARCHAR" />
+        <result column="destination" property="destination" jdbcType="VARCHAR" />
+        <result column="isir_processing" property="isirProcessing" jdbcType="INTEGER" />
+        <result column="customer_engineering" property="customerEngineering" jdbcType="INTEGER" />
+        <result column="customer_engineering_approval" property="customerEngineeringApproval" jdbcType="INTEGER" />
+        <result column="regulation" property="regulation" jdbcType="INTEGER" />
+        <result column="regulation_approval" property="regulationApproval" jdbcType="INTEGER" />
+        <result column="interchangeability_old" property="interchangeabilityOld" jdbcType="VARCHAR" />
+        <result column="interchangeability_new" property="interchangeabilityNew" jdbcType="VARCHAR" />
+        <result column="service_suplied" property="serviceSuplied" jdbcType="INTEGER" />
+        <result column="design_costs" property="designCosts" jdbcType="INTEGER" />
+        <result column="design_costs_pay" property="designCostsPay" jdbcType="INTEGER" />
+        <result column="customer_eo" property="customerEo" jdbcType="INTEGER" />
+        <result column="parts_number_change" property="partsNumberChange" jdbcType="INTEGER" />
+        <result column="presence_required" property="presenceRequired" jdbcType="INTEGER" />
+        <result column="design_change_timing" property="designChangeTiming" jdbcType="TIMESTAMP" />
+        <result column="desing_change_type" property="desingChangeType" jdbcType="INTEGER" />
+        <result column="manufacture_internal" property="manufactureInternal" jdbcType="VARCHAR" />
+        <result column="manufacture_prepared" property="manufacturePrepared" jdbcType="VARCHAR" />
+        <result column="kirikae_order_type" property="kirikaeOrderType" jdbcType="INTEGER" />
+        <result column="kirikae_order_state" property="kirikaeOrderState" jdbcType="INTEGER" />
+        <result column="distribution_department" property="distributionDepartment" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, order_id, tk_no, design_change_no, sales_date, sales_approved, sales_checked,
+        sales_prepared, sales_customer_protocal, engineering_data, engineering_approved,
+        engineering_checked, engineering_prepared, customer, vehicle_name, destination, isir_processing,
+        customer_engineering, customer_engineering_approval, regulation, regulation_approval,
+        interchangeability_old, interchangeability_new, service_suplied, design_costs, design_costs_pay,
+        customer_eo, parts_number_change, presence_required, design_change_timing, desing_change_type,
+        manufacture_internal, manufacture_prepared, kirikae_order_type, kirikae_order_state, distribution_department
+    </sql>
+    <select id="selectKirikaeOrderHistoryByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from kirikae_order_history
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </select>
+    <insert id="insertSelective" parameterType="com.success.kirikae.order.domain.KirikaeOrder" useGeneratedKeys="true" keyProperty="id">
+        insert into kirikae_order_history
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="orderId != null" >
+                order_id,
+            </if>
+            <if test="tkNo != null" >
+                tk_no,
+            </if>
+            <if test="designChangeNo != null" >
+                design_change_no,
+            </if>
+            <if test="salesDate != null" >
+                sales_date,
+            </if>
+            <if test="salesApproved != null" >
+                sales_approved,
+            </if>
+            <if test="salesChecked != null" >
+                sales_checked,
+            </if>
+            <if test="salesPrepared != null" >
+                sales_prepared,
+            </if>
+            <if test="salesCustomerProtocal != null" >
+                sales_customer_protocal,
+            </if>
+            <if test="engineeringData != null" >
+                engineering_data,
+            </if>
+            <if test="engineeringApproved != null" >
+                engineering_approved,
+            </if>
+            <if test="engineeringChecked != null" >
+                engineering_checked,
+            </if>
+            <if test="engineeringPrepared != null" >
+                engineering_prepared,
+            </if>
+            <if test="customer != null" >
+                customer,
+            </if>
+            <if test="vehicleName != null" >
+                vehicle_name,
+            </if>
+            <if test="destination != null" >
+                destination,
+            </if>
+            <if test="isirProcessing != null" >
+                isir_processing,
+            </if>
+            <if test="customerEngineering != null" >
+                customer_engineering,
+            </if>
+            <if test="customerEngineeringApproval != null" >
+                customer_engineering_approval,
+            </if>
+            <if test="regulation != null" >
+                regulation,
+            </if>
+            <if test="regulationApproval != null" >
+                regulation_approval,
+            </if>
+            <if test="interchangeabilityOld != null" >
+                interchangeability_old,
+            </if>
+            <if test="interchangeabilityNew != null" >
+                interchangeability_new,
+            </if>
+            <if test="serviceSuplied != null" >
+                service_suplied,
+            </if>
+            <if test="designCosts != null" >
+                design_costs,
+            </if>
+            <if test="designCostsPay != null" >
+                design_costs_pay,
+            </if>
+            <if test="customerEo != null" >
+                customer_eo,
+            </if>
+            <if test="partsNumberChange != null" >
+                parts_number_change,
+            </if>
+            <if test="presenceRequired != null" >
+                presence_required,
+            </if>
+            <if test="designChangeTiming != null" >
+                design_change_timing,
+            </if>
+            <if test="desingChangeType != null" >
+                desing_change_type,
+            </if>
+            <if test="manufactureInternal != null" >
+                manufacture_internal,
+            </if>
+            <if test="manufacturePrepared != null" >
+                manufacture_prepared,
+            </if>
+            <if test="kirikaeOrderType != null" >
+                kirikae_order_type,
+            </if>
+            <if test="kirikaeOrderState != null" >
+                kirikae_order_state,
+            </if>
+            <if test="distributionDepartment != null" >
+                distribution_department,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="orderId != null" >
+                #{orderId,jdbcType=INTEGER},
+            </if>
+            <if test="tkNo != null" >
+                #{tkNo,jdbcType=VARCHAR},
+            </if>
+            <if test="designChangeNo != null" >
+                #{designChangeNo,jdbcType=VARCHAR},
+            </if>
+            <if test="salesDate != null" >
+                #{salesDate,jdbcType=DATE},
+            </if>
+            <if test="salesApproved != null" >
+                #{salesApproved,jdbcType=VARCHAR},
+            </if>
+            <if test="salesChecked != null" >
+                #{salesChecked,jdbcType=VARCHAR},
+            </if>
+            <if test="salesPrepared != null" >
+                #{salesPrepared,jdbcType=VARCHAR},
+            </if>
+            <if test="salesCustomerProtocal != null" >
+                #{salesCustomerProtocal,jdbcType=INTEGER},
+            </if>
+            <if test="engineeringData != null" >
+                #{engineeringData,jdbcType=DATE},
+            </if>
+            <if test="engineeringApproved != null" >
+                #{engineeringApproved,jdbcType=VARCHAR},
+            </if>
+            <if test="engineeringChecked != null" >
+                #{engineeringChecked,jdbcType=VARCHAR},
+            </if>
+            <if test="engineeringPrepared != null" >
+                #{engineeringPrepared,jdbcType=VARCHAR},
+            </if>
+            <if test="customer != null" >
+                #{customer,jdbcType=VARCHAR},
+            </if>
+            <if test="vehicleName != null" >
+                #{vehicleName,jdbcType=VARCHAR},
+            </if>
+            <if test="destination != null" >
+                #{destination,jdbcType=VARCHAR},
+            </if>
+            <if test="isirProcessing != null" >
+                #{isirProcessing,jdbcType=INTEGER},
+            </if>
+            <if test="customerEngineering != null" >
+                #{customerEngineering,jdbcType=INTEGER},
+            </if>
+            <if test="customerEngineeringApproval != null" >
+                #{customerEngineeringApproval,jdbcType=INTEGER},
+            </if>
+            <if test="regulation != null" >
+                #{regulation,jdbcType=INTEGER},
+            </if>
+            <if test="regulationApproval != null" >
+                #{regulationApproval,jdbcType=INTEGER},
+            </if>
+            <if test="interchangeabilityOld != null" >
+                #{interchangeabilityOld,jdbcType=VARCHAR},
+            </if>
+            <if test="interchangeabilityNew != null" >
+                #{interchangeabilityNew,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceSuplied != null" >
+                #{serviceSuplied,jdbcType=INTEGER},
+            </if>
+            <if test="designCosts != null" >
+                #{designCosts,jdbcType=INTEGER},
+            </if>
+            <if test="designCostsPay != null" >
+                #{designCostsPay,jdbcType=INTEGER},
+            </if>
+            <if test="customerEo != null" >
+                #{customerEo,jdbcType=INTEGER},
+            </if>
+            <if test="partsNumberChange != null" >
+                #{partsNumberChange,jdbcType=INTEGER},
+            </if>
+            <if test="presenceRequired != null" >
+                #{presenceRequired,jdbcType=INTEGER},
+            </if>
+            <if test="designChangeTiming != null" >
+                #{designChangeTiming,jdbcType=TIMESTAMP},
+            </if>
+            <if test="desingChangeType != null" >
+                #{desingChangeType,jdbcType=INTEGER},
+            </if>
+            <if test="manufactureInternal != null" >
+                #{manufactureInternal,jdbcType=VARCHAR},
+            </if>
+            <if test="manufacturePrepared != null" >
+                #{manufacturePrepared,jdbcType=VARCHAR},
+            </if>
+            <if test="kirikaeOrderType != null" >
+                #{kirikaeOrderType,jdbcType=INTEGER},
+            </if>
+            <if test="kirikaeOrderState != null" >
+                #{kirikaeOrderState,jdbcType=INTEGER},
+            </if>
+            <if test="distributionDepartment != null" >
+                #{distributionDepartment,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <sql id="WHERE_PAGE">
+        <where>
+            ao.`id` = ko.`order_id`
+            AND ao.`delete_state` = 0
+            <if test="tkNo != null" >
+                and ko.tk_no like concat('%',#{tkNo, jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+    </sql>
+
+    <select id="selectKirikaeOrderHistoryPageList" resultType="java.util.HashMap" parameterType="com.success.kirikae.order.query.KirikaeOrderHistoryQuery">
+        SELECT ao.id AS alterationOrderId,
+        ko.`id` AS kirikaeOrderId,
+        ko.kirikae_order_type as kirikaeOrderType,
+        ko.tk_no as tkNo,
+        ko.design_change_no as designChangeNo,
+        ko.customer as customer,
+        ko.vehicle_name as vehicleName,
+        ko.design_change_timing as designChangeTiming,
+        ao.order_version as orderVersion,
+        ao.order_state as orderState
+        FROM alteration_order_history ao, kirikae_order_history ko
+        <include refid="WHERE_PAGE"></include>
+        order by ao.id DESC
+        LIMIT #{start}, #{size}
+    </select>
+
+    <select id="selectKirikaeOrderHistoryCount" resultType="java.lang.Integer" parameterType="com.success.kirikae.order.query.KirikaeOrderHistoryQuery">
+        SELECT count(1)
+        FROM alteration_order_history ao, kirikae_order_history ko
+        <include refid="WHERE_PAGE"></include>
+    </select>
+
+</mapper>

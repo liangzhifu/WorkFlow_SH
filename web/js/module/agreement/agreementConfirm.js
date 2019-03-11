@@ -236,7 +236,7 @@ var agreementConfirm = (function() {
 	            		 xtype: 'button',                       
                          text:'接受',
                          columnWidth:0.05,
-                         icon: '/WorkFlow/images/submit.png',
+                         icon: contextPath  + '/images/submit.png',
                          listeners:{
                         	 "click":doAcceptAll                        
                          }
@@ -248,7 +248,7 @@ var agreementConfirm = (function() {
 	            		 xtype: 'button',                       
                          text:'拒绝',
                          columnWidth:0.05,
-                         icon: '/WorkFlow/images/refuse.gif',
+                         icon: contextPath  + '/images/refuse.gif',
                          listeners:{
                         	 "click":doRefuseAll                        
                          }
@@ -260,7 +260,7 @@ var agreementConfirm = (function() {
 	            		 xtype: 'button',                       
                          text:'取消',
                          columnWidth:0.05,
-                         icon: '/WorkFlow/images/close.png',
+                         icon: contextPath  + '/images/close.png',
                          listeners:{
                                "click": doClose                        
                          }

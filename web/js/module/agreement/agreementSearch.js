@@ -140,7 +140,7 @@ var agreementSearch = (function() {
 			            		 xtype: 'button',                       
 	                             text:'查询',
 	                             columnWidth:0.05,
-	                             icon: '/WorkFlow/images/search.png',
+	                             icon: contextPath  + '/images/search.png',
 	                             listeners:{
 	                               "click":doQry                                                           
 	                             }
@@ -152,11 +152,23 @@ var agreementSearch = (function() {
 			            		 xtype: 'button',                       
 	                             text:'修改',
 	                             columnWidth:0.05,
-	                             icon: '/WorkFlow/images/modify.gif',
+	                             icon: contextPath  + '/images/modify.gif',
 	                             listeners:{
 	                               "click":doEditAgreement                                                           
 	                             }
 			            	},{
+                                xtype:'label',
+                                columnWidth:0.05,
+                                html: '&nbsp;&nbsp;'
+                            },{
+                                xtype: 'button',
+                                text:'审核',
+                                columnWidth:0.05,
+                                icon: contextPath  + '/images/modify.gif',
+                                listeners:{
+                                    "click":doAuditingAgreement
+                                }
+                            },{
 								xtype:'label',
 								columnWidth:0.05,
 								html: '&nbsp;&nbsp;'
@@ -164,7 +176,7 @@ var agreementSearch = (function() {
 			            		 xtype: 'button',                       
 	                             text:'作废',
 	                             columnWidth:0.05,
-	                             icon: '/WorkFlow/images/delete.gif',
+	                             icon: contextPath  + '/images/delete.gif',
 	                             listeners:{
 	                               "click":doDelTask                                                           
 	                             }
@@ -176,7 +188,7 @@ var agreementSearch = (function() {
 			            		 xtype: 'button',                       
 	                             text:'导出PDF',
 	                             columnWidth:0.05,
-	                             icon: '/WorkFlow/images/save.gif',
+	                             icon: contextPath  + '/images/save.gif',
 	                             listeners:{
 	                               "click":doDown                                                           
 	                             }
@@ -209,7 +221,8 @@ var agreementSearch = (function() {
 	                { name: 'agreementState' },
 	                { name: 'conclusionState' },
 	                { name: 'conclusionMessage' },
-	                { name: 'invalidateText'}
+	                { name: 'invalidateText'},
+                    { name: 'closeState'}
 	            ]
 	        );
 
@@ -236,37 +249,80 @@ var agreementSearch = (function() {
 				header : "立合编号",
 				dataIndex : "agreementName",
 				width : Ext.getBody().getSize().width * 0.1,
-			    renderer: function(value, meta, record) {    
+			    renderer: function(value, meta, record) {
+                    if (record.data.closeState == 3) {
+                        meta.attr = 'style="background:#FFFF00"';
+                    }
 			    	return '<a href="'+contextPath+'/agreement/getAgreementDetailDlg.do?orderId='+record.data.orderId+'&agreementId='+record.data.agreementId+'" target="_blank">'+value+'</a>';    
 			    }
 			}, {
 				header : "发行编号",
 				dataIndex : "publishCode",
 				width : Ext.getBody().getSize().width * 0.1,
-			    renderer: function(value, meta, record) {    
+			    renderer: function(value, meta, record) {
+                    if (record.data.closeState == 3) {
+                        meta.attr = 'style="background:#FFFF00"';
+                    }
 			    	return '<a href="'+contextPath+'/taskDetail/getTaskDetailDlg.do?orderId='+record.data.orderId+'" target="_blank">'+value+'</a>';  
 			    }
 			}, {
+                    header : "附件",
+                    dataIndex : "",
+                    width : Ext.getBody().getSize().width * 0.03,
+                    renderer: function(value, meta, record) {
+                        if (record.data.closeState == 3) {
+                            meta.attr = 'style="background:#FFFF00"';
+                        }
+                        return '<a href="javascript:void(0);" onclick="showFile('+record.data.agreementId+','+record.data.closeState+')">附件</a>';
+                    }
+			}, {
 				header : "工程",
 				dataIndex : "project",
-				width : Ext.getBody().getSize().width * 0.1
+				width : Ext.getBody().getSize().width * 0.03,
+                    renderer: function(value, meta, record) {
+						if (record.data.closeState == 3) {
+                            meta.attr = 'style="background:#FFFF00"';
+						}
+                        return value;
+                    }
 			}, {
 				header : "切换LOT",
 				dataIndex : "cutLOT",
-				width : Ext.getBody().getSize().width * 0.1
+				width : Ext.getBody().getSize().width * 0.1,
+                    renderer: function(value, meta, record) {
+                        if (record.data.closeState == 3) {
+                            meta.attr = 'style="background:#FFFF00"';
+                        }
+                        return value;
+                    }
 			}, {
 				header : "数量",
 				dataIndex : "num",
-				width : Ext.getBody().getSize().width * 0.1
+				width : Ext.getBody().getSize().width * 0.03,
+                    renderer: function(value, meta, record) {
+                        if (record.data.closeState == 3) {
+                            meta.attr = 'style="background:#FFFF00"';
+                        }
+                        return value;
+                    }
 			}, {
 				header : "创建时间",
 				dataIndex : "createTime",
-				width : Ext.getBody().getSize().width * 0.1
+				width : Ext.getBody().getSize().width * 0.1,
+                    renderer: function(value, meta, record) {
+                        if (record.data.closeState == 3) {
+                            meta.attr = 'style="background:#FFFF00"';
+                        }
+                        return value;
+                    }
 			}, {
 				header : "立合状态",
 				dataIndex : "agreementState",
-				width : Ext.getBody().getSize().width * 0.1,
-				renderer:function(value){
+				width : Ext.getBody().getSize().width * 0.05,
+				renderer:function(value, meta, record){
+                    if (record.data.closeState == 3) {
+                        meta.attr = 'style="background:#FFFF00"';
+                    }
 					if(value=="10B"){
 						return "处理中";
 					}else if(value=="10R"){
@@ -282,21 +338,65 @@ var agreementSearch = (function() {
 					}
 				}
 			}, {
+                    header : "审核状态",
+                    dataIndex : "closeState",
+                    width : Ext.getBody().getSize().width * 0.05,
+                    renderer:function(value, meta, record){
+                        if (record.data.closeState == 3) {
+                            meta.attr = 'style="background:#FFFF00"';
+                        }
+                        if(value==1){
+                            return "新建";
+                        }else if(value==2){
+                            return "审核中";
+                        }else if(value==3){
+                            return "拒绝";
+                        }else if(value==4){
+                            return "关闭";
+                        }else {
+                            return "未知";
+                        }
+                    }
+                }, {
 				header : "创建人",
 				dataIndex : "createUser",
-				width : Ext.getBody().getSize().width * 0.1
+				width : Ext.getBody().getSize().width * 0.05,
+                    renderer: function(value, meta, record) {
+                        if (record.data.closeState == 3) {
+                            meta.attr = 'style="background:#FFFF00"';
+                        }
+                        return value;
+                    }
 			}, {
 				header : "结论",
 				dataIndex : "conclusionState",
-				width : Ext.getBody().getSize().width * 0.1
+				width : Ext.getBody().getSize().width * 0.03,
+                    renderer: function(value, meta, record) {
+                        if (record.data.closeState == 3) {
+                            meta.attr = 'style="background:#FFFF00"';
+                        }
+                        return value;
+                    }
 			}, {
 				header : "详细说明",
 				dataIndex : "conclusionMessage",
-				width : Ext.getBody().getSize().width * 0.1
+				width : Ext.getBody().getSize().width * 0.1,
+                    renderer: function(value, meta, record) {
+                        if (record.data.closeState == 3) {
+                            meta.attr = 'style="background:#FFFF00"';
+                        }
+                        return value;
+                    }
 			}, {
 				header : "作废原因",
 				dataIndex : "invalidateText",
-				width : Ext.getBody().getSize().width * 0.1
+				width : Ext.getBody().getSize().width * 0.2,
+                    renderer: function(value, meta, record) {
+                        if (record.data.closeState == 3) {
+                            meta.attr = 'style="background:#FFFF00"';
+                        }
+                        return value;
+                    }
 			} ]);
 			var mainGrid = new Ext.grid.GridPanel({
 				id : "mainDataGrid",
@@ -424,13 +524,21 @@ function doEditAgreement(){
 		Ext.Msg.alert('提示','请选择立合单！');
 		return;
 	}
+	if(record.data.closeState == 2) {
+        Ext.Msg.alert('提示','审核立合单不能修改！');
+        return;
+	}
+    if(record.data.closeState == 4) {
+        Ext.Msg.alert('提示','关闭立合单不能修改！');
+        return;
+    }
 	if(record.data.agreementSate=="10X"){
 		Ext.Msg.alert('提示','作废立合单不能修改！');
 		return;
 	}
 	if(record.data.isClose==1){
-		if(parent.userId != 1202){
-			alert("只有李亚楠才能修改已经关闭的立合单！");
+		if(parent.userId != 1266){
+			alert("只有蓝天才能修改已经关闭的立合单！");
 			return;
 		}
 	}
@@ -480,6 +588,60 @@ function doDelTask(){
 			}
 		});
 	},this,60);
+}
+
+function doAuditingAgreement() {
+    var record = Ext.getCmp('mainDataGrid').getSelectionModel().getSelected();
+    if(record == null){
+        Ext.Msg.alert('提示','请选择立合单！');
+        return;
+    }
+    if(record.data.closeState == 2) {
+        Ext.Msg.alert('提示','审核立合单不能再次审核！');
+        return;
+    }
+    if(record.data.closeState == 4) {
+        Ext.Msg.alert('提示','关闭立合单不能审核！');
+        return;
+    }
+    Ext.MessageBox.confirm("确认框", "您确认发送审核吗？", function(btn, txt) {
+        if (btn == "yes") {
+            Ext.Ajax.request({
+                url: contextPath + '/agreement/auditingAgreement.do',
+                waitTitle: '提示',
+                waitMsg: '请稍后,正在提交数据...',
+                params: {
+                    agreementId: record.data.agreementId
+                },
+                success: function (response, action) {
+                    doQry();
+                },
+                failure: function (a) {
+                    Ext.Msg.alert('错误', '发送审核失败！');
+                }
+            });
+        }
+    });
+}
+function showCreateWin(titile, url){
+    win = new Ext.Window({
+        id: "myWin",
+        title: titile,
+        width: document.body.clientWidth-100,
+        height: 450,
+        layout: "fit",
+        modal : true,
+        autoShow: true,
+        closeAction: 'close',
+        html: '<iframe style="overflow:scroll;width:100%; height:100%;" src="'+url+'" frameborder="0"></iframe>'
+    });
+    win.show();
+}
+
+function showFile(id, closeState) {
+    var title = "内容填写";
+    var url = contextPath+"/kirikae/jsp/agreement/agreementFile.jsp?id="+id+"&closeState="+closeState;
+    showCreateWin(title, url);
 }
 
 function doOrgQry(){

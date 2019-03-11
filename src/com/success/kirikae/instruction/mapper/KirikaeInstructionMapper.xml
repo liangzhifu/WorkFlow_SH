@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="KirikaeInstructionMapper" >
+    <resultMap id="BaseResultMap" type="com.success.kirikae.instruction.domain.KirikaeInstruction" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="order_id" property="orderId" jdbcType="INTEGER" />
+        <result column="order_kirikae" property="orderKirikae" jdbcType="DATE" />
+        <result column="customer_kirikae" property="customerKirikae" jdbcType="DATE" />
+        <result column="release_date" property="releaseDate" jdbcType="DATE" />
+        <result column="factory" property="factory" jdbcType="VARCHAR" />
+        <result column="production_batch" property="productionBatch" jdbcType="VARCHAR" />
+        <result column="customer_design_change_notification" property="customerDesignChangeNotification" jdbcType="INTEGER" />
+        <result column="customer_technology_approval" property="customerTechnologyApproval" jdbcType="INTEGER" />
+        <result column="certification_approval" property="certificationApproval" jdbcType="INTEGER" />
+        <result column="isir_procession" property="isirProcession" jdbcType="INTEGER" />
+        <result column="isir_marking" property="isirMarking" jdbcType="INTEGER" />
+        <result column="isir_notification_issued" property="isirNotificationIssued" jdbcType="INTEGER" />
+        <result column="create_by" property="createBy" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, order_id, order_kirikae, customer_kirikae, release_date, factory, customer_design_change_notification,
+        customer_technology_approval, certification_approval, isir_procession, isir_marking,
+        isir_notification_issued, create_by, create_time, production_batch
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from kirikae_instruction
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <insert id="insertSelective" parameterType="com.success.kirikae.instruction.domain.KirikaeInstruction" >
+        insert into kirikae_instruction
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="orderId != null" >
+                order_id,
+            </if>
+            <if test="orderKirikae != null" >
+                order_kirikae,
+            </if>
+            <if test="customerKirikae != null" >
+                customer_kirikae,
+            </if>
+            <if test="releaseDate != null" >
+                release_date,
+            </if>
+            <if test="factory != null" >
+                factory,
+            </if>
+            <if test="productionBatch != null" >
+                production_batch,
+            </if>
+            <if test="customerDesignChangeNotification != null" >
+                customer_design_change_notification,
+            </if>
+            <if test="customerTechnologyApproval != null" >
+                customer_technology_approval,
+            </if>
+            <if test="certificationApproval != null" >
+                certification_approval,
+            </if>
+            <if test="isirProcession != null" >
+                isir_procession,
+            </if>
+            <if test="isirMarking != null" >
+                isir_marking,
+            </if>
+            <if test="isirNotificationIssued != null" >
+                isir_notification_issued,
+            </if>
+            <if test="createBy != null" >
+                create_by,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="orderId != null" >
+                #{orderId,jdbcType=INTEGER},
+            </if>
+            <if test="orderKirikae != null" >
+                #{orderKirikae,jdbcType=DATE},
+            </if>
+            <if test="customerKirikae != null" >
+                #{customerKirikae,jdbcType=DATE},
+            </if>
+            <if test="releaseDate != null" >
+                #{releaseDate,jdbcType=DATE},
+            </if>
+            <if test="factory != null" >
+                #{factory,jdbcType=VARCHAR},
+            </if>
+            <if test="productionBatch != null" >
+                #{productionBatch,jdbcType=VARCHAR},
+            </if>
+            <if test="customerDesignChangeNotification != null" >
+                #{customerDesignChangeNotification,jdbcType=INTEGER},
+            </if>
+            <if test="customerTechnologyApproval != null" >
+                #{customerTechnologyApproval,jdbcType=INTEGER},
+            </if>
+            <if test="certificationApproval != null" >
+                #{certificationApproval,jdbcType=INTEGER},
+            </if>
+            <if test="isirProcession != null" >
+                #{isirProcession,jdbcType=INTEGER},
+            </if>
+            <if test="isirMarking != null" >
+                #{isirMarking,jdbcType=INTEGER},
+            </if>
+            <if test="isirNotificationIssued != null" >
+                #{isirNotificationIssued,jdbcType=INTEGER},
+            </if>
+            <if test="createBy != null" >
+                #{createBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectKirikaeInstructionByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from kirikae_instruction
+        where order_id = #{kirkaeOrderId,jdbcType=INTEGER}
+    </select>
+</mapper>

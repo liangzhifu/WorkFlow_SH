@@ -22,7 +22,7 @@
 	<context:annotation-config />
 	
 	<!-- 注解实现Spring的依赖注入 -->
-    <context:component-scan base-package="com.takata">
+    <context:component-scan base-package="com">
       <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />   
  	</context:component-scan>  
     

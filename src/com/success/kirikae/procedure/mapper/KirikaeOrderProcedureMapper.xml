@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="KirikaeOrderProcedureMapper" >
+    <resultMap id="BaseResultMap" type="com.success.kirikae.procedure.domain.KirikaeOrderProcedure" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="order_id" property="orderId" jdbcType="INTEGER" />
+        <result column="procedure_state" property="procedureState" jdbcType="INTEGER" />
+        <result column="procedure_seq" property="procedureSeq" jdbcType="INTEGER" />
+        <result column="delete_state" property="deleteState" jdbcType="INTEGER" />
+        <result column="procedure_code" property="procedureCode" jdbcType="INTEGER" />
+        <result column="procedure_type" property="procedureType" jdbcType="INTEGER" />
+        <result column="procedure_by" property="procedureBy" jdbcType="INTEGER" />
+        <result column="procedure_time" property="procedureTime" jdbcType="TIMESTAMP" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="file_id" property="fileId" jdbcType="INTEGER" />
+        <result column="file_Name" property="fileName" jdbcType="VARCHAR" />
+        <result column="spare_column" property="spareColumn" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, order_id, procedure_state, procedure_seq, delete_state, procedure_code,
+        procedure_type, procedure_by, procedure_time, create_time, start_time, remark,
+        file_id, spare_column, (SELECT fu.`FILE_NAME` FROM file_upload fu WHERE fu.file_id = kop.file_id) as file_name
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from kirikae_order_procedure kop
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <insert id="insertSelective" parameterType="com.success.kirikae.procedure.domain.KirikaeOrderProcedure" >
+        insert into kirikae_order_procedure
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="orderId != null" >
+                order_id,
+            </if>
+            <if test="procedureState != null" >
+                procedure_state,
+            </if>
+            <if test="procedureSeq != null" >
+                procedure_seq,
+            </if>
+            <if test="deleteState != null" >
+                delete_state,
+            </if>
+            <if test="procedureCode != null" >
+                procedure_code,
+            </if>
+            <if test="procedureType != null" >
+                procedure_type,
+            </if>
+            <if test="procedureBy != null" >
+                procedure_by,
+            </if>
+            <if test="procedureTime != null" >
+                procedure_time,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="startTime != null" >
+                start_time,
+            </if>
+            <if test="remark != null" >
+                remark,
+            </if>
+            <if test="fileId != null" >
+                file_id,
+            </if>
+            <if test="spareColumn != null" >
+                spare_column,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="orderId != null" >
+                #{orderId,jdbcType=INTEGER},
+            </if>
+            <if test="procedureState != null" >
+                #{procedureState,jdbcType=INTEGER},
+            </if>
+            <if test="procedureSeq != null" >
+                #{procedureSeq,jdbcType=INTEGER},
+            </if>
+            <if test="deleteState != null" >
+                #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="procedureCode != null" >
+                #{procedureCode,jdbcType=INTEGER},
+            </if>
+            <if test="procedureType != null" >
+                #{procedureType,jdbcType=INTEGER},
+            </if>
+            <if test="procedureBy != null" >
+                #{procedureBy,jdbcType=INTEGER},
+            </if>
+            <if test="procedureTime != null" >
+                #{procedureTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="startTime != null" >
+                #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null" >
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="fileId != null" >
+                #{fileId,jdbcType=INTEGER},
+            </if>
+            <if test="spareColumn != null" >
+                #{spareColumn,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.success.kirikae.procedure.domain.KirikaeOrderProcedure" >
+        update kirikae_order_procedure
+        <set >
+            <if test="orderId != null" >
+                order_id = #{orderId,jdbcType=INTEGER},
+            </if>
+            <if test="procedureState != null" >
+                procedure_state = #{procedureState,jdbcType=INTEGER},
+            </if>
+            <if test="procedureSeq != null" >
+                procedure_seq = #{procedureSeq,jdbcType=INTEGER},
+            </if>
+            <if test="deleteState != null" >
+                delete_state = #{deleteState,jdbcType=INTEGER},
+            </if>
+            <if test="procedureCode != null" >
+                procedure_code = #{procedureCode,jdbcType=INTEGER},
+            </if>
+            <if test="procedureType != null" >
+                procedure_type = #{procedureType,jdbcType=INTEGER},
+            </if>
+            <if test="procedureBy != null" >
+                procedure_by = #{procedureBy,jdbcType=INTEGER},
+            </if>
+            <if test="procedureTime != null" >
+                procedure_time = #{procedureTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="startTime != null" >
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null" >
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="fileId != null" >
+                file_id = #{fileId,jdbcType=INTEGER},
+            </if>
+            <if test="spareColumn != null" >
+                spare_column = #{spareColumn,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectKirikaeOrderProcedureListByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List" />
+        from kirikae_order_procedure kop
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectKirikaeOrderProcedureMapListByOrderId" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+        SELECT kop.`id`, kop.`procedure_code` AS procedureCode,remark,
+        (SELECT su.`USER_NAME` FROM sys_users su WHERE su.`USER_ID` = kop.`procedure_by`) AS userName
+        FROM kirikae_order_procedure kop
+        where kop.order_id = #{orderId,jdbcType=INTEGER}
+    </select>
+
+</mapper>

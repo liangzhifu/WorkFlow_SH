@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="KirikaeProcedureMapper" >
+    <resultMap id="BaseResultMap" type="com.success.kirikae.procedure.domain.KirikaeProcedure" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="template_id" property="templateId" jdbcType="INTEGER" />
+        <result column="procedure_seq" property="procedureSeq" jdbcType="INTEGER" />
+        <result column="procedure_code" property="procedureCode" jdbcType="INTEGER" />
+        <result column="procedure_type" property="procedureType" jdbcType="INTEGER" />
+        <result column="procedure_name" property="procedureName" jdbcType="VARCHAR" />
+        <result column="delete_state" property="deleteState" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, template_id, procedure_seq, procedure_code, procedure_type, procedure_name, delete_state
+    </sql>
+    <select id="selectKirikaeProcedureList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM kirikae_procedure fp
+        WHERE fp.`delete_state` = 0
+        AND fp.`template_id` = #{templateId,jdbcType=INTEGER}
+        ORDER BY fp.`procedure_seq` ASC
+    </select>
+</mapper>

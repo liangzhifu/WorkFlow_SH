@@ -14,7 +14,7 @@
 		<script type="text/javascript">
 			var contextPath = "${pageContext.request.contextPath}";
 		</script>
-		<script type="text/javascript" src="<c:url value='/js/module/agreement/agreementSearch.js?version=24'/>"></script>
+		<script type="text/javascript" src="<c:url value='/js/module/agreement/agreementSearch.js?version=26'/>"></script>
 	</head>
 	<body>
 		<div id="mainDiv"></div>
